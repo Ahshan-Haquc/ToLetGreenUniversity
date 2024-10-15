@@ -1,0 +1,21 @@
+{
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.7.1"
+  },
+  "name": "toletgreenuniversity",
+  "version": "1.0.0",
+  "description": "<h3>Generel instruction to make a branch of your local machine :</h3>\r <p>We have 4 branches in this repo, <b>Nadib will work on ourFrontend branch and then push all changes on \"development\" named branch, not with \"main branch\"</b>. similarly <b>Ahsan will work on ourBackend branch and then push all changes on \"development\" named branch, not with \"main branch\"</b><br>The command will be : \"git push -u origin development\"<br>After doing all i will marge the \"development branch\" with \"main branch\" for final marge. </p>",
+  "main": "connection.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
