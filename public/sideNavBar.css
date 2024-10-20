@@ -23,10 +23,10 @@
 /* Set gray background color and 100% height */
 .sidenav {
   background-color: rgb(218, 255, 216);
-  height: 600px;
+  height: 89vh;
   margin: 0px;
   position: fixed;
-  top: 70px;
+  top: 11vh;
   left: 0px;
   z-index: 500;
 }
@@ -82,15 +82,7 @@ li a {
 }
 
 /* main post area part start from here */
-.post_area {
-  height: fit-content;
-  border-radius: 5px;
-  box-shadow: 0px 0px 5px rgb(136, 136, 136);
-  width: 1000px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  display: flex;
-}
+
 .top_area {
   height: 50px;
   background-color: oldlace;

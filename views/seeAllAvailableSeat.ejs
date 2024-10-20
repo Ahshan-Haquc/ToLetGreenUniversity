@@ -27,6 +27,7 @@
     />
     <!-- this is for adding css style -->
     <!-- ei css file ei post show part er css rakhci -->
+    <link rel="stylesheet" href="postShow.css" />
     <link rel="stylesheet" href="sideNavBar.css" />
     <link rel="stylesheet" href="headerNavBar.css" />
     <link rel="stylesheet" href="homePage.css" />
@@ -44,94 +45,131 @@
       <!-- ei category range er post gula akta akta kore show korabo eita diye -->
       <% totalSeatAvailable.forEach((post)=>{ %>
       <div class="post_area">
-        <!-- starting post info heading -->
-        <div class="post_post_area">
-          <h2 id="h2_color">Seat availabe for male</h2>
-          <h5>
-            <span class="glyphicon glyphicon-time"></span>
-            Post by <%= student ? student.firstName + ' ' + student.lastName :
-            'an User' %>
-          </h5>
-          <h5>
-            <span class="label label-danger">Food</span>
-            <span class="label label-primary">Ipsum</span>
-          </h5>
-          <hr id="line" />
-
-          <div class="form-group row">
-            <label class="col-sm-11 col-form-label content_fs">
-              <i class="fa-solid fa-arrow-right"></i>
-              <!--eita icon-->
-              Total number of seat availabe</label
-            >
+        <div id="postArea1">
+          <div id="postArea1Box1">
+            <h2 id="h2_color" style="margin-top: 0px">
+              Seat availabe for male
+            </h2>
+            <h5>
+              <span class="glyphicon glyphicon-time"></span>
+              Post by <%= student ? student.firstName + ' ' + student.lastName :
+              'an User' %>
+            </h5>
+            <h5>
+              <span class="label label-danger">room rent</span>
+              <span class="label label-primary">location</span>
+            </h5>
           </div>
-          <div class="form-group row">
-            <label class="col-sm-11 col-form-label content_fs">
-              <i class="fa-solid fa-arrow-right"></i>
-              <!--eita icon-->
-              Total number of seat availabe</label
-            >
-          </div>
-          <div class="form-group row">
-            <label class="col-sm-11 col-form-label content_fs">
-              <i class="fa-solid fa-arrow-right"></i>
-              <!--eita icon-->
-              Total number of seat availabe</label
-            >
-          </div>
-          <div class="form-group row">
-            <label class="col-sm-11 col-form-label content_fs">
-              <i class="fa-solid fa-arrow-right"></i>
-              <!--eita icon-->
-              Total number of seat availabe</label
-            >
-          </div>
-          <div class="form-group row">
-            <label class="col-sm-11 col-form-label content_fs">
-              <i class="fa-solid fa-arrow-right"></i>
-              <!--eita icon-->
-              Total number of seat availabe</label
-            >
-          </div>
-          <div class="form-group row">
-            <label class="col-sm-11 col-form-label content_fs">
-              <i class="fa-solid fa-arrow-right"></i>
-              <!--eita icon-->
-              Total number of seat availabe</label
-            >
+          <div id="postArea1Box2">
+            <div class="center">
+              <div
+                id="reviewCountShowBigly"
+                style="font-size: 20px; font-weight: bold"
+              >
+                4.3
+              </div>
+              &nbsp;
+              <div>
+                <img
+                  src="images\star.png"
+                  style="height: 25px; width: 25px"
+                  alt="Star"
+                />
+              </div>
+            </div>
+            <button class="btn btn-default btn-md">Save it</button>
+            <button class="btn btn-danger btn-md">Confirm Seat</button>
           </div>
         </div>
-        <!-- end here post info showing  -->
-
-        <!-- starting feedback part -->
-        <div class="post_button_area">
-          <div class="post_button" id="post_button1">
-            <button id="like">
-              <i class="fa-regular fa-thumbs-up fa-2x"></i>
-            </button>
-            <span class="ffsize"
-              >People reviews <span id="likeNum">1</span><span>/</span
-              ><span id="dislikeNum">5</span></span
-            >
+        <div id="postArea2">
+          <div id="box1">
+            <div class="form-group row">
+              <label class="col-sm-11 col-form-label content_fs">
+                <i class="fa-solid fa-arrow-right"></i> --> eita icon Total
+                number of seat availabe</label
+              >
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-11 col-form-label content_fs">
+                <i class="fa-solid fa-arrow-right"></i>
+                <!--eita icon-->
+                Total number of seat availabe</label
+              >
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-11 col-form-label content_fs">
+                <i class="fa-solid fa-arrow-right"></i>
+                <!--eita icon-->
+                Total number of seat availabe</label
+              >
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-11 col-form-label content_fs">
+                <i class="fa-solid fa-arrow-right"></i>
+                <!--eita icon-->
+                Total number of seat availabe</label
+              >
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-11 col-form-label content_fs">
+                <i class="fa-solid fa-arrow-right"></i>
+                <!--eita icon-->
+                Total number of seat availabe</label
+              >
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-11 col-form-label content_fs">
+                <i class="fa-solid fa-arrow-right"></i>
+                <!--eita icon-->
+                Total number of seat availabe</label
+              >
+            </div>
           </div>
-          <div class="post_button" id="post_button2">
-            <i class="fa-regular fa-image fa-2x"></i
-            ><span class="ffsize">See photos</span>
+          <div id="box2">
+            <div id="image">
+              <!-- ekhane image thakbe -->
+              <img src="images\pexels-emre-can-2079286.jpg" alt="image" />
+            </div>
+            <div id="imageFooter">
+              <i class="fa-solid fa-chevron-left"></i>
+              <i class="fa-solid fa-chevron-right"></i>
+              <i class="fa-solid fa-expand"></i>
+            </div>
           </div>
-          <div class="post_button" id="post_button3">
-            <i class="fa-regular fa-comment-dots fa-2x"></i
+        </div>
+        <div id="postArea3">
+          <!-- ekhane like review confirm button thakbe -->
+          <div id="post_button0">
+            <span
+              ><span id="reviewCount">4.3</span>
+              <i class="fa-regular fa-star"></i
+            ></span>
+            <span class="ffsize">People reviews</span>
+          </div>
+          <div id="post_button1">
+            <i class="fa-regular fa-thumbs-up fa-1x"></i>
+            <span class="ffsize">Like</span>
+          </div>
+          <div id="post_button1">
+            <i class="fa-regular fa-thumbs-down"></i>
+            <span class="ffsize">Dis-like</span>
+          </div>
+          <div id="post_button2">
+            <i class="fa-regular fa-compass"></i
+            ><span class="ffsize">Map location</span>
+          </div>
+          <div id="post_button3">
+            <i class="fa-regular fa-comment-dots fa-1x"></i
             ><span class="ffsize">Message</span>
           </div>
-          <div class="post_button" id="post_button3">
-            <i class="fa-regular fa-comment-dots fa-2x"></i
-            ><span class="ffsize">Additional ditels</span>
+          <div id="post_button3">
+            <i class="fa-solid fa-street-view"></i
+            ><span class="ffsize">Facilities</span>
           </div>
         </div>
       </div>
-      <!-- here post area div is end -->
 
       <% }) %>
     </div>
   </body>
-  <!-- ahsan new -->
 </html>

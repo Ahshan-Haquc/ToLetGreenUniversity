@@ -80,7 +80,7 @@ route.post("/login", availableSeatFetch, async (req, res, next) => {
         const redirectTo = req.query.redirect || '/homePage';
         res.redirect(redirectTo);
       } else {
-        res.status(400).render("login", { error: true });
+        res.status(400).render("login", { error: true, student: false });
       }
     }
   } catch (err) {
@@ -168,14 +168,19 @@ route.get("/messages", accessPermission, (req, res) => {
 //router for get post share page
 route.get("/postShare", accessPermission,availableSeatFetch, (req, res) => {
   console.log("working post share get method.");
-  if(req.unAuthenticateUser){
-    res.render("homePage", {
-       userAuthenticationError: true,
-       student: req.studentInfo,
-       availableSeat: req.availableSeatFetch,
+  try {
+    if(req.unAuthenticateUser){
+      res.status(200).render("homePage",{
+        availableSeat : req.availableSeatFetch,
+        totalSeatAvailableLength : req.totalSeatAvailableLength,
+        student: req.studentInfo,
+        userAuthenticationError: true,
       });
-  }else{
-    res.status(200).render("postShare", { student: req.studentInfo });
+    }else{
+      res.status(200).render("postShare", { student: req.studentInfo });
+    }
+  } catch (error) {
+    res.send("try again");
   }
 });
 

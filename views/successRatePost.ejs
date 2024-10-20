@@ -32,6 +32,8 @@
     <link rel="stylesheet" href="homePage.css" />
     <!-- ei css file ei successRatePost.ejs part er css rakhci -->
     <link rel="stylesheet" href="successRatePost.css" />
+
+    <link rel="stylesheet" href="postShow.css" />
   </head>
 
   <body>
@@ -44,56 +46,50 @@
     <!-- post page content -->
     <div class="contentBox">
       <!-- ei category range er post gula akta akta kore show korabo eita diye -->
-      <div class="post_area">
-        <div id="successRatetable">
-          <p>A list of seats that have been found</p>
-          <table>
-            <thead>
-              <tr>
-                <th>Person Name</th>
-                <th>rent</th>
-                <th>rating</th>
-                <th>location</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Ahsan</td>
-                <td>2230</td>
-                <td>4 star</td>
-              </tr>
-            </tbody>
-          </table>
+
+      <div>
+        <h2 class="center">A list of seats that have been found</h2>
+        <div id="tableStatus">
+          <div>Total Success : <span>4</span></div>
+          <div>Success Rate : 20%</div>
         </div>
-        <div id="successRateFindingBox">
-          <div id="successRateFindingBoxTitle">Quick Find</div>
-          <div id="successRateFindingBoxDescription">
-            Give us a rent value and we will try to tell you the maximum
-            qualitiful <b>(star out of 5)</b> seats you can get within that
-            rent.
-          </div>
-          <div id="successRateFindingBoxValueTaking">
-            <form action="/x" method="post">
-              <input
-                type="number"
-                name="rentValue"
-                placeholder="enter a rent value"
-                class="btn btn-default"
-              />
-              <input type="submit" value="Predict" class="btn btn-success" />
-            </form>
-          </div>
-          <div id="successRateFindingBoxPredictionResult">4 star</div>
-          <div
-            id="successRateFindingBoxDescription"
-            style="color: rgb(107, 107, 107)"
-          >
-            According to your given range, most people are choosed "4 star"
-            ratting seats. So you can search for only 4 star rating posts. Thank
-            you.
-          </div>
-          <div id="successRateFindingBoxButton">view</div>
-        </div>
+        <!-- ei talbe er database schema emon vabe banabo jate k post koresilo r ke basa khuje paise tader id ba detiels thakbe -->
+        <table id="successRateTable">
+          <tr>
+            <th>Location</th>
+            <th>Date</th>
+            <th>Rent</th>
+            <th>Rating</th>
+          </tr>
+          <tr>
+            <td>Shewrapara</td>
+            <td>22-04-2024</td>
+            <td>2230</td>
+            <td>4.3 star</td>
+          </tr>
+          <tr></tr>
+          <tr>
+            <td>Shewrapara</td>
+            <td>22-04-2024</td>
+            <td>2230</td>
+            <td>4.3 star</td>
+          </tr>
+          <tr></tr>
+          <tr>
+            <td>Shewrapara</td>
+            <td>22-04-2024</td>
+            <td>2230</td>
+            <td>4.3 star</td>
+          </tr>
+          <tr></tr>
+          <tr>
+            <td>Shewrapara</td>
+            <td>22-04-2024</td>
+            <td>2230</td>
+            <td>4.3 star</td>
+          </tr>
+          <tr></tr>
+        </table>
       </div>
       <!-- here post area div is end -->
     </div>

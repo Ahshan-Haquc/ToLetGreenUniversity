@@ -6,11 +6,12 @@ body {
   padding: 0px;
 }
 .fullHeader {
-  height: 70px;
+  width: 100%;
+  height: 11vh;
   background-color: var(--greenColor);
   color: white;
   display: flex;
-  position: sticky;
+  position: fixed;
   top: 0px;
   left: 0px;
   z-index: 5;
