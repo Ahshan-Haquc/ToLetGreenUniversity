@@ -38,22 +38,39 @@
   gap: 23px;
 }
 #postArea2 #box1 {
-  height: 100%;
-  width: 55%;
-  padding-top: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  height: 325px;
+  width: 72%;
+  padding: 5px;
+  justify-content: space-between;
+}
+#postArea2 #box1 .image {
+  height: 280px;
+  width: 280px;
+  background-color: rgb(181, 181, 181);
 }
 #postArea2 #box2 {
-  min-height: 100%;
-  width: 45%;
-  /* border: 0.2px solid #0000002b; */
-  padding: 5px;
+  height: 325px;
+  width: 28%;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+}
+#postArea2 #box2 .text {
+  height: 60px;
+  width: 180px;
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
+  line-height: 205%;
+}
+#postArea2 #box2 .text .name {
+  font-size: 18px;
+}
+#postArea2 #box2 .text .status {
+  font-size: 32px;
+  color: #990000;
 }
 #postArea3 div {
   display: flex;
@@ -69,22 +86,21 @@
   transform: scale(1.1); /* Slightly increase the size */
 }
 
-#box2 #image {
-  height: 82%;
-  width: 100%;
+#box1 #image {
+  height: 100%;
+  /* width: 100%; */
   box-shadow: inset 1px 1px 25px rgba(0, 0, 0, 0.508);
-  border: 0.5px solid rgba(0, 0, 0, 0.541);
+  border: 0.2px solid rgba(0, 0, 0, 0.541);
   overflow: hidden; /* Ensure that the image doesn't overflow the container */
 }
 
-#box2 #image img {
+#box1 #image img {
   height: 100%;
   width: 100%;
   object-fit: cover; /* This ensures the image covers the entire div without distortion */
   display: block; /* To avoid any space below the image */
 }
-
-#box2 #imageFooter {
+*/ #box2 #imageFooter {
   height: 15%;
   width: 100%;
   /* background-color: aquamarine; */
