@@ -1,68 +1,68 @@
 const mongoose = require('mongoose');
 
 const postShareSchema = mongoose.Schema({
-    title:{
+    title: {
         type: String,
-        require: true,
+        required: true,
     },
-    seat:{
+    seat: {
         type: String,
-        require: true,
+        required: true,
     },
-    entryMonth:{
+    entryMonth: {
         type: String,
-        require: true,
+        required: true,
     },
-    rent:{
+    rent: {
         type: Number,
-        require: true,
+        required: true,
     },
-    distance:{
+    distance: {
         type: String,
-        require: true,
+        required: true,
     },
-    timeRequire:{
+    timeRequire: {
         type: String,
-        require: true,
+        required: true,
     },
-    locationVillage:{
+    locationVillage: {
         type: String,
-        require: true,
+        required: true,
     },
-    locationDistick:{
+    locationDistick: {
         type: String,
-        require: true,
+        required: true,
     },
-    gender:{
+    gender: {
         type: String,
-        require: true,
+        required: true,
     },
-    facilities:[{
+    facilities: [{
         type: String,
         default: "not set this moment",
     }],
-    description:{
+    description: {
         type: String,
     },
-    contactNumber:{
+    contactNumber: {
         type: String,
-        require: true,
+        required: true,
     },
-    roomImage:{
-        type: String,
-        default: "not set this moment"
+    roomImages: {   // Array to store multiple image paths
+        type: [String],
+        default: []
     },
-    available:{
+    available: {
         type: String,
-        enum: ["yes","no"],
+        enum: ["yes", "no"],
         default: "yes",
     },
-    studentPostedId:{
+    studentPostedId: {
         type: mongoose.Types.ObjectId,
         ref: "StudentInformation",
     }
-})
+});
 
-const postModel = mongoose.model("PostShareInformation",postShareSchema);
+const postModel = mongoose.model("PostShareInformation", postShareSchema);
 
 module.exports = postModel;

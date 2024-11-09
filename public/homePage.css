@@ -31,12 +31,12 @@
   align-items: center;
   /* background-color: #00000045; */
   /* background: linear-gradient(359deg, #ff8787, transparent); */
-  background: linear-gradient(
+  /* background: linear-gradient(
     360deg,
     transparent -3%,
     #feff87 72%,
     transparent
-  );
+  ); */
   margin: 100px 0px;
 }
 #contentBox3 {

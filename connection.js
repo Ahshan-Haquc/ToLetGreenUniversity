@@ -6,12 +6,14 @@ const path = require('path')
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 const cookieParser = require('cookie-parser')
+// const upload = require("../middlewares/uploadImages"); //test
 
 //giving permitions to use these
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 app.use(express.static('public'))
 app.use(cookieParser())
+app.use('/uploads', express.static('uploads'));
 dotenv.config();
 
 //setting view engine as a ejs

@@ -5,6 +5,7 @@ const route = express.Router();
 const bcrypt = require("bcrypt");
 const accessPermission = require("../middlewares/accessPermission");
 const availableSeatFetch = require("../middlewares/availableSeatFetch");
+const upload = require("../middlewares/uploadImages");
 
 //routers for signup
 route.get("/signup", (req, res) => {
@@ -184,29 +185,26 @@ route.get("/postShare", accessPermission,availableSeatFetch, (req, res) => {
   }
 });
 
-//router for post share post
-route.post("/postShare",accessPermission,availableSeatFetch,async (req, res, next) => {
-    try {
-      //this is for insert the post values into the post share collection
-      const postModel = new PostShareModel(req.body);
+// Router for post share post
+route.post("/postShare", accessPermission, availableSeatFetch, upload.array('images', 5), async (req, res, next) => {
+  try {
+      // Map uploaded files to get paths
+      const imagePaths = req.files.map(file => file.path); // Array of paths for each uploaded image
+
+const postModel = new PostShareModel({
+    ...req.body,
+    roomImages: imagePaths,  // Save image paths to roomImages
+    studentPostedId: req.studentInfo._id
+});
       const savedPost = await postModel.save();
 
-      console.log("after saving the post in db : ", savedPost);
-
-      //post share collection a student field a j student post korse eita tar id push korlam, track rakhar jonno j ei post ta ke korsilo
-      await PostShareModel.updateOne(
-        { _id: savedPost._id },
-        { $set: { studentPostedId: req.studentInfo._id } }
-      );
-
+      console.log("Post saved with images:", savedPost);
       res.redirect('/homePage');
-
-    } catch (error) {
-      console.log("error occur during post share : ", error);
+  } catch (error) {
+      console.log("Error uploading images:", error);
       next(error);
-    }
   }
-);
+});
 
 
 

@@ -85,24 +85,36 @@
           <div class="center" id="box1">
             <div class="image" id="image1">
               <div id="image">
-                <!-- ekhane image thakbe -->
-                <img src="images\pexels-emre-can-2079286.jpg" alt="image" />
+                <!-- Here 1st images will visible from database -->
+                <!-- <% post.roomImages.forEach(image => { %>
+                  <img src="/<%= image %>" alt="Room Image" style="width:200px; height:auto;">
+              <% }); %> -->
+                <!-- <img src="/<%= post.roomImages[0] %>" alt="image" /> -->
+                <% if (post.roomImages && post.roomImages.length > 0) { %>
+                <img src="/<%= post.roomImages[0] %>" alt="Room Image1" />
+                <% } else { %>
+                <p class="center">No image available</p>
+                <% } %>
               </div>
             </div>
             <div class="image" id="image2">
               <div id="image">
-                <!-- ekhane image thakbe -->
-                <img src="images\pexels-emre-can-2079286.jpg" alt="image" />
+                <!-- Here 2nd images will visible from database -->
+                <% if (post.roomImages && post.roomImages.length > 0) { %>
+                <img src="/<%= post.roomImages[1] %>" alt="Room Image2" />
+                <% } else { %>
+                <p class="center">No image available</p>
+                <% } %>
               </div>
             </div>
-            <div
-              class="image"
-              id="image3"
-              style="width: 120px; filter: opacity(30%)"
-            >
+            <div class="image" id="image3" style="width: 120px">
               <div id="image">
-                <!-- ekhane image thakbe -->
-                <img src="images\pexels-emre-can-2079286.jpg" alt="image" />
+                <!-- Here 3rd images will visible from database -->
+                <% if (post.roomImages && post.roomImages.length > 0) { %>
+                <img src="/<%= post.roomImages[2] %>" alt="Room Image3" />
+                <% } else { %>
+                <p class="center">No image</p>
+                <% } %>
               </div>
             </div>
           </div>
