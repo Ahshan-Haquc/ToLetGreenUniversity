@@ -93,7 +93,7 @@
                 <% if (post.roomImages && post.roomImages.length > 0) { %>
                 <img src="/<%= post.roomImages[0] %>" alt="Room Image1" />
                 <% } else { %>
-                <p class="center">No image available</p>
+                <p class="center">No image</p>
                 <% } %>
               </div>
             </div>
@@ -103,19 +103,30 @@
                 <% if (post.roomImages && post.roomImages.length > 0) { %>
                 <img src="/<%= post.roomImages[1] %>" alt="Room Image2" />
                 <% } else { %>
-                <p class="center">No image available</p>
-                <% } %>
-              </div>
-            </div>
-            <div class="image" id="image3" style="width: 120px">
-              <div id="image">
-                <!-- Here 3rd images will visible from database -->
-                <% if (post.roomImages && post.roomImages.length > 0) { %>
-                <img src="/<%= post.roomImages[2] %>" alt="Room Image3" />
-                <% } else { %>
                 <p class="center">No image</p>
                 <% } %>
               </div>
+            </div>
+
+            <div
+              class="image"
+              id="image3"
+              style="width: 120px; position: relative"
+            >
+              <!-- Here 3rd image will be visible from the database -->
+              <% if (post.roomImages && post.roomImages.length > 0) { %>
+              <div
+                class="image-background"
+                style="
+                  background-image: url('/uploads/1731119062004-pexels-juan-agustin-2340254.jpg');
+                "
+              ></div>
+              <p class="centered-text">
+                <a href="">See More</a>
+              </p>
+              <% } else { %>
+              <p>No image</p>
+              <% } %>
             </div>
           </div>
           <div class="center" id="box2">

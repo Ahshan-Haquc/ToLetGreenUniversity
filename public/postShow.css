@@ -86,6 +86,45 @@
   transform: scale(1.1); /* Slightly increase the size */
 }
 
+/* nicher 3 ta selector user korci 3rd image ta blur kore tar opor peragraph ta rathte */
+#image3 {
+  position: relative;
+  width: 120px;
+  overflow: hidden;
+}
+
+.image-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  filter: blur(10px);
+  z-index: 1;
+}
+
+.centered-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+}
+/* ---------------------- */
+
+.image p {
+  height: 100%;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 #box1 #image {
   height: 100%;
   /* width: 100%; */
