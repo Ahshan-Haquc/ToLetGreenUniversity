@@ -1,68 +1,95 @@
 const mongoose = require('mongoose');
 
 const postShareSchema = mongoose.Schema({
-    title:{
+    title: {
         type: String,
-        require: true,
+        required: true,
     },
-    seat:{
+    seat: {
         type: String,
-        require: true,
+        required: true,
     },
-    entryMonth:{
+    entryMonth: {
         type: String,
-        require: true,
+        required: true,
     },
-    rent:{
+    rent: {
         type: Number,
-        require: true,
+        required: true,
     },
-    distance:{
+    distance: {
         type: String,
-        require: true,
+        required: true,
     },
-    timeRequire:{
+    timeRequire: {
         type: String,
-        require: true,
+        required: true,
     },
-    locationVillage:{
+    locationVillage: {
         type: String,
-        require: true,
+        required: true,
     },
-    locationDistick:{
+    locationDistick: {
         type: String,
-        require: true,
+        required: true,
     },
-    gender:{
+    gender: {
         type: String,
-        require: true,
+        required: true,
     },
-    facilities:[{
+    facilities: [{
         type: String,
         default: "not set this moment",
     }],
-    description:{
+    description: {
         type: String,
     },
-    contactNumber:{
+    contactNumber: {
         type: String,
-        require: true,
+        required: true,
     },
-    roomImage:{
-        type: String,
-        default: "not set this moment"
+    roomImages: {   // Array to store multiple image paths
+        type: [String],
+        default: []
     },
-    available:{
+    available: {
         type: String,
-        enum: ["yes","no"],
+        enum: ["yes", "no"],
         default: "yes",
     },
-    studentPostedId:{
+    likeCount: {
+        type: Number,
+        default: 0,
+    },
+    dislikeCount: {
+        type: Number,
+        default: 0,
+    },
+    likes: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'StudentInformation'
+        }
+    ],
+    dislikes: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'StudentInformation'
+        }
+    ],
+    // Virtual field to calculate review score based on like and dislike ratio
+    reviewScore: {
+        type: Number,
+        default: 3,  // Default to neutral rating
+        min: 1,
+        max: 5
+    },
+    studentPostedId: {
         type: mongoose.Types.ObjectId,
         ref: "StudentInformation",
     }
-})
+});
 
-const postModel = mongoose.model("PostShareInformation",postShareSchema);
+const postModel = mongoose.model("PostShareInformation", postShareSchema);
 
 module.exports = postModel;

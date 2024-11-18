@@ -1,8 +1,7 @@
 .contentBox {
-  margin-top: 0px;
-  margin-left: 345px;
-  height: auto;
-  width: auto;
+  margin-top: 11vh;
+  margin-left: 25.5%;
+  width: 74.5%;
   display: flex;
   flex-direction: column;
 }
@@ -15,11 +14,12 @@
   border-bottom: 0.1px solid #00000021;
   font-size: 18px;
   gap: 35px;
-  margin-bottom: 50px;
+  /* margin-bottom: 50px; */
+  margin: auto;
   background-color: white;
   position: sticky;
-  top: 70px;
-  left: 0px;
+  top: 11vh;
+  /* left: 25vw; */
   z-index: 100;
 }
 .navElement:hover {
@@ -31,12 +31,12 @@
   align-items: center;
   /* background-color: #00000045; */
   /* background: linear-gradient(359deg, #ff8787, transparent); */
-  background: linear-gradient(
+  /* background: linear-gradient(
     360deg,
     transparent -3%,
     #feff87 72%,
     transparent
-  );
+  ); */
   margin: 100px 0px;
 }
 #contentBox3 {

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>See Post</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- this is for using google font  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap"
+      rel="stylesheet"
+    />
+    <!-- this is for adding css style -->
+    <!-- ei css file ei post show part er css rakhci -->
+    <link rel="stylesheet" href="postShow.css" />
+    <link rel="stylesheet" href="sideNavBar.css" />
+    <link rel="stylesheet" href="headerNavBar.css" />
+    <link rel="stylesheet" href="homePage.css" />
+    <link rel="stylesheet" href="confirmSeat.css" />
+  </head>
+
+  <body>
+    <!-- header nav bar -->
+    <%- include("layout/headerNavBar") %>
+
+    <!-- side nav bar -->
+    <%- include("layout/sideNavBar") %>
+
+    <!-- post page content -->
+    <div class="contentBox">
+      <!-- eikhane code korte hobe -->
+      <div class="seat-availability-container">
+        <!-- Header Section -->
+        <div class="seat-header">
+          <div class="room_rent_location">
+            <h2>Seat available for male</h2>
+            <p class="post-info">
+              <span><i class="fa-regular fa-clock"></i></span>Post by an User
+              <br />
+            </p>
+            <p>
+              <span class="tag room-rent">room rent</span>
+              <span class="tag location">location</span>
+            </p>
+          </div>
+
+          <div class="rating-actions">
+            <span class="rating-score">
+              <b>4.3</b> &nbsp; <i class="fa-solid fa-star star-top"></i
+            ></span>
+            <button class="btn-save">Save it</button>
+            <button class="btn-view">View All</button>
+          </div>
+        </div>
+
+        <!-- Images and Options Section -->
+        <div class="about_rent_Seat">
+          <div class="seat-content">
+            <div class="image-gallery">
+              <div class="image-placeholder">
+                <img src="/Room_img/download (2).jpeg" alt="bade" />
+              </div>
+              <div class="image-placeholder">
+                <img src="/Room_img/download.jpeg" alt="Dyning" />
+              </div>
+              <div class="image-placeholder more-images">
+                <img
+                  width="100px"
+                  height="150"
+                  src="/Room_img/images.jpeg"
+                  alt="Woasroom"
+                />
+                <span class="more-images-number">+3</span>
+              </div>
+            </div>
+          </div>
+          <!-- Details Section -->
+          <div class="seat-details">
+            <p>Total seats available</p>
+            <h1 class="seat-count">01</h1>
+            <p>Each seat rent</p>
+            <h2 class="seat-rent">3500 tk</h2>
+            <p>Location</p>
+            <h2 class="seat-location">Shewrapara</h2>
+            <p>To-let From</p>
+            <h3 class="available-date">1 January</h3>
+          </div>
+        </div>
+
+        <div class="user-actions">
+          <button>
+            <span><b>4.3</b></span>
+            <span><i class="fa-regular fa-star"></i><br /></span>
+            People reviews
+          </button>
+          <button>
+            <span><i class="fa-regular fa-thumbs-up"></i> <br /></span>
+            Like
+          </button>
+          <button>
+            <span><i class="fa-regular fa-thumbs-down"></i> <br /> </span>
+            Dislike
+          </button>
+          <button>
+            <span><i class="fa-solid fa-location-dot"></i> <br /></span>
+            Map location
+          </button>
+          <button>
+            <span><i class="fa-regular fa-comment-dots"></i> <br /></span>
+            Message
+          </button>
+          <button>
+            <span><i class="fa-solid fa-house-signal"></i> <br /> </span>
+            Facilities
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

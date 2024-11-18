@@ -1,0 +1,96 @@
+/* General Box Styles */
+.boxSmall {
+  height: 100px;
+  width: 97.5%;
+  margin: 10px;
+  border-radius: 25px;
+  background-color: #f6fcdf;
+  box-shadow: 2px 5px 11px #a9a9a9;
+  display: flex;
+  overflow: hidden; /* Prevent content overflow */
+  transition: height 0.9s ease, transform 0.9s ease; /* Smooth height and transform transition */
+}
+
+.box {
+  height: 210px; /* Expanded height when hovered */
+  max-height: fit-content;
+  transition: height 0.9s ease, transform 0.9s ease; /* Smooth transition */
+}
+
+/* Hidden Content Visibility */
+.boxbox2boxUnvisible {
+  opacity: 0; /* Fully transparent when hidden */
+  max-height: 0; /* Collapsed */
+  overflow: hidden; /* Prevents content overflow when collapsed */
+  transition: opacity 0.9s ease, max-height 0.9s ease; /* Smooth fade and height transition */
+}
+
+.boxbox2boxUnvisible.show {
+  opacity: 1; /* Fully visible when shown */
+  max-height: 200px; /* Adjust as needed for visible content */
+  transition: opacity 0.9s ease, max-height 0.9s ease; /* Smooth fade and height transition */
+}
+
+/* Image Styles */
+.imgSmall {
+  height: 100%;
+  padding: 17px;
+  margin-left: 15px;
+}
+
+.boxbox1 {
+  height: auto;
+  width: 25%;
+}
+
+.imgBig {
+  height: 100%;
+  width: 100%;
+  padding: 30px;
+}
+
+/* Text and Content in Boxes */
+.boxbox2 {
+  height: auto;
+  width: 75%;
+  padding-right: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.madimi-one-regular {
+  font-family: "Madimi One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 40px;
+}
+
+.changeTextPosition {
+  position: relative;
+  right: 9vw;
+  transition: all 0.5s ease; /* Smooth transition for text positioning */
+}
+
+/* Button Styles */
+.boxButton {
+  height: 30px;
+  width: 200px;
+  background-color: #1a1a19;
+  color: white;
+  margin-top: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effects */
+}
+
+.boxButton:hover {
+  background-color: #343434; /* Slightly lighter color on hover */
+  transform: scale(1.05); /* Slight zoom effect */
+}
+
+/* Footer (for spacing at the bottom) */
+.footer {
+  height: 500px;
+}

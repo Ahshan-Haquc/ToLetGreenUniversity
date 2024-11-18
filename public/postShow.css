@@ -1,0 +1,250 @@
+.post_area {
+  height: fit-content; /*fit content dite hobe*/
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px rgb(136, 136, 136);
+  width: 99.5%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 10px;
+  /* display: flex; */
+}
+#postArea1 {
+  height: 20%;
+  display: flex;
+}
+#postArea2 {
+  height: 60%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+#postArea3 {
+  height: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+#postArea1Box1 {
+  height: 100%;
+  width: 70%;
+  padding-left: 7px;
+}
+#postArea1Box2 {
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 23px;
+}
+#postArea2 #box1 {
+  height: 325px;
+  width: 72%;
+  padding: 5px;
+  justify-content: space-between;
+}
+#postArea2 #box1 .image {
+  height: 280px;
+  width: 280px;
+  background-color: rgb(181, 181, 181);
+}
+#postArea2 #box2 {
+  height: 325px;
+  width: 28%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+#postArea2 #box2 .text {
+  height: 60px;
+  width: 180px;
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  line-height: 205%;
+}
+#postArea2 #box2 .text .name {
+  font-size: 18px;
+}
+#postArea2 #box2 .text .status {
+  font-size: 32px;
+  color: #990000;
+}
+#postArea3 div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  margin: 0px 15px;
+}
+#postArea3 div:hover {
+  color: rgb(248, 83, 0);
+  cursor: pointer;
+  transform: scale(1.1); /* Slightly increase the size */
+}
+
+/* nicher 3 ta selector user korci 3rd image ta blur kore tar opor peragraph ta rathte */
+#image3 {
+  position: relative;
+  width: 120px;
+  overflow: hidden;
+}
+
+.image-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  filter: blur(10px);
+  z-index: 1;
+}
+
+.centered-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+}
+/* ---------------------- */
+
+.image p {
+  height: 100%;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#box1 #image {
+  height: 100%;
+  /* width: 100%; */
+  box-shadow: inset 1px 1px 25px rgba(0, 0, 0, 0.508);
+  border: 0.2px solid rgba(0, 0, 0, 0.541);
+  overflow: hidden; /* Ensure that the image doesn't overflow the container */
+}
+
+#box1 #image img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover; /* This ensures the image covers the entire div without distortion */
+  display: block; /* To avoid any space below the image */
+}
+*/ #box2 #imageFooter {
+  height: 15%;
+  width: 100%;
+  /* background-color: aquamarine; */
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  gap: 10px;
+}
+#imageFooter i {
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  background-color: rgb(135 135 135 / 8%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#imageFooter i:hover {
+  background-color: rgba(135, 135, 135, 0.14);
+  transform: scale(1.2); /* Slightly increase the size */
+}
+
+/* people review button a click korle eita kaj korbe */
+/* Popup style */
+.peopleReviewPopUp {
+  height: 50vh;
+  width: 50vw;
+  background-color: antiquewhite;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  border: 1px solid rgb(0, 222, 0);
+  z-index: 1102;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.3s;
+}
+
+.crossButton {
+  height: 10%;
+  width: 100%;
+  display: flex;
+  justify-content: right;
+  padding: 10px 14px 0px 0px;
+}
+
+.crossButton:hover {
+  cursor: pointer;
+  color: red;
+}
+
+#textLikeAndDislikeShow {
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 2em;
+  font-weight: bold;
+  gap: 20px;
+}
+
+/* Background overlay */
+.peopleReviewPopUpBackground {
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1101;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.showPopup {
+  visibility: visible;
+  opacity: 1;
+}
+/* ------------------------ */
+
+/* to center element  */
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* eita see post by range webpage er akdom uporer part er jonno */
+.top_area_unvisible {
+  display: none;
+}
+#deleteButton {
+  height: 30px;
+  width: 30px;
+  background-color: rgb(237 237 237 / 44%);
+  color: #0000006e;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  position: absolute;
+  top: 13vh;
+  right: 1vw;
+}

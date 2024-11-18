@@ -5,6 +5,10 @@ const route = express.Router();
 const bcrypt = require("bcrypt");
 const accessPermission = require("../middlewares/accessPermission");
 const availableSeatFetch = require("../middlewares/availableSeatFetch");
+const upload = require("../middlewares/uploadImages");
+const ratingCalculate = require("../controller/ratingCalculate");
+
+
 
 //routers for signup
 route.get("/signup", (req, res) => {
@@ -80,7 +84,7 @@ route.post("/login", availableSeatFetch, async (req, res, next) => {
         const redirectTo = req.query.redirect || '/homePage';
         res.redirect(redirectTo);
       } else {
-        res.status(400).render("login", { error: true });
+        res.status(400).render("login", { error: true, student: false });
       }
     }
   } catch (err) {
@@ -121,6 +125,17 @@ route.get('/check-auth',accessPermission,availableSeatFetch, (req, res) => {
   }
 });
 
+
+//main home page
+route.get("/home",accessPermission,(req,res)=>{
+  try {
+    res.status(200).render("home",{
+      student: req.studentInfo,
+    });
+  } catch (error) {
+    res.send("error in home page.");
+  }
+})
 
 //router for home page
 route.get("/homePage",accessPermission, availableSeatFetch, (req, res) => {
@@ -168,40 +183,42 @@ route.get("/messages", accessPermission, (req, res) => {
 //router for get post share page
 route.get("/postShare", accessPermission,availableSeatFetch, (req, res) => {
   console.log("working post share get method.");
-  if(req.unAuthenticateUser){
-    res.render("homePage", {
-       userAuthenticationError: true,
-       student: req.studentInfo,
-       availableSeat: req.availableSeatFetch,
+  try {
+    if(req.unAuthenticateUser){
+      res.status(200).render("homePage",{
+        availableSeat : req.availableSeatFetch,
+        totalSeatAvailableLength : req.totalSeatAvailableLength,
+        student: req.studentInfo,
+        userAuthenticationError: true,
       });
-  }else{
-    res.status(200).render("postShare", { student: req.studentInfo });
+    }else{
+      res.status(200).render("postShare", { student: req.studentInfo });
+    }
+  } catch (error) {
+    res.send("try again");
   }
 });
 
-//router for post share post
-route.post("/postShare",accessPermission,availableSeatFetch,async (req, res, next) => {
-    try {
-      //this is for insert the post values into the post share collection
-      const postModel = new PostShareModel(req.body);
+// Router for post share post
+route.post("/postShare", accessPermission, availableSeatFetch, upload.array('images', 5), async (req, res, next) => {
+  try {
+      // Map uploaded files to get paths
+      const imagePaths = req.files.map(file => file.path); // Array of paths for each uploaded image
+
+const postModel = new PostShareModel({
+    ...req.body,
+    roomImages: imagePaths,  // Save image paths to roomImages
+    studentPostedId: req.studentInfo._id
+});
       const savedPost = await postModel.save();
 
-      console.log("after saving the post in db : ", savedPost);
-
-      //post share collection a student field a j student post korse eita tar id push korlam, track rakhar jonno j ei post ta ke korsilo
-      await PostShareModel.updateOne(
-        { _id: savedPost._id },
-        { $set: { studentPostedId: req.studentInfo._id } }
-      );
-
+      console.log("Post saved with images:", savedPost);
       res.redirect('/homePage');
-
-    } catch (error) {
-      console.log("error occur during post share : ", error);
+  } catch (error) {
+      console.log("Error uploading images:", error);
       next(error);
-    }
   }
-);
+});
 
 
 
@@ -259,6 +276,92 @@ route.post("/findSeatByFiltering",accessPermission, async (req, res, next) => {
       next(error);
   }
 });
+
+route.get("/confirmSeatView",accessPermission,(req,res)=>{
+  try {
+    res.status(200).render("confirmSeat",{
+      student: req.studentInfo,
+    });
+  } catch (error) {
+    res.send("Confirm seat router get error : ",error);
+  }
+})
+
+
+// updating like and likeCounts
+route.post("/toggle-like", async (req, res) => {
+  const { postId, userId } = req.body;
+
+  console.log("working on toggle like");
+
+  try {
+      const post = await PostShareModel.findById(postId);
+      
+      // Check if user has already liked the post
+      const userIndex = post.likes.indexOf(userId);
+
+      if (userIndex === -1) {
+          // User has not liked the post yet, so add their ID and increment likeCount
+          post.likes.push(userId);
+          post.likeCount += 1;
+      } else {
+          // User has already liked the post, so remove their ID and decrement likeCount
+          post.likes.splice(userIndex, 1);
+          post.likeCount -= 1;
+      }
+
+      await post.save();
+
+      // Calculating rating
+      const updateRating = ratingCalculate(post.likeCount, post.dislikeCount);
+      post.reviewScore = updateRating;
+      await post.save();
+
+      res.json({ likeCount: post.likeCount, liked: userIndex === -1 });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "An error occurred while toggling the like." });
+  }
+});
+
+// updating dislike and dislikeCounts
+route.post("/toggle-dislike", async (req, res) => {
+  const { postId, userId } = req.body;
+
+  console.log("working on toggle dislike");
+
+  try {
+      const post = await PostShareModel.findById(postId);
+      
+      // Check if user has already liked the post
+      const userIndex = post.dislikes.indexOf(userId);
+
+      if (userIndex === -1) {
+          // User has not liked the post yet, so add their ID and increment likeCount
+          post.dislikes.push(userId);
+          post.dislikeCount += 1;
+      } else {
+          // User has already liked the post, so remove their ID and decrement likeCount
+          post.dislikes.splice(userIndex, 1);
+          post.dislikeCount -= 1;
+      }
+
+      await post.save();
+
+      // Calculating rating
+      const updateRating = ratingCalculate(post.likeCount, post.dislikeCount);
+      post.reviewScore = updateRating;
+      await post.save();
+      
+      res.json({ dislikeCount: post.likeCount, disliked: userIndex === -1 });  //Send updated like count and like status
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "An error occurred while toggling the like." });
+  }
+});
+
+
+
 
 
 module.exports = route;
