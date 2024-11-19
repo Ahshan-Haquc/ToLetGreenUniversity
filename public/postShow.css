@@ -29,6 +29,7 @@
 #postArea1Box1 {
   height: 100%;
   width: 70%;
+  padding-left: 7px;
 }
 #postArea1Box2 {
   width: 30%;
@@ -161,6 +162,68 @@
   background-color: rgba(135, 135, 135, 0.14);
   transform: scale(1.2); /* Slightly increase the size */
 }
+
+/* people review button a click korle eita kaj korbe */
+/* Popup style */
+.peopleReviewPopUp {
+  height: 50vh;
+  width: 50vw;
+  background-color: antiquewhite;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  border: 1px solid rgb(0, 222, 0);
+  z-index: 1102;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.3s;
+}
+
+.crossButton {
+  height: 10%;
+  width: 100%;
+  display: flex;
+  justify-content: right;
+  padding: 10px 14px 0px 0px;
+}
+
+.crossButton:hover {
+  cursor: pointer;
+  color: red;
+}
+
+#textLikeAndDislikeShow {
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 2em;
+  font-weight: bold;
+  gap: 20px;
+}
+
+/* Background overlay */
+.peopleReviewPopUpBackground {
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1101;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.showPopup {
+  visibility: visible;
+  opacity: 1;
+}
+/* ------------------------ */
 
 /* to center element  */
 .center {

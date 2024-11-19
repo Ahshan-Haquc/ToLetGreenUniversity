@@ -57,6 +57,33 @@ const postShareSchema = mongoose.Schema({
         enum: ["yes", "no"],
         default: "yes",
     },
+    likeCount: {
+        type: Number,
+        default: 0,
+    },
+    dislikeCount: {
+        type: Number,
+        default: 0,
+    },
+    likes: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'StudentInformation'
+        }
+    ],
+    dislikes: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'StudentInformation'
+        }
+    ],
+    // Virtual field to calculate review score based on like and dislike ratio
+    reviewScore: {
+        type: Number,
+        default: 3,  // Default to neutral rating
+        min: 1,
+        max: 5
+    },
     studentPostedId: {
         type: mongoose.Types.ObjectId,
         ref: "StudentInformation",

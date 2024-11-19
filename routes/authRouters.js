@@ -6,6 +6,9 @@ const bcrypt = require("bcrypt");
 const accessPermission = require("../middlewares/accessPermission");
 const availableSeatFetch = require("../middlewares/availableSeatFetch");
 const upload = require("../middlewares/uploadImages");
+const ratingCalculate = require("../controller/ratingCalculate");
+
+
 
 //routers for signup
 route.get("/signup", (req, res) => {
@@ -122,6 +125,17 @@ route.get('/check-auth',accessPermission,availableSeatFetch, (req, res) => {
   }
 });
 
+
+//main home page
+route.get("/home",accessPermission,(req,res)=>{
+  try {
+    res.status(200).render("home",{
+      student: req.studentInfo,
+    });
+  } catch (error) {
+    res.send("error in home page.");
+  }
+})
 
 //router for home page
 route.get("/homePage",accessPermission, availableSeatFetch, (req, res) => {
@@ -262,6 +276,92 @@ route.post("/findSeatByFiltering",accessPermission, async (req, res, next) => {
       next(error);
   }
 });
+
+route.get("/confirmSeatView",accessPermission,(req,res)=>{
+  try {
+    res.status(200).render("confirmSeat",{
+      student: req.studentInfo,
+    });
+  } catch (error) {
+    res.send("Confirm seat router get error : ",error);
+  }
+})
+
+
+// updating like and likeCounts
+route.post("/toggle-like", async (req, res) => {
+  const { postId, userId } = req.body;
+
+  console.log("working on toggle like");
+
+  try {
+      const post = await PostShareModel.findById(postId);
+      
+      // Check if user has already liked the post
+      const userIndex = post.likes.indexOf(userId);
+
+      if (userIndex === -1) {
+          // User has not liked the post yet, so add their ID and increment likeCount
+          post.likes.push(userId);
+          post.likeCount += 1;
+      } else {
+          // User has already liked the post, so remove their ID and decrement likeCount
+          post.likes.splice(userIndex, 1);
+          post.likeCount -= 1;
+      }
+
+      await post.save();
+
+      // Calculating rating
+      const updateRating = ratingCalculate(post.likeCount, post.dislikeCount);
+      post.reviewScore = updateRating;
+      await post.save();
+
+      res.json({ likeCount: post.likeCount, liked: userIndex === -1 });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "An error occurred while toggling the like." });
+  }
+});
+
+// updating dislike and dislikeCounts
+route.post("/toggle-dislike", async (req, res) => {
+  const { postId, userId } = req.body;
+
+  console.log("working on toggle dislike");
+
+  try {
+      const post = await PostShareModel.findById(postId);
+      
+      // Check if user has already liked the post
+      const userIndex = post.dislikes.indexOf(userId);
+
+      if (userIndex === -1) {
+          // User has not liked the post yet, so add their ID and increment likeCount
+          post.dislikes.push(userId);
+          post.dislikeCount += 1;
+      } else {
+          // User has already liked the post, so remove their ID and decrement likeCount
+          post.dislikes.splice(userIndex, 1);
+          post.dislikeCount -= 1;
+      }
+
+      await post.save();
+
+      // Calculating rating
+      const updateRating = ratingCalculate(post.likeCount, post.dislikeCount);
+      post.reviewScore = updateRating;
+      await post.save();
+      
+      res.json({ dislikeCount: post.likeCount, disliked: userIndex === -1 });  //Send updated like count and like status
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "An error occurred while toggling the like." });
+  }
+});
+
+
+
 
 
 module.exports = route;

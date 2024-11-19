@@ -47,49 +47,50 @@
       <div class="post_area">
         <div id="postArea1">
           <div id="postArea1Box1">
-            <h2 id="h2_color" style="margin-top: 0px">
-              Seat availabe for male
-            </h2>
+            <h2 id="h2_color" style="margin-top: 0px"><%= post.title %></h2>
             <h5>
               <span class="glyphicon glyphicon-time"></span>
-              Post by <%= student ? student.firstName + ' ' + student.lastName :
-              'an User' %>
+              Posted by <%= student ? student.firstName + ' ' + student.lastName
+              : 'an User' %>
             </h5>
             <h5>
-              <span class="label label-danger">room rent</span>
-              <span class="label label-primary">location</span>
+              <span class="label label-danger">rent : <%= post.rent %>tk</span>
+              <span class="label label-primary"
+                >location : <%= post. locationDistick %></span
+              >
             </h5>
           </div>
+
           <div id="postArea1Box2">
             <div class="center">
               <div
                 id="reviewCountShowBigly"
                 style="font-size: 20px; font-weight: bold"
               >
-                4.3
+                <%= post.reviewScore %>
               </div>
               &nbsp;
               <div>
                 <img
                   src="images\star.png"
-                  style="height: 25px; width: 25px"
+                  style="height: 25px; width: 25px; margin-bottom: 4px"
                   alt="Star"
                 />
               </div>
             </div>
             <button class="btn btn-default btn-md">Save it</button>
-            <button class="btn btn-danger btn-md">View All</button>
+            <button
+              class="btn btn-danger btn-md"
+              onclick="window.location.href='/confirmSeatView'"
+            >
+              View All
+            </button>
           </div>
         </div>
         <div id="postArea2">
           <div class="center" id="box1">
             <div class="image" id="image1">
               <div id="image">
-                <!-- Here 1st images will visible from database -->
-                <!-- <% post.roomImages.forEach(image => { %>
-                  <img src="/<%= image %>" alt="Room Image" style="width:200px; height:auto;">
-              <% }); %> -->
-                <!-- <img src="/<%= post.roomImages[0] %>" alt="image" /> -->
                 <% if (post.roomImages && post.roomImages.length > 0) { %>
                 <img src="/<%= post.roomImages[0] %>" alt="Room Image1" />
                 <% } else { %>
@@ -132,38 +133,53 @@
           <div class="center" id="box2">
             <div class="text">
               <div class="name">Total seat available</div>
-              <div class="status">01</div>
+              <div class="status"><%= post.seat %></div>
             </div>
             <div class="text">
               <div class="name">Each seat rent</div>
-              <div class="status">2500 tk</div>
+              <div class="status"><%= post.rent %> tk</div>
             </div>
             <div class="text">
               <div class="name">Location</div>
-              <div class="status">Shewrapara</div>
+              <div class="status">
+                <%= post.locationVillage %>,<%= post.locationDistick %>
+              </div>
             </div>
             <div class="text">
               <div class="name">To-let from</div>
-              <div class="status">01 January</div>
+              <div class="status"><%= post.entryMonth %></div>
             </div>
           </div>
         </div>
         <div id="postArea3">
           <!-- ekhane like review confirm button thakbe -->
-          <div id="post_button0">
-            <span
-              ><span id="reviewCount">4.3</span>
-              <i class="fa-regular fa-star"></i
-            ></span>
-            <span class="ffsize">People reviews</span>
+          <div id="post_button0" onclick="showingPopup()">
+            <span>
+              <span id="reviewCount"><%= post.reviewScore %></span>
+              <i class="fa-regular fa-star"></i>
+            </span>
+            <span class="ffsize">Rating</span>
           </div>
-          <div id="post_button1">
+          <!-- ei people review a click korle akta popup window ashbe r dekhabe total koyta like r dislike r rating count ta boro kore dekhabe -->
+          <div
+            id="like-button-<%= post._id %>"
+            onclick="toggleLike('<%= post._id %>', '<%= student._id %>')"
+          >
             <i class="fa-regular fa-thumbs-up fa-1x"></i>
-            <span class="ffsize">Like</span>
+            <span class="ffsize" id="like-count-<%= post._id %>"
+              ><%= post.likes.includes(student._id) ? 'Liked' : 'Like' %></span
+            >
           </div>
-          <div id="post_button1">
+
+          <div
+            id="post_button1"
+            onclick="toggleDisLike('<%= post._id %>','<%= student._id %>')"
+          >
             <i class="fa-regular fa-thumbs-down"></i>
-            <span class="ffsize">Dis-like</span>
+            <span class="ffsize" id="dislike-count-<%= post._id %>"
+              ><%= post.dislikes.includes(student._id) ? 'Dis-liked' :
+              'Dis-Like' %></span
+            >
           </div>
           <div id="post_button2">
             <i class="fa-regular fa-compass"></i
@@ -176,7 +192,32 @@
         </div>
       </div>
 
+      <!-- Popup Overlay Background -->
+      <div class="peopleReviewPopUpBackground" onclick="hidePopup()"></div>
+
+      <!-- Popup Content -->
+      <div class="peopleReviewPopUp">
+        <div class="crossButton" onclick="hidePopup()">
+          <i class="fa-solid fa-xmark fa-2x"></i>
+        </div>
+        <div id="textLikeAndDislikeShow">
+          <div>
+            <i class="fa-regular fa-thumbs-up fa-1x"></i> Total Liked: <%=
+            post.likeCount %>
+          </div>
+          <div>
+            <i class="fa-regular fa-thumbs-down"></i> Total Disliked: <%=
+            post.dislikeCount %>
+          </div>
+          <div>
+            <i class="fa-regular fa-star"></i>
+            Rating: <%= post.reviewScore %>
+          </div>
+        </div>
+      </div>
+
       <% }) %>
     </div>
+    <script src="/javaScriptFiles/postShow.js"></script>
   </body>
 </html>
