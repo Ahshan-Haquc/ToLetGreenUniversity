@@ -52,13 +52,23 @@
 /* Text and Content in Boxes */
 .boxbox2 {
   height: auto;
-  width: 75%;
+  width: 65%;
   padding-right: 25px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
+.boxbox3 {
+  height: auto;
+  width: 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #818181;
+}
 
+/* this is for google font  */
 .madimi-one-regular {
   font-family: "Madimi One", sans-serif;
   font-weight: 400;
