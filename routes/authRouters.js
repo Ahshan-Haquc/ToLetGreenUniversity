@@ -162,7 +162,7 @@ route.get("/profile", accessPermission, async (req, res) => {
     const postInfo = await PostShareModel.find({
       studentPostedId: req.studentInfo._id,
     });
-    console.log(postInfo);
+    console.log("working on profile router");
 
     //ekhane aro kaj baki ase, res.render korte hobe
     res.status(200).render("profile", {
@@ -170,8 +170,7 @@ route.get("/profile", accessPermission, async (req, res) => {
       studentPost: postInfo,
     });
   } catch (error) {
-    console.log(error);
-    res.send("Please check vs code.");
+    res.send("profile router error, Please check vs code:");
   }
 });
 

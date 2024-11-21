@@ -3,3 +3,8 @@
 <br> <br>
 
 <h3>Logo downloaded from :</h3><a href="https://www.flaticon.com/search/2?word=buy%20and%20sell">https://www.flaticon.com/search/2?word=buy%20and%20sell</a>
+
+<ul>
+    <li><strong>npm install nodemailer :</strong> this is for sending email from our webpage to my email account.
+    </li>
+</ul>
