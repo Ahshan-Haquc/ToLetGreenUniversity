@@ -57,7 +57,8 @@ body {
 }
 #logo h1 {
   color: white;
-  margin-top: 10px;
+  margin-top: 1vh;
+  font-size: 20px;
 }
 #logo h1 strong {
   margin-right: 10px;

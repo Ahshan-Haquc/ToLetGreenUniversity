@@ -1,0 +1,55 @@
+.profileArea {
+  min-height: 89vh;
+  max-height: fit-content;
+  width: 100%;
+  background-color: rgb(228, 228, 228);
+  position: relative;
+  right: 0.5vw;
+}
+.profile-box {
+  background-color: white;
+}
+
+#profile-box1 {
+  height: 50vh;
+  display: flex;
+}
+.profileImageSection {
+  height: 100%;
+  width: 40%;
+  background-color: antiquewhite;
+}
+.profileImageBox {
+  height: 80%;
+  width: 60%;
+  background-color: rgb(255, 255, 255);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+.profileImage {
+  height: 170px;
+  width: 170px;
+  margin-top: 10px;
+  border: 5px solid #0069ff;
+  box-shadow: 5px 5px 15px #00000024;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.profileName {
+  margin-top: 20px;
+  font-size: 25px;
+}
+.profileInformationSection {
+  height: 100%;
+  width: 60%;
+  background-color: aqua;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
