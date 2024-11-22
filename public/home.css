@@ -57,6 +57,11 @@
   flex-direction: column;
   justify-content: center;
 }
+.boxbox2box {
+  position: relative;
+  right: 0vw;
+  transition: all 0.9s ease;
+}
 .boxbox3 {
   height: auto;
   width: 10%;

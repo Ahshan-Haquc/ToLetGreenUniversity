@@ -7,6 +7,7 @@ const accessPermission = require("../middlewares/accessPermission");
 const availableSeatFetch = require("../middlewares/availableSeatFetch");
 const upload = require("../middlewares/uploadImages");
 const ratingCalculate = require("../controller/ratingCalculate");
+const nodemailer = require("nodemailer");
 
 
 
@@ -276,9 +277,9 @@ route.post("/findSeatByFiltering",accessPermission, async (req, res, next) => {
   }
 });
 
-route.get("/confirmSeatView",accessPermission,(req,res)=>{
+route.get("/confirmSeat",accessPermission,(req,res)=>{
   try {
-    res.status(200).render("confirmSeat",{
+    res.status(200).render("finalConfirmSeat",{
       student: req.studentInfo,
     });
   } catch (error) {
@@ -360,7 +361,43 @@ route.post("/toggle-dislike", async (req, res) => {
 });
 
 
+// -----------------------------------------------
+// -------------------------------------------------
+// ------------gmail er password likhci niche oita delete korte hobe 
+// ---------------------------------------------
+// ----------------------------------------------
 
+//this is for sending email from website to my gmail account
+route.post("/send-email", async (req, res) => {
+  const { userEmail, userMessage } = req.body;
+
+  try {
+      // Create a transporter object
+      const transporter = nodemailer.createTransport({
+          service: "gmail",
+          auth: {
+              user: process.env.MY_EMAIL, // Replace with your Gmail address
+              pass: process.env.MY_PASSWORD, // Replace with your Gmail App Password
+          },
+      });
+
+      // Define the email options
+      const mailOptions = {
+          from: userEmail, // The sender's email address
+          to: "amar gmail dibe@gmail.com", // Replace with your Gmail address
+          subject: "Message from Green University Student Branch website",
+          text: `You have received a message from ${userEmail}:\n\n${userMessage}`,
+      };
+
+      // Send the email
+      await transporter.sendMail(mailOptions);
+
+      res.status(200).json({ message: "Email sent successfully!" });
+  } catch (error) {
+      console.error("Error sending email:", error);
+      res.status(500).json({ error: "Failed to send email. Please try again later." });
+  }
+});
 
 
 module.exports = route;
