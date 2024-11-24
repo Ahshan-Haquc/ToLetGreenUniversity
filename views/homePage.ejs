@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="headerNavBar.css" />
     <link rel="stylesheet" href="homePage.css" />
     <link rel="stylesheet" href="successRatePost.css" />
+    <link rel="stylesheet" href="footer.css">
   </head>
 
   <body>
@@ -57,75 +58,127 @@
 
     <!-- home page content -->
     <div class="contentBox">
-      <div id="contentBoxNavBar">
-        <div class="navElement" id="navElement1">
-          <a href="#contentBox1">Get Services</a>
+      <div class="contentBoxNavBar">
+        <div class="contentBoxNavBar1">
+          <div class="navElement" id="navElement1">
+            <a href="#contentBox1">Cholo eksathe</a>
+          </div>
+          |
+          <div class="navElement" id="navElement2">
+            <a href="#contentBox2">See post</a>
+          </div>
+          |
+          <div class="navElement" id="navElement2">
+            <a href="#contentBox2">Do post</a>
+          </div>
+          |
+          <div class="navElement" id="navElement3">
+            <a href="#contentBox3" style="transition: transform 0.3s ease"
+              >Quick find</a
+            >
+          </div>
         </div>
-        |
-        <div class="navElement" id="navElement2">
-          <a href="#contentBox2">Find Seat</a>
+        <div class="contentBoxNavBar2">
+          <div class="contentBoxNavBarLogoName"><div class="aaa">To-Let</div></div>
         </div>
-        |
-        <div class="navElement" id="navElement3">
-          <a href="#contentBox3" style="transition: transform 0.3s ease"
-            >Quick Find</a
-          >
-        </div>
+
       </div>
       <div id="contentBox1">
-        <div class="contentBoxHeading">
-          <img
+        <!-- <div class="contentBoxHeading">
+           <img
             src="images\browsing.png"
             alt="***"
             style="width: 70px; height: 70px"
-          />
+          /> 
           <h3>Get Services</h3>
           <p>
             are you looking for a suitable rent room? Then choose and visit our
             services.
           </p>
-        </div>
+        </div> -->
         <div class="contentBoxFeatures">
-          <div class="contentBoxFeaturesBox">cholo aksathe</div>
           <div class="contentBoxFeaturesBox">
-            Total Seats Available
-            <div id="TotalSeatCount">
-              <div id="seatCounter"></div>
-              <!-- Empty div where the number will appear -->
+            <div class="contentBoxFeaturesBox1">
+              <div>
+                <div class="contentBoxFeaturesBox1Box1">Cholo eksathe</div>
+              <div class="contentBoxFeaturesBox1Box2">
+                <p>Some of people are finding home too, you can go together</p>
+              </div>
+              </div>
+              <div>
+                <button
+                  class="btn btn-default"
+                  id="contentBoxFeaturesBoxButton"
+                  onclick="window.location.href='/postShare'"
+                >
+                  Post
+                </button>
+              </div>
             </div>
-            <button
-              class="btn btn-default"
-              id="contentBoxFeaturesBoxButton"
-              onclick="window.location.href='/totalPostAvailable'"
-            >
-              View
-            </button>
+            <div class="contentBoxFeaturesBox2">
+              <div>
+                <img src="images/choloEksathe.png" alt="">
+              </div>
+            </div>
           </div>
+
           <div class="contentBoxFeaturesBox">
-            Success Rate
-            <p>( Total People Seat Founded )</p>
-            <div id="TotalSeatFoundedByUsers">
-              <div id="seatCounterForSuccessRate">4</div>
-              <!-- Empty div where the number will appear -->
+            <div class="contentBoxFeaturesBox1">
+              <div>Total Seats Available</div>
+              
+              <div>
+                <button
+                class="btn btn-default"
+                id="contentBoxFeaturesBoxButton"
+                onclick="window.location.href='/totalPostAvailable'"
+              >
+                View
+              </button>
+              </div>
             </div>
-            <button
-              class="btn btn-default"
-              id="contentBoxFeaturesBoxButton"
-              onclick="window.location.href='/successRateSee'"
-            >
-              View
-            </button>
+            <div class="contentBoxFeaturesBox2">
+              <div id="TotalSeatCount">
+                <!-- Empty div where the number will appear -->
+                <div id="seatCounter"></div>
+              </div>
+            </div>
           </div>
+
+          <div class="contentBoxFeaturesBox">
+            <div class="contentBoxFeaturesBox1">
+              <div>
+                <div class="contentBoxFeaturesBox1Box1">Get a Room-mate</div>
+              <div class="contentBoxFeaturesBox1Box2">
+                <p>Do you need room-mate, them post here for it</p>
+              </div>
+              </div>
+              <div>
+                <button
+                  class="btn btn-default"
+                  id="contentBoxFeaturesBoxButton"
+                  onclick="window.location.href='/postShare'"
+                >
+                  Post
+                </button>
+              </div>
+            </div>
+            <div class="contentBoxFeaturesBox2">
+              <div>
+                <img src="images/get-in.png" alt="">
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
       <div id="contentBox2">
         <div class="contentBoxHeading">
-          <img
+          <!-- <img
             src="images\location.png"
             alt="***"
             style="width: 70px; height: 70px"
-          />
-          <h3>Find Your Destination</h3>
+          /> -->
+          <h3>Find Your Destination Quickly</h3>
           <p>
             are you looking for a suitable rent room? Then choose a rent renge.
           </p>
@@ -196,7 +249,7 @@
           </form>
         </div>
       </div>
-      <div id="contentBox3">
+      <!-- <div id="contentBox3">
         <div id="successRateFindingBox">
           <div id="successRateFindingBoxTitle">Quick Find</div>
           <div id="successRateFindingBoxDescription">
@@ -227,7 +280,9 @@
           <div id="successRateFindingBoxButton">view</div>
         </div>
       </div>
-    </div>
+    </div> -->
+
+
 
     <script>
       let counter = 1;
@@ -254,4 +309,6 @@
       }
     </script>
   </body>
+
+  <%- include("layout/footer.ejs") %>
 </html>

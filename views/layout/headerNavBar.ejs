@@ -1,18 +1,19 @@
 <div class="fullHeader">
-  <div class="header">
-    <div id="logo">
-      <img
-        src="\images\GreenUniversityStudentBridgeLogo.png"
-        alt=""
-        id="logo_img"
-        style="filter: invert()"
-      />
-      <h1 style="margin-bottom: 5px">
-        <small style="color: white">Green University</small><br /><strong
-          >Student Bridge</strong
-        >
-      </h1>
-    </div>
+  <div class="logoPart" id="logo">
+    <img
+      src="\images\GreenUniversityStudentBridgeLogo.png"
+      alt=""
+      id="logo_img"
+      style="filter: invert()"
+    />
+    <h1 style="margin-bottom: 5px">
+      <small style="color: white">Green University</small><br /><strong
+        >Student Bridge</strong
+      >
+    </h1>
+  </div>
+
+  <div class="rightPart">
     <div id="search">
       <form>
         <div class="input-group <%= student ? 'logoutVisible' : ''%>">
@@ -25,14 +26,17 @@
         </div>
       </form>
     </div>
-  </div>
-  <div class="logout <%= student ? 'logoutVisible' : ''%>">
-    <form method="post" action="/logout">
-      <button class="btn btn-danger" type="submit">Log out</button>
-    </form>
-  </div>
-  <div class="logout <%= student ? '' : 'logoutVisible'%>">
-    <a href="/login" style="color: white">Login</a>&nbsp/&nbsp
-    <a href="/signup" style="color: white; margin-right: 10px">Signup</a>
+
+    <div class="logout <%= student ? 'logoutVisible' : ''%>">
+      <form method="post" action="/logout">
+        <button class="btn btn-danger" type="submit">Log out</button>
+      </form>
+    </div>
+    <div class="logout <%= student ? '' : 'logoutVisible'%>">
+      <div id="unAuthenticateAccess">
+        <a href="/login" style="color: white">Login</a>&nbsp/&nbsp
+        <a href="/signup" style="color: white; margin-right: 10px">Signup</a>
+      </div>
+    </div>
   </div>
 </div>
