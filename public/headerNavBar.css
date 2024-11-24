@@ -11,6 +11,8 @@ body {
   background-color: var(--greenColor);
   color: white;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   position: fixed;
   top: 0px;
   left: 0px;
@@ -29,26 +31,40 @@ body {
   left: 0px;
   margin-top: 5px;
 }
-
+.rightPart {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+#unAuthenticateAccess {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: aquamarine;
+}
 .logout {
-  position: absolute;
+  /* position: absolute;
   top: 0px;
-  right: 0px;
+  right: 0px; */
   width: 100px;
   height: 70px;
   display: flex;
   justify-content: center;
   align-items: center;
-  visibility: hidden;
+  display: none;
 }
 .logoutVisible {
   visibility: visible;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 30px;
 }
 
 #logo,
 #search {
   height: 60px;
-  width: 600px;
+  width: auto;
   position: relative;
 }
 #logo {
@@ -64,12 +80,11 @@ body {
   margin-right: 10px;
 }
 #search {
-  right: 30px;
-  width: 400px;
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
   justify-content: space-evenly;
+  margin-right: 40px;
 }
 
 #search .logout button {

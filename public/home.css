@@ -83,6 +83,7 @@
 .changeTextPosition {
   position: relative;
   right: 9vw;
+  font-size: 25px;
   transition: all 0.5s ease; /* Smooth transition for text positioning */
 }
 
@@ -102,106 +103,4 @@
 .boxButton:hover {
   background-color: #343434; /* Slightly lighter color on hover */
   transform: scale(1.05); /* Slight zoom effect */
-}
-
-/* ---------------------- */
-/* this is for footer part  */
-/* Footer Styles */
-.footer {
-  background-color: #1a1a19;
-  color: #fff;
-  padding: 30px 20px;
-  font-family: "Arial", sans-serif;
-  line-height: 1.6;
-}
-
-.footer-container {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.footer-section {
-  flex: 1 1 200px;
-}
-
-.footer-logo {
-  width: 150px;
-  margin-bottom: 10px;
-}
-
-.footer-links {
-  list-style: none;
-  padding: 0;
-}
-
-.footer-links li {
-  margin-bottom: 10px;
-}
-
-.footer-links a {
-  color: #fff;
-  text-decoration: none;
-}
-
-.footer-links a:hover {
-  color: #00bcd4;
-}
-
-.footer-social a {
-  margin-right: 10px;
-  font-size: 20px;
-  color: #fff;
-  text-decoration: none;
-}
-
-.footer-social a:hover {
-  color: #00bcd4;
-}
-
-/* Footer Contact Form */
-.footer-input,
-.footer-textarea {
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-  color: black;
-}
-
-.footer-button {
-  background-color: #00bcd4;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.footer-button:hover {
-  background-color: #007a91;
-}
-
-.form-response {
-  margin-top: 10px;
-  color: green;
-  font-size: 14px;
-}
-/* -------------- */
-.footer-bottom {
-  margin-top: 20px;
-  text-align: center;
-  font-size: 14px;
-}
-
-.footer-bottom a {
-  color: #00bcd4;
-  text-decoration: none;
-}
-
-.footer-bottom a:hover {
-  text-decoration: underline;
 }

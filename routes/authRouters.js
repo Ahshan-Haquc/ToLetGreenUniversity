@@ -400,5 +400,15 @@ route.post("/send-email", async (req, res) => {
 });
 
 
+
+
+
+
+//test router
+route.get("/test",(req,res)=>{
+  res.render("test");
+})
+
+
 module.exports = route;
 
