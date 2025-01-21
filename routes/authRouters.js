@@ -48,7 +48,7 @@ route.post("/signup", async (req, res, next) => {
     //rendering in login.ejs page
     console.log("Sign up succesful.");
     // Redirect to intended page after successful login
-    const redirectTo = req.query.redirect || '/homePage';
+    const redirectTo = req.query.redirect || '/homePageToLetToLet';
         res.redirect(redirectTo);
   } catch (err) {
     console.log(err);
@@ -65,7 +65,7 @@ route.post("/signup", async (req, res, next) => {
 
 //routers for login without error means studentId or password is correct while just want to see the login page
 route.get("/login",accessPermission, (req, res) => {
-  const redirectTo = req.query.redirect || '/homePage';  // Default to homepage if no redirect provided
+  const redirectTo = req.query.redirect || '/homePageToLetToLet';  // Default to homePageToLetToLet if no redirect provided
   res.render("login", { error: false, redirect: redirectTo, student: req.studentInfo });
 });
 
@@ -82,7 +82,7 @@ route.post("/login", availableSeatFetch, async (req, res, next) => {
         res.cookie("studentCookie", token, { expires: new Date(Date.now() + 600000), httpOnly: true });
 
         // Redirect to intended page after successful login
-        const redirectTo = req.query.redirect || '/homePage';
+        const redirectTo = req.query.redirect || '/homePageToLet';
         res.redirect(redirectTo);
       } else {
         res.status(400).render("login", { error: true, student: false });
@@ -101,7 +101,7 @@ route.post("/logout", accessPermission, async (req, res) => {
   res.clearCookie("studentCookie");
   await req.studentInfo.save();
 
-  const redirectTo = req.query.redirect || '/homePage';  // Default to homepage if no redirect provided
+  const redirectTo = req.query.redirect || '/homePageToLet';  // Default to homePageToLet if no redirect provided
   res.render("login", { error: false, redirect: redirectTo, student: false });
 });
 
@@ -110,7 +110,7 @@ route.get('/check-auth',accessPermission,availableSeatFetch, (req, res) => {
   const redirectTo = req.query.redirect;  // Get the page they want to access
 
   if(req.unAuthenticateUser){
-    res.render("homePage", {
+    res.render("homePageToLet", {
        userAuthenticationError: true,
        student: req.studentInfo,
        availableSeat: req.availableSeatFetch,
@@ -139,10 +139,10 @@ route.get("/home",accessPermission,(req,res)=>{
 })
 
 //router for home page
-route.get("/homePage",accessPermission, availableSeatFetch, (req, res) => {
-    console.log("working homepage router");
+route.get("/homePageToLet",accessPermission, availableSeatFetch, (req, res) => {
+    console.log("working homePageToLet router");
     try {
-      res.status(200).render("homePage",{
+      res.status(200).render("homePageToLet",{
         availableSeat : req.availableSeatFetch,
         totalSeatAvailableLength : req.totalSeatAvailableLength,
         student: req.studentInfo,
@@ -160,9 +160,10 @@ route.get("/profile", accessPermission, async (req, res) => {
   try {
     // .find({}) ----> eita ekta array of object return kore, ejs file a etake if else & loop diye access korte hobe
     // .findOne({}) ----> eita just akta  object return kore, tai etake ejs file a dirrectly access kora jabe
-    const postInfo = await PostShareModel.find({
-      studentPostedId: req.studentInfo._id,
-    });
+    const postInfo = {id:324653456,name:"Ahsan"};
+    // const postInfo = await PostShareModel.find({
+    //   studentPostedId: req.studentInfo._id,
+    // });
     console.log("working on profile router");
 
     //ekhane aro kaj baki ase, res.render korte hobe
@@ -171,6 +172,7 @@ route.get("/profile", accessPermission, async (req, res) => {
       studentPost: postInfo,
     });
   } catch (error) {
+    console.log(error);
     res.send("profile router error, Please check vs code:");
   }
 });
@@ -185,7 +187,7 @@ route.get("/postShare", accessPermission,availableSeatFetch, (req, res) => {
   console.log("working post share get method.");
   try {
     if(req.unAuthenticateUser){
-      res.status(200).render("homePage",{
+      res.status(200).render("homePageToLetToLet",{
         availableSeat : req.availableSeatFetch,
         totalSeatAvailableLength : req.totalSeatAvailableLength,
         student: req.studentInfo,
@@ -213,7 +215,7 @@ const postModel = new PostShareModel({
       const savedPost = await postModel.save();
 
       console.log("Post saved with images:", savedPost);
-      res.redirect('/homePage');
+      res.redirect('/homePageToLetToLet');
   } catch (error) {
       console.log("Error uploading images:", error);
       next(error);
