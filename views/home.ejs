@@ -33,9 +33,10 @@
     <!-- this is for adding css style -->
     <link rel="stylesheet" href="sideNavBar.css" />
     <link rel="stylesheet" href="headerNavBar.css" />
-    <link rel="stylesheet" href="homePage.css" />
+    <link rel="stylesheet" href="homePageToLet.css" />
     <link rel="stylesheet" href="home.css" />
     <link rel="stylesheet" href="footer.css" />
+    <link rel="stylesheet" href="output.css" />
   </head>
 
   <body>
@@ -221,75 +222,7 @@
       </div>
     </div>
   </body>
-
-  <footer class="footer">
-    <div class="footer-container">
-      <!-- Brand/Logo and Description -->
-      <div class="footer-section"></div>
-
-      <!-- Quick Links -->
-      <div class="footer-section">
-        <h4>Quick Links</h4>
-        <ul class="footer-links">
-          <li><a href="/">Home</a></li>
-          <li><a href="/to-let">To-let</a></li>
-          <li><a href="/lost-and-found">Lost & Found</a></li>
-          <li><a href="/meal-delivery">Meal Delivery</a></li>
-          <li><a href="/buy-and-sell">Buy & Sell</a></li>
-        </ul>
-      </div>
-
-      <!-- Social Media -->
-      <div class="footer-section">
-        <h4>Follow Us</h4>
-        <div class="footer-social">
-          <a href="https://facebook.com" target="_blank"
-            ><i class="fa-brands fa-facebook"></i
-          ></a>
-          <a href="https://twitter.com" target="_blank"
-            ><i class="fa-brands fa-twitter"></i
-          ></a>
-          <a href="https://instagram.com" target="_blank"
-            ><i class="fa-brands fa-instagram"></i
-          ></a>
-          <a href="https://linkedin.com" target="_blank"
-            ><i class="fa-brands fa-linkedin"></i
-          ></a>
-        </div>
-      </div>
-
-      <!-- Newsletter -->
-      <div class="footer-section">
-        <h4>Contact Us</h4>
-        <form id="contact-form">
-          <input
-            type="email"
-            name="userEmail"
-            placeholder="Your Email"
-            required
-            class="footer-input"
-          />
-          <textarea
-            name="userMessage"
-            placeholder="Your Message"
-            required
-            class="footer-textarea"
-          ></textarea>
-          <button type="submit" class="footer-button">Send</button>
-        </form>
-        <p id="form-response" class="form-response"></p>
-      </div>
-    </div>
-
-    <!-- Copyright -->
-    <div class="footer-bottom">
-      <p>
-        &copy; 2024 Green University StudentBridge. All rights reserved. |
-        <a href="/terms">Terms of Service</a> |
-        <a href="/privacy">Privacy Policy</a>
-      </p>
-    </div>
-  </footer>
+  <%- include("layout/footer.ejs") %>
 
   <!-- js events part -->
   <script src="\javaScriptFiles\home.js"></script>

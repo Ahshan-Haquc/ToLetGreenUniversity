@@ -2,6 +2,7 @@
 /* this is for footer part  */
 /* Footer Styles */
 .footer {
+  width: 100%;
   background-color: #1a1a19;
   color: #fff;
   padding: 30px 20px;

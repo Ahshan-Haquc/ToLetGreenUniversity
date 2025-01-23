@@ -1,12 +1,10 @@
 .post_area {
-  height: fit-content; /*fit content dite hobe*/
+  height: fit-content;
   border-radius: 5px;
   box-shadow: 0px 0px 5px rgb(136, 136, 136);
-  width: 99.5%;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  width: 99%;
+  margin: 5px;
   padding: 10px;
-  /* display: flex; */
 }
 #postArea1 {
   height: 20%;

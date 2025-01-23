@@ -1,10 +1,13 @@
 .contentBox {
-  margin-top: 11vh;
-  margin-left: 335px;
-  width: auto;
+  /* margin-top: 11vh; */
+  /* margin-left: 335px; */
+  width: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
+
 .contentBoxNavBar {
   width: 100%;
   height: 50px;
@@ -13,10 +16,11 @@
   margin: auto;
   background-color: white;
   position: sticky;
-  top: 11vh;
+  top: 67px;
   /* left: 25vw; */
   z-index: 100;
 }
+
 .contentBoxNavBar1 {
   width: 70%;
   height: 100%;
@@ -27,6 +31,7 @@
   gap: 35px;
   padding-left: 2%;
 }
+
 .contentBoxNavBar2 {
   width: 30%;
   height: 100%;
@@ -38,9 +43,11 @@
   color: #00b10f;
   font-weight: bold;
 }
+
 .navElement:hover {
   background-color: rgba(204, 204, 204, 0.146);
 }
+
 #contentBox2 {
   display: flex;
   flex-direction: column;
@@ -55,6 +62,7 @@
   ); */
   margin: 100px 0px;
 }
+
 #contentBox3 {
   width: 100%;
   display: flex;
@@ -63,18 +71,26 @@
 }
 
 /* ei part ta button box features gulo dekhar jonn */
+
 .contentBoxFeatures {
-  height: 250px; /* Fixed height for the div */
-  width: 100%; /* Full width of the div */
-  background: url("/images/GreenUniversityImage.jpg"); /* Background image path */
-  background-size: cover; /* Ensure the image covers the entire div */
-  background-position: center; /* Center the image within the div */
-  background-repeat: no-repeat; /* Prevent the image from repeating */
+  height: 250px;
+  /* Fixed height for the div */
+  width: 100%;
+  /* Full width of the div */
+  background: url("/images/GreenUniversityImage.jpg");
+  /* Background image path */
+  background-size: cover;
+  /* Ensure the image covers the entire div */
+  background-position: center;
+  /* Center the image within the div */
+  background-repeat: no-repeat;
+  /* Prevent the image from repeating */
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   flex-wrap: wrap;
-  overflow: hidden; /* Ensures the height overflow doesn't affect layout */
+  overflow: hidden;
+  /* Ensures the height overflow doesn't affect layout */
 }
 
 .contentBoxFeaturesBox {
@@ -89,15 +105,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 9px 8px 5px #00000069;
 }
+
 .contentBoxFeaturesBox1 {
   height: 100%;
   width: 80%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Adjust values for the shadow */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  /* Adjust values for the shadow */
 }
+
 .contentBoxFeaturesBox2 {
   height: 100%;
   width: 20%;
@@ -108,39 +128,46 @@
   gap: 5px;
   flex-grow: 0;
 }
+
 .contentBoxFeatures img {
   height: 65px;
   width: 65px;
 }
+
 .contentBoxFeaturesBox p {
   font-weight: normal;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 10px;
 }
+
 .contentBoxFeaturesBox #seatCounterForSuccessRate {
   font-family: "Poetsen One";
   font-size: 25px;
 }
+
 /* total koto seat available ase ta dekhar box eita */
+
 #TotalSeatCount {
   font-family: "Poetsen One";
-    font-size: 45px;
-    min-width: 55px;
-    max-width: auto;
-    height: 63px;
-    padding: 4px;
-    text-align: center;
-    background: linear-gradient(to top, #7d7dff, #ffffff);
+  font-size: 45px;
+  min-width: 55px;
+  max-width: auto;
+  height: 63px;
+  padding: 4px;
+  text-align: center;
+  color: white;
+  /* background: linear-gradient(to top, #7d7dff, #ffffff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    box-shadow: 0px 0px 13px yellow;
+    box-shadow: 0px 0px 13px yellow; */
 }
-}
+
 /* #contentBoxFeaturesBoxButton {
   position: relative;
   bottom: 31px;
   right: -224px;
 } */
+
 .contentBoxHeading {
   display: flex;
   flex-direction: column;
@@ -148,6 +175,7 @@
   align-items: center;
   line-height: 20px;
 }
+
 .poetsen-one-regular {
   font-family: "Poetsen One", sans-serif;
   font-weight: 400;
@@ -160,15 +188,18 @@
   justify-content: center;
   margin-bottom: 50px;
 }
+
 a {
   color: black;
   text-decoration: none;
 }
+
 a:hover {
   text-decoration: none;
 }
 
 /* go together part  */
+
 .goTogether {
   height: 300px;
   width: 500px;
@@ -179,19 +210,24 @@ a:hover {
 }
 
 /* popup window for login of unauthorize user  */
+
 /* Overlay to gray out the background */
+
 .overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Gray color with 50% transparency */
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Gray color with 50% transparency */
   visibility: hidden;
-  z-index: 500; /* Ensure the overlay is behind the alert */
+  z-index: 500;
+  /* Ensure the overlay is behind the alert */
 }
 
 /* Alert popup */
+
 .alert {
   background-color: rgb(255, 246, 212);
   border: 2px solid yellow;
@@ -204,10 +240,12 @@ a:hover {
   transform: translate(-50%, -50%);
   text-align: center;
   visibility: hidden;
-  z-index: 501; /* Ensure the alert is above the overlay */
+  z-index: 501;
+  /* Ensure the alert is above the overlay */
 }
 
 /* To make both the overlay and alert visible */
+
 .alertVisible {
   visibility: visible;
 }
@@ -222,6 +260,7 @@ a:hover {
   width: 80%;
   margin-bottom: 50px;
 }
+
 #seePostByFiltering1 {
   display: flex;
   justify-content: space-between;
@@ -230,12 +269,14 @@ a:hover {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 15px;
 }
+
 .inputForTakingRentRange {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
+
 #seePostByFiltering1 input {
   width: 327px;
   height: 44px;
@@ -245,6 +286,7 @@ a:hover {
   color: rgba(0, 0, 0, 0.769);
   box-shadow: -7px 9px 21px #0000002e;
 }
+
 .styleForFilter2345 {
   display: flex;
   flex-direction: column;
@@ -252,10 +294,13 @@ a:hover {
   align-items: center;
   margin: 18px 0px;
 }
+
 #seePostByFiltering2 {
 }
+
 #seePostByFiltering3 {
 }
+
 #seePostByFiltering3 select {
   width: 760px;
   height: 45px;
@@ -264,10 +309,13 @@ a:hover {
   border: none;
   box-shadow: -7px 9px 21px #0000002e;
 }
+
 #seePostByFiltering4 {
 }
+
 #seePostByFiltering5 {
 }
+
 #seePostByFiltering5 input {
   width: 760px;
   box-shadow: -7px 9px 21px #0000002e;

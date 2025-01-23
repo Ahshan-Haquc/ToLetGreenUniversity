@@ -22,25 +22,152 @@
     <link rel="stylesheet" href="headerNavBar.css" />
     <link rel="stylesheet" href="homePage.css" />
     <link rel="stylesheet" href="profile.css" />
+    <link href="output.css" rel="stylesheet" />
   </head>
 
   <body>
     <!-- header nav bar -->
     <%- include("layout/headerNavBar") %> <%- include("layout/sideNavBar") %>
     <div class="contentBox">
-      <div class="profileArea">
-        <div class="profile-box" id="profile-box1">
-          <div class="profileImageSection center">
+      <div
+        class="bg-[#EFEFEF] flex items-center flex-col md:bg-[#EFEFEF] md:flex md:items-center md:flex-col"
+      >
+        <div class="w-[100%] h-[390px] flex md:w-[100%] md:h-[390px] md:flex">
+          <div class="w-[30%] h-[100%] center md:w-[30%] md:h-[100%] md:center">
             <div class="profileImageBox">
               <div class="profileImage"></div>
               <div class="profileName">Ahshanul Haquc</div>
             </div>
           </div>
-          <div class="profileInformationSection"></div>
+          <div
+            class="w-[70%] flex flex-wrap justify-around items-center md:w-[70%] md:flex md:flex-wrap md:justify-around md:items-center"
+          >
+            <div class="userInfo">
+              <div
+                class="h-[60%] text-[#616161] text-3xl flex items-center pl-5 md:h-[60%] md:text-[#616161] md:text-3xl md:flex md:items-center md:pl-5"
+              >
+                Student name
+              </div>
+              <div
+                class="h-[40%] text-black text-4xl flex pl-5 md:h-[40%] md:text-black md:text-4xl md:flex md:pl-5"
+              >
+                Ahshanul Haquc
+              </div>
+            </div>
+            <div class="userInfo">
+              <div
+                class="h-[60%] text-[#616161] text-3xl flex items-center pl-5 md:h-[60%] md:text-[#616161] md:text-3xl md:flex md:items-center md:pl-5"
+              >
+                Student name
+              </div>
+              <div
+                class="h-[40%] text-black text-4xl flex pl-5 md:h-[40%] md:text-black md:text-4xl md:flex md:pl-5"
+              >
+                Ahshanul Haquc
+              </div>
+            </div>
+            <div class="userInfo">
+              <div
+                class="h-[60%] text-[#616161] text-3xl flex items-center pl-5 md:h-[60%] md:text-[#616161] md:text-3xl md:flex md:items-center md:pl-5"
+              >
+                Student name
+              </div>
+              <div
+                class="h-[40%] text-black text-4xl flex pl-5 md:h-[40%] md:text-black md:text-4xl md:flex md:pl-5"
+              >
+                Ahshanul Haquc
+              </div>
+            </div>
+
+            <div class="userInfo">
+              <div
+                class="h-[60%] text-[#616161] text-3xl flex items-center pl-5 md:h-[60%] md:text-[#616161] md:text-3xl md:flex md:items-center md:pl-5"
+              >
+                Student name
+              </div>
+              <div
+                class="h-[40%] text-black text-4xl flex pl-5 md:h-[40%] md:text-black md:text-4xl md:flex md:pl-5"
+              >
+                Ahshanul Haquc
+              </div>
+            </div>
+
+            <div class="userInfo">
+              <div
+                class="h-[60%] text-[#616161] text-3xl flex items-center pl-5 md:h-[60%] md:text-[#616161] md:text-3xl md:flex md:items-center md:pl-5"
+              >
+                Student name
+              </div>
+              <div
+                class="h-[40%] text-black text-4xl flex pl-5 md:h-[40%] md:text-black md:text-4xl md:flex md:pl-5"
+              >
+                Ahshanul Haquc
+              </div>
+            </div>
+
+            <div class="userInfo">
+              <div
+                class="h-[60%] text-[#616161] text-3xl flex items-center pl-5 md:h-[60%] md:text-[#616161] md:text-3xl md:flex md:items-center md:pl-5"
+              >
+                Student name
+              </div>
+              <div
+                class="h-[40%] text-black text-4xl flex pl-5 md:h-[40%] md:text-black md:text-4xl md:flex md:pl-5"
+              >
+                Ahshanul Haquc
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="profile-box" id="profile-box2">a</div>
-        <div class="profile-box" id="profile-box3">a</div>
-        <div class="profile-box" id="profile-box4">a</div>
+
+        <div
+          class="w-[98%] h-[70px] bg-white rounded-2xl flex items-center justify-start pl-2 gap-3 md:w-[98%] md:h-[70px] md:bg-white md:rounded-2xl md:flex md:items-center md:justify-start md:pl-2 md:gap-3"
+          id="profile-box2"
+        >
+          <button
+            class="btn btn-default w-[150px] h-[5rem] btn-primary md:w-[150px] md:h-[5rem]"
+          >
+            Saved Posts
+          </button>
+          <button
+            class="btn btn-default w-[150px] h-[5rem] md:w-[150px] md:h-[5rem]"
+          >
+            My Post
+          </button>
+          <button
+            class="btn btn-default w-[150px] h-[5rem] md:w-[150px] md:h-[5rem]"
+          >
+            My Acheivement
+          </button>
+        </div>
+
+        <div
+          class="w-[98%] h-[50px] rounded-2xl flex items-center justify-end pr-3 gap-3 md:w-[98%] md:h-[50px] md:rounded-2xl md:flex md:items-center md:justify-end md:pr-3 md:gap-3"
+        >
+          <button class="btn btn-default w-[150px] md:w-[150px]">To-let</button>
+          <button class="btn btn-default w-[150px] md:w-[150px]">
+            Food Share
+          </button>
+          <button class="btn btn-default w-[150px] md:w-[150px]">
+            Lost & Found
+          </button>
+          <button class="btn btn-default w-[150px] md:w-[150px]">
+            Blood Collect
+          </button>
+          <button
+            class="btn btn-default w-[150px] bg-[#757575] text-white md:w-[150px] md:bg-[#757575] md:text-white"
+          >
+            Buy & Sell
+          </button>
+        </div>
+
+        <div class="w-[98%] h-fit bg-white md:w-[98%] md:h-fit">
+          <div>ahsan</div>
+          <div>ahsan</div>
+          <div>ahsan</div>
+          <div>ahsan</div>
+          <div>ahsan</div>
+        </div>
       </div>
     </div>
   </body>
