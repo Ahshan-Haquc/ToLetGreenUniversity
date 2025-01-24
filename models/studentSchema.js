@@ -56,7 +56,7 @@ const studentInformationSchema = mongoose.Schema({
 
 //generating token here while a student is signing in or loging in          
 studentInformationSchema.methods.generateToken= async function (){
-    const studentToken = jwt.sign({_id: this._id.toString()},process.env.SECRET_KEY,{expiresIn: '10 minute'})
+    const studentToken = jwt.sign({_id: this._id.toString()},process.env.SECRET_KEY,{expiresIn: '30 minute'})
 
     this.tokens.push({token:studentToken});
 

@@ -35,6 +35,11 @@ body {
   left: 0px;
   margin-top: 5px;
 }
+.rotate {
+  transform: rotate(180deg);
+  /* transform: scale(1.2); */
+  color: black;
+}
 .rightPart {
   display: flex;
   justify-content: flex-end;
@@ -67,8 +72,6 @@ body {
 
 #logo,
 #search {
-  height: 60px;
-  width: auto;
   position: relative;
 }
 #logo {
