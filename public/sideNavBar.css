@@ -30,6 +30,8 @@
   top: 11vh;
   left: 0px;
   z-index: 500;
+  /* display: none; */
+  visibility: hidden;
 }
 
 /* 

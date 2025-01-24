@@ -1,9 +1,11 @@
 .contentBox {
-  margin-top: 11vh;
-  margin-left: 335px;
-  width: auto;
+  /* margin-top: 11vh; */
+  /* margin-left: 335px; */
+  width: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .contentBoxNavBar {
   width: 100%;
@@ -13,7 +15,7 @@
   margin: auto;
   background-color: white;
   position: sticky;
-  top: 11vh;
+  top: 67px;
   /* left: 25vw; */
   z-index: 100;
 }
@@ -40,6 +42,9 @@
 }
 .navElement:hover {
   background-color: rgba(204, 204, 204, 0.146);
+}
+#contentBox1 {
+  width: 100%;
 }
 #contentBox2 {
   display: flex;
@@ -78,9 +83,13 @@
 }
 
 .contentBoxFeaturesBox {
-  height: 130px;
-  width: 30%;
-  background: linear-gradient(131deg, rgb(232, 0, 0) 70%, rgb(205 48 0) 30%);
+  height: 150px;
+  width: 340px;
+  background: linear-gradient(
+    131deg,
+    rgb(127 127 127) 70%,
+    rgb(107 107 107) 30%
+  );
   color: white;
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;

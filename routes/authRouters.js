@@ -279,13 +279,13 @@ route.post("/findSeatByFiltering",accessPermission, async (req, res, next) => {
   }
 });
 
-route.get("/confirmSeat",accessPermission,(req,res)=>{
+route.get("/confirmToletSeat",accessPermission,(req,res)=>{
   try {
-    res.status(200).render("finalConfirmSeat",{
+    res.status(200).render("confirmToletSeat",{
       student: req.studentInfo,
     });
   } catch (error) {
-    res.send("Confirm seat router get error : ",error);
+    res.send("Confirm seat router get df error : ",error);
   }
 })
 
