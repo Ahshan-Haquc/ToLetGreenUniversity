@@ -1,4 +1,4 @@
-<div class="col-sm-3 sidenav">
+<div class="col-sm-3 sidenav" id="sideNavBar">
   <h4 id="person_name" class="ffsize2">
     <i class="fa-regular fa-address-card" id="profile_pic"></i><%= student ?
     student.firstName + ' ' + student.lastName : 'Unknown User' %>
@@ -43,13 +43,7 @@
       </button>
     </li>
   </ul>
-  <!-- <br />
-  <div class="input-group btn_position">
-    <i class="fa-solid fa-person-rays fa-3x"></i>
-    <h3>Get Room-mate</h3>
-    <p>Are you searching for a room-mate?</p>
-    <button class="btn btn-success">
-      <a id="post_btn" href="/postShare">Post</a>
-    </button>
-  </div> -->
 </div>
+
+<!-- this is for making bg black when sideNav is appearing -->
+<div class="overlaySideNav" id="overlaySideNav"></div> 

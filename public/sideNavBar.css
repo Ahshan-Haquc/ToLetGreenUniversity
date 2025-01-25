@@ -23,17 +23,43 @@
 /* Set gray background color and 100% height */
 .sidenav {
   background-color: rgb(218, 255, 216);
-  height: 89vh;
+  height: 100vh;
+  flex-shrink: 1;
   width: 335px;
   margin: 0px;
   position: fixed;
-  top: 11vh;
-  left: 0px;
+  top: 67px;
+  left: -335px; /* Completely out of view initially */
   z-index: 500;
-  /* display: none; */
-  visibility: hidden;
+  visibility: hidden; /* Hide the element */
+  transition: left 0.5s ease-out; /* Smooth transition for both left and opacity */
 }
 
+.sideNavVisible {
+  left: 0; /* Move into view */
+  visibility: visible; /* Make it visible */
+}
+.sidenav:not(.sideNavVisible) {
+  transition: 0.5s;
+  left: -335px; /* Slide out of view */
+}
+
+.overlaySideNav {
+  background-color: #ffffff99;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.5s linear;
+}
+.overlaySideNavVisible {
+  visibility: visible;
+  opacity: 1;
+  z-index: 2;
+}
 /* 
   post show part  
 ---------------------------------------------------------

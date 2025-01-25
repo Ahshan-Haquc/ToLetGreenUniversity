@@ -20,7 +20,7 @@
   z-index: 100;
 }
 .contentBoxNavBar1 {
-  width: 70%;
+  width: 50%;
   height: 100%;
   display: flex;
   justify-content: start;
@@ -30,7 +30,7 @@
   padding-left: 2%;
 }
 .contentBoxNavBar2 {
-  width: 30%;
+  width: 50%;
   height: 100%;
   padding-right: 2%;
   display: flex;
