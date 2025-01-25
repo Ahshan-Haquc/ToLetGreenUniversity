@@ -1,17 +1,17 @@
 // function for showing popup and hiding popup
-function showingPopup() {
-  const popup = document.querySelector(".peopleReviewPopUp");
+function showingPopup(postCount) {
+  const popup = document.querySelector(`#peopleReviewPopUp${postCount}`);
   const background = document.querySelector(
-    ".peopleReviewPopUpBackground"
+    `#peopleReviewPopUpBackground${postCount}`
   );
   // Show popup and background overlay
   popup.classList.add("showPopup");
   background.classList.add("showPopup");
 }
-function hidePopup() {
-  const popup = document.querySelector(".peopleReviewPopUp");
+function hidePopup(postCount) {
+  const popup = document.querySelector(`#peopleReviewPopUp${postCount}`);
   const background = document.querySelector(
-    ".peopleReviewPopUpBackground"
+    `#peopleReviewPopUpBackground${postCount}`
   );
   popup.classList.remove("showPopup");
   background.classList.remove("showPopup");
