@@ -173,7 +173,7 @@
   transform: translate(-50%, -50%);
   border-radius: 10px;
   border: 1px solid rgb(0, 222, 0);
-  z-index: 1102;
+  z-index: 6;
   visibility: hidden;
   opacity: 0;
   transition: visibility 0s, opacity 0.3s;
@@ -220,6 +220,7 @@
 .showPopup {
   visibility: visible;
   opacity: 1;
+  z-index: 10;
 }
 /* ------------------------ */
 

@@ -155,7 +155,10 @@
         </div>
         <div id="postArea3">
           <!-- ekhane like review confirm button thakbe -->
-          <div id="post_button0" onclick="showingPopup()">
+          <div
+            id="post_button0"
+            onclick="showingPopup(<%=totalSeatAvailable.indexOf(post)%>)"
+          >
             <span>
               <span id="reviewCount"><%= post.reviewScore %></span>
               <i class="fa-regular fa-star"></i>
@@ -195,11 +198,21 @@
       </div>
 
       <!-- Popup Overlay Background -->
-      <div class="peopleReviewPopUpBackground" onclick="hidePopup()"></div>
+      <div
+        class="peopleReviewPopUpBackground"
+        id="peopleReviewPopUpBackground<%=totalSeatAvailable.indexOf(post)%>"
+        onclick="hidePopup(<%=totalSeatAvailable.indexOf(post)%>)"
+      ></div>
 
       <!-- Popup Content -->
-      <div class="peopleReviewPopUp">
-        <div class="crossButton" onclick="hidePopup()">
+      <div
+        class="peopleReviewPopUp"
+        id="peopleReviewPopUp<%=totalSeatAvailable.indexOf(post)%>"
+      >
+        <div
+          class="crossButton"
+          onclick="hidePopup(<%=totalSeatAvailable.indexOf(post)%>)"
+        >
           <i class="fa-solid fa-xmark fa-2x"></i>
         </div>
         <div id="textLikeAndDislikeShow">
@@ -217,7 +230,6 @@
           </div>
         </div>
       </div>
-
       <% }) %>
     </div>
     <script src="\javaScriptFiles\postShow.js"></script>
