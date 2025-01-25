@@ -21,13 +21,12 @@ const accessPermission = async (req,res,next)=>{
         }
     } catch (error) {
         req.unAuthenticateUser=true;
-        next();
-        // return res.status(401).send(`
-        //     <script>
-        //         alert("Session time is out. Please Login again!!!");
-        //         window.location.href = "/login";
-        //     </script>
-        // `);
+
+        return res.status(401).send(`
+            <script>
+                window.location.href = "/login";
+            </script>
+        `);
     }
 
 

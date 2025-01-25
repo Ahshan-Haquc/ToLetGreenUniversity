@@ -47,9 +47,8 @@ route.post("/signup", async (req, res, next) => {
 
     //rendering in login.ejs page
     console.log("Sign up succesful.");
-    // Redirect to intended page after successful login
-    const redirectTo = req.query.redirect || '/homePageToLetToLet';
-        res.redirect(redirectTo);
+    
+    res.status(200).redirect('/login');
   } catch (err) {
     console.log(err);
     if (err.code === 11000) {
@@ -64,9 +63,9 @@ route.post("/signup", async (req, res, next) => {
 });
 
 //routers for login without error means studentId or password is correct while just want to see the login page
-route.get("/login",accessPermission, (req, res) => {
-  const redirectTo = req.query.redirect || '/homePageToLetToLet';  // Default to homePageToLetToLet if no redirect provided
-  res.render("login", { error: false, redirect: redirectTo, student: req.studentInfo });
+route.get("/login",(req, res) => {
+
+  res.render("login", { error: false, student: false });
 });
 
 
@@ -81,9 +80,7 @@ route.post("/login", availableSeatFetch, async (req, res, next) => {
         const token = await user.generateToken();
         res.cookie("studentCookie", token, { expires: new Date(Date.now() + 600000), httpOnly: true });
 
-        // Redirect to intended page after successful login
-        const redirectTo = req.query.redirect || '/homePageToLet';
-        res.redirect(redirectTo);
+        res.status(200).redirect('/home');
       } else {
         res.status(400).render("login", { error: true, student: false });
       }
@@ -101,8 +98,10 @@ route.post("/logout", accessPermission, async (req, res) => {
   res.clearCookie("studentCookie");
   await req.studentInfo.save();
 
-  const redirectTo = req.query.redirect || '/homePageToLet';  // Default to homePageToLet if no redirect provided
-  res.render("login", { error: false, redirect: redirectTo, student: false });
+  // const redirectTo = req.query.redirect || '/homePageToLet';  // Default to homePageToLet if no redirect provided
+  // res.render("login", { error: false, redirect: redirectTo, student: false });
+
+  res.redirect('/login');
 });
 
 //router for handle an user access------------new
