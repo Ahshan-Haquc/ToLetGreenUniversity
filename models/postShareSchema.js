@@ -6,17 +6,29 @@ const postShareSchema = mongoose.Schema({
         required: true,
     },
     seat: {
-        type: String,
+        type: Number,
+        required: true,
+    },
+    roomNumber: {
+        type: Number,
+        required: true,
+    },
+    roomCapacity: {
+        type: Number,
         required: true,
     },
     entryMonth: {
         type: String,
         required: true,
     },
+    floorNumber: {
+        type: String,
+        required: true,
+    },
     rent: {
         type: Number,
         required: true,
-    },
+    }, //location part start from here
     distance: {
         type: String,
         required: true,
@@ -33,6 +45,10 @@ const postShareSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    googleMapLink: {
+        type: String,
+        required: true,
+    }, //facilities part starts from here
     gender: {
         type: String,
         required: true,

@@ -278,15 +278,24 @@ route.post("/findSeatByFiltering",accessPermission, async (req, res, next) => {
   }
 });
 
-route.get("/confirmToletSeat",accessPermission,(req,res)=>{
+route.get("/confirmToletSeat", accessPermission, async (req, res) => {
   try {
-    res.status(200).render("confirmToletSeat",{
+    const postID = req.query.postID; // Extract postID from query parameters
+    console.log("/confirmToLetSeat router working"); // For debugging
+
+    // fetching post all info by using incoming postID 
+    const postInfo = await PostShareModel.findOne({_id:postID});
+    console.log(postInfo);
+
+    res.status(200).render("confirmToletSeat", {
       student: req.studentInfo,
+      postInfo: postInfo,
     });
   } catch (error) {
-    res.send("Confirm seat router get df error : ",error);
+    res.send("Confirm seat router get df error: " + error);
   }
-})
+});
+
 
 
 // updating like and likeCounts

@@ -1,4 +1,4 @@
-// function for showing popup and hiding popup
+// function for showing popup and hiding popup of rating
 function showingPopup(postCount) {
   const popup = document.querySelector(`#peopleReviewPopUp${postCount}`);
   const background = document.querySelector(
@@ -62,4 +62,10 @@ async function toggleLike(postId, userId) {
   } catch (error) {
     console.error("Error toggling like:", error);
   }
+}
+
+
+// function for going from seePost to confirm post by clicking view all button 
+function goConfirmPage(postID) {
+  window.location.href = `/confirmToletSeat?postID=${postID}`;
 }
