@@ -42,8 +42,24 @@
     <!-- side nav bar -->
     <%- include("layout/sideNavBar") %>
 
-    <!-- post page content -->
+    <!-- showing filtering result, if render come from filter router  -->
+    <% if (comeFromFilterRouter === true) { %>
+    <script>
+      window.onload = function () {
+        // Pass `totalSeatAvailable` from the server to the script
+        const totalSeats = <%- JSON.stringify(totalSeatAvailable) %>;
+
+        alert("Total "+totalSeats.length + " posts found between these range.");
+
+      };
+    </script>
+    <% } %>
+
+    <!-- post page content starts from here -->
     <div class="contentBox">
+      <!-- nav bar part , this will appear above of the page -->
+      <%- include("layout/toLetNavBar") %>
+
       <!-- ei category range er post gula akta akta kore show korabo eita diye -->
       <% totalSeatAvailable.forEach((post)=>{ %>
       <div class="post_area">
@@ -83,7 +99,7 @@
             <button class="btn btn-default btn-md">Save it</button>
             <button
               class="btn btn-danger btn-md"
-              onclick="window.location.href='/confirmToletSeat'"
+              onclick="goConfirmPage('<%= post._id %>')"
             >
               View All
             </button>

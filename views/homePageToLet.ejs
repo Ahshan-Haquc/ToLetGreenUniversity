@@ -40,50 +40,13 @@
     <!-- side nav bar -->
     <%- include("layout/sideNavBar") %>
 
-    <!--popup window for unauthenticate person's login -->
-    <!-- Overlay to gray out the background -->
-    <div
-      class="overlay <%= userAuthenticationError ? 'alertVisible' : ''%>"
-      id="overlay"
-    ></div>
-    <div
-      class="alert <%= userAuthenticationError ? 'alertVisible' : ''%>"
-      id="alertBox"
-    >
-      <h2>Please Login!!!</h2>
-      <h3>Without login you can't do this activity.</h3>
-      <form action="/login" method="get">
-        <button class="btn btn-success btn-lg">Login</button>
-      </form>
-    </div>
 
     <!-- home page content -->
     <div class="contentBox">
-      <div class="contentBoxNavBar">
-        <div class="contentBoxNavBar1">
-          <div class="navElement" id="navElement1">
-            <a href="#contentBox1">Cholo eksathe</a>
-          </div>
-          |
-          <div class="navElement" id="navElement2">
-            <a href="#contentBox2">See post</a>
-          </div>
-          |
-          <div class="navElement" id="navElement2">
-            <a href="#contentBox2">Do post</a>
-          </div>
-          |
-          <div class="navElement" id="navElement3">
-            <a href="#contentBox3" style="transition: transform 0.3s ease"
-              >Quick find</a
-            >
-          </div>
-        </div>
-        <div class="contentBoxNavBar2">
-          <div class="contentBoxNavBarLogoName"><div class="aaa">To-Let</div></div>
-        </div>
+      <!-- nav bar part , this will appear above of the page -->
+      <%- include("layout/toLetNavBar") %>
 
-      </div>
+
       <div id="contentBox1">
         <!-- <div class="contentBoxHeading">
            <img
@@ -173,14 +136,9 @@
       </div>
       <div id="contentBox2">
         <div class="contentBoxHeading">
-          <!-- <img
-            src="images\location.png"
-            alt="***"
-            style="width: 70px; height: 70px"
-          /> -->
-          <h3>Find Your Destination Quickly</h3>
+          <h3 class="text-3xl font-bold">Find Your Destination Quickly</h3>
           <p>
-            are you looking for a suitable rent room? Then choose a rent renge.
+            Are you looking for a suitable rent room? Then choose a rent renge.
           </p>
         </div>
         <div class="seePostByFilteringAll">

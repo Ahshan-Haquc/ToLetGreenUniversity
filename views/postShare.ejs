@@ -10,36 +10,57 @@
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="headerNavBar.css" />
+    <!-- this is for adding css style -->
+    <!-- ei css file ei post show part er css rakhci -->
+    <link rel="stylesheet" href="sideNavBar.css" />
     <link rel="stylesheet" href="postShare.css" />
+    <link rel="stylesheet" href="headerNavBar.css" />
+    <link rel="stylesheet" href="homePageToLet.css" />
+    <link rel="stylesheet" href="footer.css" />
+    <link rel="stylesheet" href="output.css" />
   </head>
 
   <body>
     <!-- header nav bar -->
-    <%- include("layout/headerNavBar") %>
-    <div class="content">
+    <%- include("layout/headerNavBar") %> <%- include("layout/sideNavBar") %>
+    <!-- nav bar part , this will appear above of the page -->
+    <%- include("layout/toLetNavBar") %>
+    <div class="content my-8">
       <form action="/postShare" method="POST" enctype="multipart/form-data">
         <div class="form-group row">
-          <label for="title" class="col-sm-3 col-form-label fontSize"
-            >Title</label
-          >
-          <div class="col-sm-9">
+          <label for="title" class="col-sm-2 col-form-label">Title</label>
+          <div class="col-sm-10">
             <input
-              class="form-control input-lg"
+              class="form-control"
               name="title"
               type="text"
-              placeholder="enter title of the post"
+              placeholder="Enter title of the post"
               id="title"
             />
           </div>
         </div>
         <div class="form-group row">
-          <label for="seat_number" class="col-sm-3 col-form-label fontSize"
-            >Seat / Room availabe</label
+          <label for="title" class="col-sm-2 col-form-label"
+            >Number of Seats</label
           >
-          <div class="col-sm-9">
-            <select class="form-control input-lg" name="seat" id="seat_number">
-              <option value="dining">1 seat in dianing</option>
+          <div class="col-sm-10">
+            <input
+              class="form-control"
+              name="seat"
+              type="number"
+              placeholder="Enter title of the post"
+              id="title"
+            />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="seat_number" class="col-sm-2 col-form-label"
+            >Seat type</label
+          >
+          <div class="col-sm-10">
+            <select class="form-control" name="seat" id="seat_number">
+              <option value="dining">1 seat in dining</option>
               <option value="one_seat1" selected>
                 1 seat in 2 person room
               </option>
@@ -50,12 +71,11 @@
             </select>
           </div>
         </div>
+
         <div class="form-group row">
-          <label for="month" class="col-sm-3 col-form-label fontSize"
-            >Entry month</label
-          >
-          <div class="col-sm-9">
-            <select class="form-control input-lg" name="entryMonth" id="month">
+          <label for="month" class="col-sm-2 col-form-label">Entry Month</label>
+          <div class="col-sm-10">
+            <select class="form-control" name="entryMonth" id="month">
               <option value="January">January</option>
               <option value="February">February</option>
               <option value="March">March</option>
@@ -71,140 +91,182 @@
             </select>
           </div>
         </div>
+
         <div class="form-group row">
-          <label for="rent" class="col-sm-3 col-form-label fontSize"
-            >Seat rent</label
-          >
-          <div class="col-sm-9">
+          <label for="rent" class="col-sm-2 col-form-label">Seat Rent</label>
+          <div class="col-sm-10">
             <input
-              class="form-control input-lg"
+              class="form-control"
               name="rent"
               type="number"
-              placeholder="enter each seat rent in ( tk )"
+              placeholder="Enter each seat rent in (tk)"
               id="rent"
             />
           </div>
         </div>
+
         <div class="form-group row">
-          <label for="rent" class="col-sm-3 col-form-label fontSize"
-            >Distance</label
-          >
-          <div class="col-sm-9" style="display: flex">
+          <label for="distance" class="col-sm-2 col-form-label">Distance</label>
+          <div class="col-sm-10" style="display: flex; gap: 10px">
             <input
-              class="form-control input-lg"
+              class="form-control"
               name="distance"
               type="number"
-              placeholder="distance from University (km)"
-              id="rent"
+              placeholder="Distance from University (km)"
+              id="distance"
             />
             <input
-              class="form-control input-lg"
+              class="form-control"
               name="timeRequire"
               type="number"
-              placeholder="maximum time require in (min)"
-              id="rent"
+              placeholder="Maximum time required (min)"
+              id="timeRequire"
             />
           </div>
         </div>
+
         <div class="form-group row">
-          <label for="rent" class="col-sm-3 col-form-label fontSize"
-            >Location</label
-          >
-          <div class="col-sm-9" style="display: flex">
-            <select
-              name="locationVillage"
-              id="village"
-              class="form-control input-lg"
-            >
-              <option value="kaladi">kaladi</option>
-              <option value="kanchan-bazar">kanchan-bazar</option>
-              <option value="kanchan-bridge">kanchan-bridge</option>
-              <option value="university-gate">university-gate</option>
-              <option value="shewrapara">shewrapara</option>
-              <option value="kazipara">kazipara</option>
-              <option value="agargaon">agargaon</option>
-              <option value="blank">blank</option>
+          <label for="location" class="col-sm-2 col-form-label">Location</label>
+          <div class="col-sm-10" style="display: flex; gap: 10px">
+            <select name="locationVillage" id="village" class="form-control">
+              <option value="kaladi">Kaladi</option>
+              <option value="kanchan-bazar">Kanchan-Bazar</option>
+              <option value="kanchan-bridge">Kanchan-Bridge</option>
+              <option value="university-gate">University-Gate</option>
+              <option value="shewrapara">Shewrapara</option>
+              <option value="kazipara">Kazipara</option>
+              <option value="agargaon">Agargaon</option>
+              <option value="blank">Blank</option>
             </select>
-            <select
-              name="locationDistick"
-              id="distick"
-              class="form-control input-lg"
-            >
-              <option value="narayanganj">narayanganj</option>
-              <option value="mirpur10">mirpur-10</option>
-              <option value="kuril">kuril</option>
+            <select name="locationDistick" id="distick" class="form-control">
+              <option value="narayanganj">Narayanganj</option>
+              <option value="mirpur10">Mirpur-10</option>
+              <option value="kuril">Kuril</option>
             </select>
           </div>
         </div>
+
         <div class="form-group row">
-          <label for="gender" class="col-sm-3 col-form-label fontSize"
-            >Gender</label
-          >
-          <div class="col-sm-9">
-            <select class="form-control input-lg" name="gender" id="gender">
+          <label for="gender" class="col-sm-2 col-form-label">Gender</label>
+          <div class="col-sm-10">
+            <select class="form-control" name="gender" id="gender">
               <option value="male">Male</option>
               <option value="female">Female</option>
             </select>
           </div>
         </div>
-        <div class="form-group row facilities">
-          <div class="col-sm-3">Facilitiels</div>
-          <div class="col-sm-9">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="gridCheck1" />
-              <label class="form-check-label" for="gridCheck1"
-                >Wifi availabe</label
-              >
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="gridCheck1" />
-              <label class="form-check-label" for="gridCheck1"
-                >Line gass availabe</label
-              >
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="gridCheck1" />
-              <label class="form-check-label" for="gridCheck1"
-                >Meal system availabe</label
-              >
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="gridCheck1" />
-              <label class="form-check-label" for="gridCheck1"
-                >Utility bill available</label
-              >
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="gridCheck1" />
-              <label class="form-check-label" for="gridCheck1"
-                >Attatched washroom</label
-              >
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="gridCheck1" />
-              <label class="form-check-label" for="gridCheck1"
-                >Attatched belkuni</label
-              >
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="gridCheck1" />
-              <label class="form-check-label" for="gridCheck1"
-                >Lift availabe</label
-              >
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="gridCheck1" />
-              <label class="form-check-label" for="gridCheck1"
-                >Car parking availabe</label
-              >
+
+        <fieldset class="form-group">
+          <div class="row">
+            <label for="facilities" class="col-sm-2 col-form-label"
+              >Facilities</label
+            >
+            <div class="col-sm-10">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  name="facilities"
+                  value="wifi"
+                  id="wifi"
+                />
+                <label class="form-check-label" for="wifi"
+                  >Wifi Available</label
+                >
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  name="facilities"
+                  value="line_gas"
+                  id="line_gas"
+                />
+                <label class="form-check-label" for="line_gas"
+                  >Line Gas Available</label
+                >
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  name="facilities"
+                  value="meal_system"
+                  id="meal_system"
+                />
+                <label class="form-check-label" for="meal_system"
+                  >Meal System Available</label
+                >
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  name="facilities"
+                  value="utility_bill"
+                  id="utility_bill"
+                />
+                <label class="form-check-label" for="utility_bill"
+                  >Utility Bill Available</label
+                >
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  name="facilities"
+                  value="attached_washroom"
+                  id="attached_washroom"
+                />
+                <label class="form-check-label" for="attached_washroom"
+                  >Attached Washroom</label
+                >
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  name="facilities"
+                  value="attached_belkuni"
+                  id="attached_belkuni"
+                />
+                <label class="form-check-label" for="attached_belkuni"
+                  >Attached Belkuni</label
+                >
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  name="facilities"
+                  value="lift"
+                  id="lift"
+                />
+                <label class="form-check-label" for="lift"
+                  >Lift Available</label
+                >
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  name="facilities"
+                  value="car_parking"
+                  id="car_parking"
+                />
+                <label class="form-check-label" for="car_parking"
+                  >Car Parking Available</label
+                >
+              </div>
             </div>
           </div>
-        </div>
+        </fieldset>
+
         <div class="form-group row">
-          <label for="description" class="col-sm-3 col-form-label fontSize"
-            >Discription (optional)
-          </label>
-          <div class="col-sm-9">
+          <label for="description" class="col-sm-2 col-form-label"
+            >Description (Optional)</label
+          >
+          <div class="col-sm-10">
             <textarea
               class="form-control"
               name="description"
@@ -213,11 +275,12 @@
             ></textarea>
           </div>
         </div>
+
         <div class="form-group row">
-          <label for="contact" class="col-sm-3 col-form-label fontSize"
-            >Contact number</label
+          <label for="contact" class="col-sm-2 col-form-label"
+            >Contact Number</label
           >
-          <div class="col-sm-9">
+          <div class="col-sm-10">
             <input
               type="number"
               name="contactNumber"
@@ -227,24 +290,30 @@
             />
           </div>
         </div>
+
         <div class="form-group row">
-          <label for="contact" class="col-sm-3 col-form-label fontSize"
-            >Room images (maximux 5 images)</label
+          <label for="images" class="col-sm-2 col-form-label"
+            >Room Images (Max 5)</label
           >
-          <div class="col-sm-9">
-            <input type="file" name="images" multiple accept="image/*" />
+          <div class="col-sm-10">
+            <input
+              type="file"
+              name="images"
+              multiple
+              accept="image/*"
+              class="form-control"
+              id="images"
+            />
           </div>
         </div>
 
-        <div
-          class="form-group row"
-          style="display: flex; justify-content: center; margin-top: 50px"
-        >
-          <button type="submit" class="btn btn-success btn-lg">
-            Confirm Post
-          </button>
+        <div class="form-group row">
+          <div class="col-sm-10 offset-sm-2">
+            <button type="submit" class="btn btn-success">Confirm Post</button>
+          </div>
         </div>
       </form>
     </div>
   </body>
+  <%- include("layout/footer.ejs") %>
 </html>

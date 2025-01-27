@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="homePage.css" />
     <link rel="stylesheet" href="profile.css" />
     <link href="output.css" rel="stylesheet" />
+    <link rel="stylesheet" href="footer.css" />
   </head>
 
   <body>
@@ -36,7 +37,9 @@
           <div class="w-[30%] h-[100%] center md:w-[30%] md:h-[100%] md:center">
             <div class="profileImageBox">
               <div class="profileImage"></div>
-              <div class="profileName">Ahshanul Haquc</div>
+              <div class="profileName">
+                <%= student.firstName %> <%= student.lastName %>
+              </div>
             </div>
           </div>
           <div
@@ -46,49 +49,36 @@
               <div
                 class="h-[60%] text-[#616161] text-3xl flex items-center pl-5 md:h-[60%] md:text-[#616161] md:text-3xl md:flex md:items-center md:pl-5"
               >
-                Student name
+                Student Id
               </div>
               <div
                 class="h-[40%] text-black text-4xl flex pl-5 md:h-[40%] md:text-black md:text-4xl md:flex md:pl-5"
               >
-                Ahshanul Haquc
+                <%= student.studentId %>
               </div>
             </div>
             <div class="userInfo">
               <div
                 class="h-[60%] text-[#616161] text-3xl flex items-center pl-5 md:h-[60%] md:text-[#616161] md:text-3xl md:flex md:items-center md:pl-5"
               >
-                Student name
+                Department of
               </div>
               <div
                 class="h-[40%] text-black text-4xl flex pl-5 md:h-[40%] md:text-black md:text-4xl md:flex md:pl-5"
               >
-                Ahshanul Haquc
+                <%= student.department %>
               </div>
             </div>
             <div class="userInfo">
               <div
                 class="h-[60%] text-[#616161] text-3xl flex items-center pl-5 md:h-[60%] md:text-[#616161] md:text-3xl md:flex md:items-center md:pl-5"
               >
-                Student name
+                Gender
               </div>
               <div
                 class="h-[40%] text-black text-4xl flex pl-5 md:h-[40%] md:text-black md:text-4xl md:flex md:pl-5"
               >
-                Ahshanul Haquc
-              </div>
-            </div>
-
-            <div class="userInfo">
-              <div
-                class="h-[60%] text-[#616161] text-3xl flex items-center pl-5 md:h-[60%] md:text-[#616161] md:text-3xl md:flex md:items-center md:pl-5"
-              >
-                Student name
-              </div>
-              <div
-                class="h-[40%] text-black text-4xl flex pl-5 md:h-[40%] md:text-black md:text-4xl md:flex md:pl-5"
-              >
-                Ahshanul Haquc
+                <%= student.gender %>
               </div>
             </div>
 
@@ -96,12 +86,12 @@
               <div
                 class="h-[60%] text-[#616161] text-3xl flex items-center pl-5 md:h-[60%] md:text-[#616161] md:text-3xl md:flex md:items-center md:pl-5"
               >
-                Student name
+                Email Account
               </div>
               <div
-                class="h-[40%] text-black text-4xl flex pl-5 md:h-[40%] md:text-black md:text-4xl md:flex md:pl-5"
+                class="h-[40%] text-black text-4xl flex pl-5 md:h-[40%] md:text-black md:text-4xl md:flex md:pl-5 md:overflow-hidden"
               >
-                Ahshanul Haquc
+                <%= student.email %>
               </div>
             </div>
 
@@ -109,12 +99,25 @@
               <div
                 class="h-[60%] text-[#616161] text-3xl flex items-center pl-5 md:h-[60%] md:text-[#616161] md:text-3xl md:flex md:items-center md:pl-5"
               >
-                Student name
+                Phone
               </div>
               <div
                 class="h-[40%] text-black text-4xl flex pl-5 md:h-[40%] md:text-black md:text-4xl md:flex md:pl-5"
               >
-                Ahshanul Haquc
+                <%= student.phone %>
+              </div>
+            </div>
+
+            <div class="userInfo">
+              <div
+                class="h-[60%] text-[#616161] text-3xl flex items-center pl-5 md:h-[60%] md:text-[#616161] md:text-3xl md:flex md:items-center md:pl-5 md:overflow-hidden"
+              >
+                Registration Date
+              </div>
+              <div
+                class="h-[40%] text-black text-4xl flex pl-5 md:h-[40%] md:text-black md:text-4xl md:flex md:pl-5 md:overflow-hidden"
+              >
+                <%= student.registrationDate %>
               </div>
             </div>
           </div>
@@ -170,5 +173,7 @@
         </div>
       </div>
     </div>
+    <script src="\javaScriptFiles\sideNavBarShow.js"></script>
   </body>
+  <%- include("layout/footer.ejs") %>
 </html>

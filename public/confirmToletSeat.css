@@ -16,7 +16,7 @@
   flex-shrink: 1;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-between;
   gap: 20px;
   padding: 15px;
 }
@@ -25,4 +25,11 @@
   height: 90px;
   width: 350px;
   border-radius: 15px;
+}
+
+.makeVisible {
+  visibility: visible;
+}
+.makeUnvisible {
+  visibility: hidden;
 }

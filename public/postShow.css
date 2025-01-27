@@ -40,7 +40,8 @@
   height: 325px;
   width: 72%;
   padding: 5px;
-  justify-content: space-between;
+  justify-content: start;
+  gap: 15px;
 }
 #postArea2 #box1 .image {
   height: 280px;
