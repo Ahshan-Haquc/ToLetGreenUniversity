@@ -17,7 +17,7 @@
   position: sticky;
   top: 67px;
   /* left: 25vw; */
-  z-index: 100;
+  z-index: 1;
 }
 .contentBoxNavBar1 {
   width: 50%;
@@ -231,7 +231,8 @@ a:hover {
   background: linear-gradient(123deg, #ffffff 70%, #ffffff 70%);
   box-shadow: 0px 0px 16px #00000033;
   padding: 20px;
-  width: 80%;
+  width: 100%;
+  margin-top: 20px;
   margin-bottom: 50px;
 }
 #seePostByFiltering1 {

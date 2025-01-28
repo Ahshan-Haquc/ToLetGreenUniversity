@@ -26,3 +26,10 @@
   width: 350px;
   border-radius: 15px;
 }
+
+.makeVisible {
+  visibility: visible;
+}
+.makeUnvisible {
+  visibility: hidden;
+}

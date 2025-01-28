@@ -64,7 +64,6 @@ route.post("/signup", async (req, res, next) => {
 
 //routers for login without error means studentId or password is correct while just want to see the login page
 route.get("/login",(req, res) => {
-
   res.render("login", { error: false, student: false });
 });
 
@@ -78,7 +77,7 @@ route.post("/login", availableSeatFetch, async (req, res, next) => {
       if (isValidPassword) {
         // Generate token and set cookie
         const token = await user.generateToken();
-        res.cookie("studentCookie", token, { expires: new Date(Date.now() + 600000), httpOnly: true });
+        res.cookie("studentCookie", token, { expires: new Date(Date.now() + 3600000), httpOnly: true });
 
         res.status(200).redirect('/home');
       } else {
@@ -102,27 +101,6 @@ route.post("/logout", accessPermission, async (req, res) => {
   // res.render("login", { error: false, redirect: redirectTo, student: false });
 
   res.redirect('/login');
-});
-
-//router for handle an user access------------new
-route.get('/check-auth',accessPermission,availableSeatFetch, (req, res) => {
-  const redirectTo = req.query.redirect;  // Get the page they want to access
-
-  if(req.unAuthenticateUser){
-    res.render("homePageToLet", {
-       userAuthenticationError: true,
-       student: req.studentInfo,
-       availableSeat: req.availableSeatFetch,
-      });
-  }else{
-    if (!req.cookies.studentCookie) {
-      // If not authenticated, redirect to login with intended page as query
-      res.redirect(`/login?redirect=${redirectTo}`);
-    } else {
-      // If authenticated, go to the intended page
-      res.redirect(redirectTo);
-    }
-  }
 });
 
 
@@ -232,6 +210,7 @@ route.get('/totalPostAvailable',accessPermission,availableSeatFetch,(req,res)=>{
       totalSeatAvailable : req.totalSeatAvailable,
       student: req.studentInfo,
       userAuthenticationError: false,
+      comeFromFilterRouter: false,
     })
   } catch (error) {
     console.log("/totalPostAvailable error: ",error);
@@ -267,9 +246,10 @@ route.post("/findSeatByFiltering",accessPermission, async (req, res, next) => {
         });
     
 
-  res.status(200).render('seePostByRange',{
-    student: req.studentInfo,
-    seePost: findSharedPostInRange
+  res.status(200).render('seeAllAvailableSeat',{
+    totalSeatAvailable : findSharedPostInRange,
+      student: req.studentInfo,
+      comeFromFilterRouter: true,
   })
   
   } catch (error) {
@@ -281,11 +261,10 @@ route.post("/findSeatByFiltering",accessPermission, async (req, res, next) => {
 route.get("/confirmToletSeat", accessPermission, async (req, res) => {
   try {
     const postID = req.query.postID; // Extract postID from query parameters
-    console.log("/confirmToLetSeat router working"); // For debugging
+    console.log("confirmToLetSeat router working"); // For debugging
 
     // fetching post all info by using incoming postID 
     const postInfo = await PostShareModel.findOne({_id:postID});
-    console.log(postInfo);
 
     res.status(200).render("confirmToletSeat", {
       student: req.studentInfo,

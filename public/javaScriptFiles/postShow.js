@@ -69,3 +69,14 @@ async function toggleLike(postId, userId) {
 function goConfirmPage(postID) {
   window.location.href = `/confirmToletSeat?postID=${postID}`;
 }
+
+
+
+// ----------------
+// alert will show whenever page will load
+// it will only occur when page is render by filter router
+function showFilterResultAlert(){
+  window.onload = function() {
+    alert("Page has loaded successfully!");
+};
+}

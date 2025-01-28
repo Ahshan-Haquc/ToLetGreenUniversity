@@ -36,15 +36,16 @@
 
       <div class="contentBoxNavBar">
         <div class="contentBoxNavBar1">
-          <div class="navElement" id="navElement2">
+          <div class="text-3xl font-bold text-[#00b10f]">ToLet</div> >>
+          <div class="navElement text-green-600" id="navElement2">
             <a href="#contentBox2">See post</a>
           </div>
           |
-          <div class="navElement" id="navElement2">
+          <div class="navElement text-green-600" id="navElement2">
             <a href="#contentBox2">Do post</a>
           </div>
           |
-          <div class="navElement" id="navElement3">
+          <div class="navElement text-green-600" id="navElement3">
             <a href="#contentBox3" style="transition: transform 0.3s ease"
               >Quick find</a
             >
@@ -59,21 +60,17 @@
                 id="profile-box2"
                 >
                 <button
-                  class="btn btn-default"
+                  class="btn btn-default text-green-600"
                 >
                   Save this
                 </button>
                 <button
-                  class="btn btn-danger "
+                  class="btn btn-default text-green-600"
                 >
-                  Confirm Request Sent
+                  Confirm Sent
                 </button>
                 </div>
-
-
-          <div class="ml-4">ToLet</div>
         </div>
-
       </div>
 
 
@@ -147,7 +144,7 @@
               <div
                 class="h-[40%] text-black text-3xl flex pl-5 md:h-[40%] md:text-black md:text-3xl md:flex md:pl-5"
               >
-              <%= postInfo.rent %>
+              <%= postInfo.rent %> TK
               </div>
               </div>
             </div>
@@ -264,9 +261,12 @@
                 Google Map Link
               </div>
               <div
-                class="h-[40%] text-black text-3xl flex pl-5 md:h-[40%] md:text-black md:text-3xl md:flex md:pl-5"
+                class="h-[40%] text-black text-3xl flex justify-between  pl-5 md:h-[40%] md:text-black md:text-3xl md:flex md:pl-5 pr-5"
               >
-              <%= postInfo.googleMapLink %>
+                <div class="w-4/5 h-[60%] overflow-hidden" id="copyGoogleMapLink"><%= postInfo.googleMapLink %>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officia iste dolor vitae accusamus</div>
+                <div class="w-1/5 flex justify-end hover:cursor-pointer hover:scale-110" onclick="copyText('googleMapLink')">
+                  <img class="h-7 w-7 mt-1" src="images/copy.png" alt="">
+                </div>
               </div>
               </div>
             </div>
@@ -274,22 +274,45 @@
 
           </div>
         </div>
+
 
         <!-- image  -->
         <div class="box mt-9 justify-between items-center">
           <div class="boxHead center text-3xl shadow">Images</div>
           <div class="boxContent center gap-2">
-            <div class="h-[100px] w-[100px] rounded-full hover:bg-gray-300 center"><img class="h-[70px] w-[70px]" src="images/back.png" alt=""></div>
-            <div class="h-[500px] w-[500px] bg-black">
-              <img src="" alt="">
+            <div
+              class="h-[100px] w-[100px] rounded-full hover:bg-gray-300 center"
+              onclick="changeImage('back')"
+            >
+              <img class="h-[70px] w-[70px]" src="images/back.png" alt="">
             </div>
-            <div class="h-[100px] w-[100px] rounded-full hover:bg-gray-300 center"><img class="h-[70px] w-[70px]" src="images/next.png" alt=""></div>
+            <div class="h-[500px] w-[1000px] bg-black center relative">
+              <!-- Here the image will dynamically update -->
+              <img id="displayImage" class="h-[100%] overflow-hidden" src="/<%= postInfo.roomImages[0] %>" alt="">
+              <div class="bg-gray-800 rounded-full h-[50px] w-[50px] center absolute bottom-5 right-5 hover:bg-gray-600 hover:scale-110 hover:cursor-pointer" onclick="fullScreen()"><img class="invert h-10 w-10 " src="images/full-screen.png" alt=""></div>
+            </div>
+            <div
+              class="h-[100px] w-[100px] rounded-full hover:bg-gray-300 center"
+              onclick="changeImage('next')"
+            >
+              <img class="h-[70px] w-[70px]" src="images/next.png" alt="">
+            </div>
           </div>
           <div class="imageCount center flex-col h-10 my-5">
-            <div>1/4</div>
-            <div>Total Image: 4</div>
+            <div id="currentImageIndex">1/<%= postInfo.roomImages.length %></div>
+            <div>Total Images: <%= postInfo.roomImages.length %></div>
           </div>
         </div>
+        
+
+        <!-- showing full screen picture after clicking -->
+        <div class="h-[100vh] w-[100vw] p-10 bg-gray-950 fixed top-0 left-0 z-[1000] center transition-all duration-500 ease-out makeUnvisible makeVisible" id="fullScreen">
+          <div class="bg-gray-800 rounded-full h-[50px] w-[50px] center absolute top-7 right-14 hover:cursor-pointer hover:scale-110 hover:bg-gray-600" onclick="cancelFullScreen()"><img class="invert h-10 w-10 " src="images/cancel.png" alt=""></div>
+
+
+          <img id="displayFullScreenImage" class="h-[100%] overflow-hidden" src="/<%= postInfo.roomImages[0] %>" alt="">
+        </div>
+
 
 
         <!-- facilities -->
@@ -351,7 +374,7 @@
               <div
                 class="h-[40%] text-black text-3xl flex pl-5 md:h-[40%] md:text-black md:text-3xl md:flex md:pl-5"
               >
-                <%= student.firstName %> &nbsp; <%= student.lastName %>
+                <%= student.firstName %> <%= student.lastName %>
               </div>
               </div>
             </div>
@@ -397,9 +420,14 @@
                 Email Account
               </div>
               <div
-                class="h-[40%] text-black text-3xl flex pl-5 md:h-[40%] md:text-black md:text-3xl md:flex md:pl-5"
+                class="h-[40%] text-black text-3xl flex justify-between  pl-5 md:h-[40%] md:text-black md:text-3xl md:flex md:pl-5 pr-5"
               >
-              <%= student.email %>
+                <div class="w-4/5" id="copyEmailId">
+                  <%= student.email %>
+                </div>
+                <div class="w-1/5 flex justify-end hover:cursor-pointer hover:scale-110" onclick="copyText('emailId')">
+                  <img class="h-7 w-7 mt-1" src="images/copy.png" alt="">
+                </div>
               </div>
               </div>
             </div>
@@ -429,10 +457,14 @@
                 Phone Number
               </div>
               <div
-                class="h-[40%] text-black text-3xl flex pl-5 md:h-[40%] md:text-black md:text-3xl md:flex md:pl-5"
+                class="h-[40%] text-black text-3xl flex justify-between  pl-5 md:h-[40%] md:text-black md:text-3xl md:flex md:pl-5 pr-5"
               >
-              <%= student.phone %>
+                <div class="w-4/5" id="copyPhoneNumber"><%=student.phone%></div>
+                <div class="w-1/5 flex justify-end hover:cursor-pointer hover:scale-110" onclick="copyText('phoneNumber')">
+                  <img class="h-7 w-7 mt-1" src="images/copy.png" alt="">
+                </div>
               </div>
+            
               </div>
             </div>
           </div>
@@ -441,7 +473,11 @@
       </div>
       </div>
     </div>
+    <script>
+      const roomImages = <%- JSON.stringify(postInfo.roomImages) %>;
+    </script>
     <script src="\javaScriptFiles\sideNavBarShow.js"></script>
+    <script src="\javaScriptFiles\confirmPage.js"></script>
   </body>
   <%- include("layout/footer.ejs") %>
 </html>
