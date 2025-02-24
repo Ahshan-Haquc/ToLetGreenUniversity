@@ -178,28 +178,72 @@ route.get("/postShare", accessPermission,availableSeatFetch, (req, res) => {
   }
 });
 
+
 // Router for post share post
-route.post("/postShare", accessPermission, availableSeatFetch, upload.array('images', 5), async (req, res, next) => {
-  try {
+route.post(
+  "/postShare",
+  accessPermission,
+  availableSeatFetch,
+  upload.array('images', 5), // Handle image uploads (max 5)
+  async (req, res, next) => {
+    try {
       // Map uploaded files to get paths
       const imagePaths = req.files.map(file => file.path); // Array of paths for each uploaded image
 
-const postModel = new PostShareModel({
-    ...req.body,
-    roomImages: imagePaths,  // Save image paths to roomImages
-    studentPostedId: req.studentInfo._id
-});
-      const savedPost = await postModel.save();
+      // Ensure facilities is stored as an array
+      const facilities = Array.isArray(req.body.facilities)
+        ? req.body.facilities // If already an array
+        : [req.body.facilities].filter(Boolean); // Convert to array if single value or empty
 
-      console.log("Post saved with images:", savedPost);
-      res.redirect('/homePageToLetToLet');
-  } catch (error) {
-      console.log("Error uploading images:", error);
+      // Create a new post model where post info will store in db
+      const postModel = new PostShareModel({
+        title: req.body.title,
+        seat: req.body.seat,
+        numberOfRoom: req.body.numberOfRoom,
+        roomCapacity: req.body.roomCapacity,
+        entryMonth: req.body.entryMonth,
+        floorNumber: req.body.floorNumber,
+        rent: req.body.rent,
+        distance: req.body.distance,
+        timeRequire: req.body.timeRequire,
+        locationVillage: req.body.locationVillage,
+        locationDistick: req.body.locationDistick,
+        googleMapLink: req.body.googleMapLink,
+        gender: req.body.gender,
+        facilities: facilities, // Properly handled facilities as an array
+        description: req.body.description,
+        contactNumber: req.body.contactNumber,
+        roomImages: imagePaths, // Save image paths to roomImages
+        studentPostedId: req.studentInfo._id, // Save student ID for reference
+      });
+
+      // Save the post to the database
+      const sharedPost = await postModel.save();
+
+      // Find the user who posted
+      const findUser = await Model.findOne({ _id: req.studentInfo._id });
+
+      if (!findUser) {
+        throw new Error("User not found"); // Handle case where user is not found
+      }
+
+      // Ensure sharedPosts array exists in the user document
+      if (!Array.isArray(findUser.sharedPosts)) {
+        findUser.sharedPosts = []; // Initialize as an empty array if undefined
+      }
+
+      // Push the new post's ID to the user's sharedPosts array
+      findUser.sharedPosts.push(sharedPost._id);
+      await findUser.save();
+
+      console.log("Post shared successfully");
+      res.redirect('/homePageToLet');
+    } catch (error) {
+      console.log("Error uploading images:", error.message);
       next(error);
+    }
   }
-});
-
-
+);
 
 
 //home page content part (means services routers)
@@ -232,7 +276,7 @@ route.get('/successRateSee',accessPermission,availableSeatFetch,(req,res)=>{
 })
 
 
-
+//finding seats when clicking on "go" button for filter quick find
 route.post("/findSeatByFiltering",accessPermission, async (req, res, next) => {
   try {
     //taking range limit and location from input in the ejs file
@@ -240,7 +284,7 @@ route.post("/findSeatByFiltering",accessPermission, async (req, res, next) => {
     const rangeLimitEnd = req.body.renge2;
     const houseLocation = req.body.location;
 
-      //finding kon kon collection er rent 500tk theke 1500tk er moddhe
+      //finding kon kon collection rent er moddhe ase
       const findSharedPostInRange = await PostShareModel.find({
         rent: { $gte: rangeLimitStart, $lte: rangeLimitEnd },locationDistick: houseLocation
         });
@@ -257,6 +301,16 @@ route.post("/findSeatByFiltering",accessPermission, async (req, res, next) => {
       next(error);
   }
 });
+
+
+//finding just seats counts when just someone put inputs for filter quick find without reloading page
+route.post("/findJustNumberOfSeatsUsingFiltering",async (req,res)=>{
+  const {renge1,renge2,location} = req.body;
+
+  const numberOfSeats = await PostShareModel.find({rent:{$gte:renge1,$lte:renge2},locationDistick: location});
+
+  res.json({availableSeats:numberOfSeats.length});
+})
 
 route.get("/confirmToletSeat", accessPermission, async (req, res) => {
   try {

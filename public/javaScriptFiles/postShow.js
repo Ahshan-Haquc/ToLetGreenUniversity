@@ -8,11 +8,35 @@ function showingPopup(postCount) {
   popup.classList.add("showPopup");
   background.classList.add("showPopup");
 }
+
 function hidePopup(postCount) {
   const popup = document.querySelector(`#peopleReviewPopUp${postCount}`);
   const background = document.querySelector(
     `#peopleReviewPopUpBackground${postCount}`
   );
+  popup.classList.remove("showPopup");
+  background.classList.remove("showPopup");
+}
+
+// function for showing popup and hiding popup of google map link showing
+function showingGoogleMapPopup(postId) {
+  const popup = document.querySelector(`#googleMapPopUp${postId}`);
+  console.log(popup);
+  const background = document.querySelector(
+    `#peopleReviewPopUpBackground${postId}`
+  );
+  // Show popup and background overlay
+  popup.classList.add("showPopup");
+  background.classList.add("showPopup");
+}
+
+function hideGoogleMapPopupBackground(postId) {
+  const popup = document.querySelector(`#googleMapPopUp${postId}`);
+  console.log(popup);
+  const background = document.querySelector(
+    `#peopleReviewPopUpBackground${postId}`
+  );
+  // Show popup and background overlay
   popup.classList.remove("showPopup");
   background.classList.remove("showPopup");
 }

@@ -42,7 +42,7 @@
     <!-- side nav bar -->
     <%- include("layout/sideNavBar") %>
 
-    <!-- showing filtering result, if render come from filter router  -->
+    <!-- showing filtering result, if render come from quick find router  -->
     <% if (comeFromFilterRouter === true) { %>
     <script>
       window.onload = function () {
@@ -65,9 +65,11 @@
       <div class="post_area">
         <div id="postArea1">
           <div id="postArea1Box1">
-            <h2 id="h2_color" style="margin-top: 0px"><%= post.title %></h2>
-            <h5>
-              <span class="glyphicon glyphicon-time"></span>
+            <div class="text-5xl mt-3 mb-6 overflow-hidden" id="h2_color">
+              <%= post.title %>
+            </div>
+            <h5 class="mb-2">
+              <span class="glyphicon glyphicon-time mb-2"></span>
               Posted by <%= student ? student.firstName + ' ' + student.lastName
               : 'an User' %>
             </h5>
@@ -75,6 +77,9 @@
               <span class="label label-danger">rent : <%= post.rent %>tk</span>
               <span class="label label-primary"
                 >location : <%= post. locationDistick %></span
+              >
+              <span class="label label-primary"
+                >Post for : <%= post.gender %></span
               >
             </h5>
           </div>
@@ -134,14 +139,12 @@
             >
               <!-- Here 3rd image will be visible from the database -->
               <% if (post.roomImages && post.roomImages.length > 0) { %>
-              <div
-                class="image-background"
-                style="
-                  background-image: url('/uploads/1731119062004-pexels-juan-agustin-2340254.jpg');
-                "
-              ></div>
-              <p class="centered-text">
-                <a href="">See More</a>
+              <div class="image-background"></div>
+              <p
+                class="centered-text hover:cursor-pointer"
+                onclick="goConfirmPage('<%= post._id %>')"
+              >
+                See More
               </p>
               <% } else { %>
               <p>No image</p>
@@ -202,7 +205,10 @@
               'Dis-Like' %></span
             >
           </div>
-          <div id="post_button2">
+          <div
+            id="post_button2"
+            onclick="showingGoogleMapPopup('<%= post._id %>')"
+          >
             <i class="fa-regular fa-compass"></i
             ><span class="ffsize">Map location</span>
           </div>
@@ -213,14 +219,14 @@
         </div>
       </div>
 
-      <!-- Popup Overlay Background -->
+      <!-- popup window start here  -->
+      <!-- Popup Overlay for showing rating-->
       <div
         class="peopleReviewPopUpBackground"
         id="peopleReviewPopUpBackground<%=totalSeatAvailable.indexOf(post)%>"
         onclick="hidePopup(<%=totalSeatAvailable.indexOf(post)%>)"
       ></div>
 
-      <!-- Popup Content -->
       <div
         class="peopleReviewPopUp"
         id="peopleReviewPopUp<%=totalSeatAvailable.indexOf(post)%>"
@@ -233,22 +239,57 @@
         </div>
         <div id="textLikeAndDislikeShow">
           <div>
-            <i class="fa-regular fa-thumbs-up fa-1x"></i> Total Liked: <%=
-            post.likeCount %>
+            <i class="fa-regular fa-thumbs-up fa-1x"></i> Total Liked:
+            <span class="text-green-800"><%= post.likeCount %></span>
           </div>
           <div>
-            <i class="fa-regular fa-thumbs-down"></i> Total Disliked: <%=
-            post.dislikeCount %>
+            <i class="fa-regular fa-thumbs-down"></i> Total Disliked:
+            <span class="text-green-800"><%= post.dislikeCount %></span>
           </div>
           <div>
             <i class="fa-regular fa-star"></i>
-            Rating: <%= post.reviewScore %>
+            Rating: <span class="text-green-800"><%= post.reviewScore %></span>
           </div>
         </div>
       </div>
+      <!-- Popup Content for google map show-->
+      <div
+        class="peopleReviewPopUpBackground"
+        id="peopleReviewPopUpBackground<%=post._id%>"
+        onclick="hideGoogleMapPopupBackground('<%=post._id%>')"
+      ></div>
+
+      <div class="peopleReviewPopUp" id="googleMapPopUp<%=post._id%>">
+        <div
+          class="crossButton"
+          onclick="hideGoogleMapPopupBackground('<%=post._id%>')"
+        >
+          <i class="fa-solid fa-xmark fa-2x"></i>
+        </div>
+        <div id="textLikeAndDislikeShow">
+          <div class="w-full center flex-col">
+            <div class="text-xl text-gray-600">Google Map link</div>
+            <div
+              class="h-fit text-black text-3xl flex justify-between pl-5 md:h-[40%] md:text-black md:text-3xl md:flex md:pl-5 pr-5"
+            >
+              <div class="w-4/5 h-fit overflow-hidden" id="copyGoogleMapLink">
+                <%= post.googleMapLink %>
+              </div>
+              <div
+                class="w-1/5 flex justify-end hover:cursor-pointer hover:scale-110"
+                onclick="copyText('googleMapLink')"
+              >
+                <img class="h-7 w-7 mt-1" src="images/copy.png" alt="" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- popup window end here  -->
       <% }) %>
     </div>
     <script src="\javaScriptFiles\postShow.js"></script>
+    <script src="\javaScriptFiles\confirmPage.js"></script>
     <script src="\javaScriptFiles\sideNavBarShow.js"></script>
   </body>
 

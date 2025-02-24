@@ -136,7 +136,7 @@
       </div>
       <div id="contentBox2">
         <div class="contentBoxHeading">
-          <h3 class="text-3xl font-bold">Find Your Destination Quickly</h3>
+          <h3 class="text-3xl font-bold text-red-700">Find Your Destination Quickly</h3>
           <p>
             Are you looking for a suitable rent room? Then choose a rent renge.
           </p>
@@ -199,6 +199,12 @@
               />
             </div>
             <div
+              class="seePostByFiltering flex justify-center"
+              id="seePostByFiltering5"
+            >
+            <!-- here result will display dynamicly -->
+            </div>
+            <div
               class="seePostByFiltering styleForFilter2345"
               id="seePostByFiltering5"
             >
@@ -243,30 +249,10 @@
 
 
     <script>
-      let counter = 1;
       let maxSeats = <%= totalSeatAvailableLength %>;
-      let interval = 100; // 0.1 seconds
-
-      // Store the interval so we can stop it later
-      const intervalId = setInterval(updateSeatCounter, interval);
-
-      // Function to update the seat counter
-      function updateSeatCounter() {
-        const seatCounterDiv = document.getElementById("seatCounter");
-
-        // Update the displayed number
-        seatCounterDiv.innerText = counter;
-
-        // Increment the counter
-        counter++;
-
-        // Stop the interval if counter exceeds maxSeats
-        if (counter > maxSeats) {
-          clearInterval(intervalId);  // Stop the interval
-        }
-      }
     </script>
       <script src="\javaScriptFiles\sideNavBarShow.js"></script>
+      <script src="\javaScriptFiles\toLet\toLetHomePage.js"></script>
   </body>
 
   <%- include("layout/footer.ejs") %>
