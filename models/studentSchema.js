@@ -44,8 +44,12 @@ const studentInformationSchema = mongoose.Schema({
         default:Date.now,
     },
     savedPosts:[{                               //ja ja post save korbe kono user sei protita post er collection er id ekhane save rakhbo jate future a khuje bar korte pari j kon user kon kon post save korecilo 
-             type: mongoose.Types.ObjectId, //jodi kono collection er _id ei collection a store korte chai tahole type hobe eita
-             ref: "PostShareInformation",   //jehetu post share collection er _id save rakhbo ei collection a tai eita forein-key hisebe use hobe
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'PostShare'   //jehetu post share collection er _id save rakhbo ei collection a tai eita forein-key hisebe use hobe
+    }],
+    sharedPosts:[{
+         type: mongoose.Schema.Types.ObjectId, 
+         ref: 'PostShare'
     }],
     tokens:[{                              //jotobar e kono user login korbe je kono device theke , prottek login er jonno tar authentication token ekhane store hobe 
         token:{

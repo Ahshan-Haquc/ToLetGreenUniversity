@@ -1,0 +1,25 @@
+<div
+  class="peopleReviewPopUp"
+  id="peopleReviewPopUp<%=totalSeatAvailable.indexOf(post)%>"
+>
+  <div
+    class="crossButton"
+    onclick="hidePopup(<%=totalSeatAvailable.indexOf(post)%>)"
+  >
+    <i class="fa-solid fa-xmark fa-2x"></i>
+  </div>
+  <div id="textLikeAndDislikeShow">
+    <div>
+      <i class="fa-regular fa-thumbs-up fa-1x"></i> Total Liked: <%=
+      post.likeCount %>
+    </div>
+    <div>
+      <i class="fa-regular fa-thumbs-down"></i> Total Disliked: <%=
+      post.dislikeCount %>
+    </div>
+    <div>
+      <i class="fa-regular fa-star"></i>
+      Rating: <%= post.reviewScore %>
+    </div>
+  </div>
+</div>

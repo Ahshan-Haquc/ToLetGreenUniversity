@@ -55,20 +55,44 @@
         </div>
 
         <div class="form-group row">
-          <label for="seat_number" class="col-sm-2 col-form-label"
-            >Seat type</label
+          <label for="numberOfRoom" class="col-sm-2 col-form-label"
+            >In as many rooms</label
           >
           <div class="col-sm-10">
-            <select class="form-control" name="seat" id="seat_number">
-              <option value="dining">1 seat in dining</option>
-              <option value="one_seat1" selected>
-                1 seat in 2 person room
-              </option>
-              <option value="one_seat2">1 seat in 3 person room</option>
-              <option value="two_seat">2 seat in 3 person room</option>
-              <option value="room">1 room of 2 seat</option>
-              <option value="room2">1 room of 3 seat</option>
+            <select class="form-control" name="numberOfRoom" id="numberOfRoom">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
             </select>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="seat_number" class="col-sm-2 col-form-label"
+            >Room capacity</label
+          >
+          <div class="col-sm-10">
+            <select class="form-control" name="roomCapacity" id="roomCapacity">
+              <option value="1 Person">1 Person (single room)</option>
+              <option value="2 Person">2 Person</option>
+              <option value="3 Person">3 Person</option>
+              <option value="4 Person">4 Person</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="seat_number" class="col-sm-2 col-form-label"
+            >At which floor</label
+          >
+          <div class="col-sm-10">
+            <input
+              class="form-control"
+              name="floorNumber"
+              type="text"
+              placeholder="Enter in which floor room is available"
+              id="title"
+            />
           </div>
         </div>
 
@@ -145,6 +169,22 @@
             </select>
           </div>
         </div>
+
+        <div class="form-group row">
+          <label for="googleMapLink" class="col-sm-2 col-form-label"
+            >Google Map Link</label
+          >
+          <div class="col-sm-10">
+            <input
+              class="form-control"
+              name="googleMapLink"
+              type="text"
+              placeholder="Enter adjact google map location link"
+              id="googleMapLink"
+            />
+          </div>
+        </div>
+        <!-- -------------- -->
 
         <div class="form-group row">
           <label for="gender" class="col-sm-2 col-form-label">Gender</label>

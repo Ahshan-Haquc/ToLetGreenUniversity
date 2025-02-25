@@ -9,12 +9,12 @@ const postShareSchema = mongoose.Schema({
         type: Number,
         required: true,
     },
-    roomNumber: {
-        type: Number,
+    numberOfRoom: {
+        type: String,
         required: true,
     },
     roomCapacity: {
-        type: Number,
+        type: String,
         required: true,
     },
     entryMonth: {
@@ -28,13 +28,13 @@ const postShareSchema = mongoose.Schema({
     rent: {
         type: Number,
         required: true,
-    }, //location part start from here
+    },
     distance: {
-        type: String,
+        type: Number,
         required: true,
     },
     timeRequire: {
-        type: String,
+        type: Number,
         required: true,
     },
     locationVillage: {
@@ -48,14 +48,14 @@ const postShareSchema = mongoose.Schema({
     googleMapLink: {
         type: String,
         required: true,
-    }, //facilities part starts from here
+    },
     gender: {
         type: String,
+        enum: ['male', 'female'],
         required: true,
     },
     facilities: [{
         type: String,
-        default: "not set this moment",
     }],
     description: {
         type: String,

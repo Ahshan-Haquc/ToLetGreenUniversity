@@ -40,19 +40,18 @@ function cancelFullScreen(){
 
 // --------------------- copy text
 function copyText(text){
-  const googleMapLocation = document.getElementById('copyGoogleMapLink');
-  const emailId = document.getElementById('copyEmailId');
-  const phoneNumber = document.getElementById('copyPhoneNumber');
-
   //creating temporary text area
   const tempTextarea = document.createElement('input');
 
   //checking where click occured
   if(text==="googleMapLink"){
+    const googleMapLocation = document.getElementById('copyGoogleMapLink');
     tempTextarea.value = googleMapLocation.textContent;
   }else if(text==="emailId"){
+    const emailId = document.getElementById('copyEmailId');
     tempTextarea.value = emailId.textContent;
   }else if(text==="phoneNumber"){
+    const phoneNumber = document.getElementById('copyPhoneNumber');
     tempTextarea.value = phoneNumber.textContent;
   }
 
