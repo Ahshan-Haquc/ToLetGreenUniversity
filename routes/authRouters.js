@@ -115,7 +115,7 @@ route.get("/home",accessPermission,(req,res)=>{
   }
 })
 
-//router for home page
+//router for ToLet home page
 route.get("/homePageToLet",accessPermission, availableSeatFetch, (req, res) => {
     console.log("working homePageToLet router");
     try {
@@ -329,7 +329,18 @@ route.get("/confirmToletSeat", accessPermission, async (req, res) => {
   }
 });
 
+//showing facilities of ToLet when clicking button in seeAllAvailablePost is toLet
+route.post("/facilitiesShowUsingPopup",async (req,res)=>{
+  //this will come from frontend
+  const postId = req.body;
 
+  const data = await PostShareModel.findOne({_id:postId.postId});
+
+  //seperating only just facilities from that data object
+  const arrayOfFacilities = data.facilities;
+
+  res.status(200).json({facilities: arrayOfFacilities});
+})
 
 // updating like and likeCounts
 route.post("/toggle-like", async (req, res) => {
@@ -442,15 +453,6 @@ route.post("/send-email", async (req, res) => {
   }
 });
 
-
-
-
-
-
-//test router
-route.get("/test",(req,res)=>{
-  res.render("test");
-})
 
 
 module.exports = route;
