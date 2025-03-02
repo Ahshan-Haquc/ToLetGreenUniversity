@@ -1,3 +1,5 @@
+const { application, json } = require("express");
+
 // function for showing popup and hiding popup of rating
 function showingPopup(postCount) {
   const popup = document.querySelector(`#peopleReviewPopUp${postCount}`);
@@ -41,7 +43,60 @@ function hideGoogleMapPopupBackground(postId) {
   background.classList.remove("showPopup");
 }
 
+// function for showing popup and hiding popup of facilities
+async function facilitiesShowInPopup(postId){
+  const response = await fetch("/facilitiesShowUsingPopup", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ postId}),
+  });
 
+  //for converting json response to js object
+  const data = await response.json();
+
+  //  // Get facilities container
+  //  const facilitiesListContainer = document.getElementById("facilitiesList");
+
+  //  // Clear previous facilities before adding new ones
+  //  facilitiesListContainer.innerHTML = "";
+ 
+  //  if (data.facilities && data.facilities.length > 0) {
+  //    // Create an unordered list
+  //    const ul = document.createElement("ul");
+ 
+  //    // Loop through facilities and create list items
+  //    data.facilities.forEach((facility) => {
+  //      const li = document.createElement("li");
+  //      li.textContent = facility; // Set text of list item
+  //      ul.appendChild(li); // Append list item to the unordered list
+  //    });
+ 
+  //    // Append the unordered list to the container
+  //    facilitiesListContainer.appendChild(ul);
+  //  } else {
+  //    facilitiesListContainer.innerHTML = "<p>No facilities available</p>";
+  //  }
+ 
+
+  //showing facilities in page
+ 
+ 
+  const popup= document.getElementById("facilitiesPopup");
+  const background = document.querySelector(
+    `#facilitiesPopupBg`
+  );
+  popup.classList.add("showPopup");
+  background.classList.add("showPopup");
+}
+
+function hideFacilitiesShowInPopup(){
+  const popup= document.getElementById("facilitiesPopup");
+  const background = document.querySelector(
+    `#facilitiesPopupBg`
+  );
+  popup.classList.remove("showPopup");
+  background.classList.remove("showPopup");
+}
 
 
 //function for changing like and dislike button properties
@@ -53,6 +108,7 @@ async function toggleDisLike(postId, userId) {
       body: JSON.stringify({ postId, userId }),
     });
 
+    //for converting json response to js object
     const result = await response.json();
 
     // Use the unique id to select the correct like-count element
