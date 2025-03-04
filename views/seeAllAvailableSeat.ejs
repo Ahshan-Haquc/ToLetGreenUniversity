@@ -101,7 +101,13 @@
                 />
               </div>
             </div>
-            <button class="btn btn-default btn-md">Save it</button>
+            <button
+              class="btn btn-default btn-md"
+              id=""
+              onclick="saveThisPost('To-let','<%= post.studentPostedId %>','<%= post._id %>')"
+            >
+              Save it
+            </button>
             <button
               class="btn btn-danger btn-md"
               onclick="goConfirmPage('<%= post._id %>')"
@@ -310,6 +316,7 @@
     <script src="\javaScriptFiles\postShow.js"></script>
     <script src="\javaScriptFiles\confirmPage.js"></script>
     <script src="\javaScriptFiles\sideNavBarShow.js"></script>
+    <script src="\javaScriptFiles\savePost.js"></script>
   </body>
 
   <%- include("layout/footer.ejs") %>
