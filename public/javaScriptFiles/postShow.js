@@ -82,10 +82,12 @@ async function facilitiesShowInPopup(postId){
  
  
   const popup= document.getElementById("facilitiesPopup");
+  popup.classList.add("showPopup");
+  const facilitiesText = document.getElementById("facilitiesText");
+  facilitiesText.textContent=data.facilities;
   const background = document.querySelector(
     `#facilitiesPopupBg`
   );
-  popup.classList.add("showPopup");
   background.classList.add("showPopup");
 }
 

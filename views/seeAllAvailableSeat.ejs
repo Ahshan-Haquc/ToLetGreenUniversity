@@ -271,9 +271,9 @@
         </div>
         <div id="textLikeAndDislikeShow">
           <div class="w-full center flex-col">
-            <div class="text-xl text-gray-600">Google Map link</div>
+            <div class="h-12 text-2xl text-gray-600">Google Map link</div>
             <div
-              class="h-fit text-black text-3xl flex justify-between pl-5 md:h-[40%] md:text-black md:text-3xl md:flex md:pl-5 pr-5"
+              class="h-fit text-black text-5xl flex justify-between pl-5 md:h-[40%] md:text-black md:text-3xl md:flex md:pl-5 pr-5"
             >
               <div class="w-4/5 h-fit overflow-hidden" id="copyGoogleMapLink">
                 <%= post.googleMapLink %>
@@ -290,8 +290,6 @@
       </div>
 
       <!-- popup facilities  -->
-      <!-- Container for facilities list -->
-      <div id="facilitiesList"></div>
       <div
         class="peopleReviewPopUpBackground"
         id="facilitiesPopupBg"
@@ -301,7 +299,10 @@
         <div class="crossButton" onclick="hideFacilitiesShowInPopup()">
           <i class="fa-solid fa-xmark fa-2x"></i>
         </div>
-        <div id="textLikeAndDislikeShow"></div>
+        <div class="w-full h-[80%] center flex-col">
+          <div class="text-gray-600 p-2 center text-5xl">Facilities</div>
+          <div class="text-black p-2 center text-2xl" id="facilitiesText"></div>
+        </div>
       </div>
       <!-- popup window end here  -->
       <% }) %>
