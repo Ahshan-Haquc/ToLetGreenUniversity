@@ -414,6 +414,24 @@ route.post("/toggle-dislike", async (req, res) => {
   }
 });
 
+//router for saving any post
+route.post("/savePost",async (req,res)=>{
+  try {
+    const name = req.body.postName;
+    const userId = req.body.userId;
+    const postId = req.body.postId;
+
+    const user = await Model.findOne({_id:userId});
+
+    user.savedPosts.push(postId);
+    await user.save();
+
+    res.status(200).json({saved:"yes"});
+  } catch (error) {
+    console.log("issue occur in saving post router.");
+    next(error);
+  }
+})
 
 // -----------------------------------------------
 // -------------------------------------------------
