@@ -6,7 +6,10 @@ async function saveThisPost(postName,userId,postId){
     })
 
     const data = await response.json();
-    console.log(data);
 
-    alert("saved");
+    if(data.saved==="yes"){
+        document.getElementById(`saveButton${postId}`).innerText="Saved";
+    }else{
+        document.getElementById(`saveButton${postId}`).innerText="Save it";
+    }
 }

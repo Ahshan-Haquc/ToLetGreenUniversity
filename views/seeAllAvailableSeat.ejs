@@ -103,10 +103,10 @@
             </div>
             <button
               class="btn btn-default btn-md"
-              id=""
-              onclick="saveThisPost('To-let','<%= post.studentPostedId %>','<%= post._id %>')"
+              id="saveButton<%= post._id %>"
+              onclick="saveThisPost('To-let','<%= student._id %>','<%= post._id %>')"
             >
-              Save it
+              <%= student.savedPosts.includes(post._id) ? 'Saved' : 'Save it' %>
             </button>
             <button
               class="btn btn-danger btn-md"
