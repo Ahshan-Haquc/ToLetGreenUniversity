@@ -148,6 +148,7 @@ async function toggleLike(postId, userId) {
 
 
 // function for going from seePost to confirm post by clicking view all button 
+// and it is get request bcz i am passing postId to access the confirm page
 function goConfirmPage(postID) {
   window.location.href = `/confirmToletSeat?postID=${postID}`;
 }

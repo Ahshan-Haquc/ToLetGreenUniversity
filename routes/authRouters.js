@@ -8,6 +8,7 @@ const availableSeatFetch = require("../middlewares/availableSeatFetch");
 const upload = require("../middlewares/uploadImages");
 const ratingCalculate = require("../controller/ratingCalculate");
 const nodemailer = require("nodemailer");
+const mongoose = require("mongoose");
 
 
 
@@ -415,23 +416,35 @@ route.post("/toggle-dislike", async (req, res) => {
 });
 
 //router for saving any post
-route.post("/savePost",async (req,res)=>{
+route.post("/savePost", async (req, res, next) => {
   try {
-    const name = req.body.postName;
-    const userId = req.body.userId;
-    const postId = req.body.postId;
+    const { postName, userId, postId } = req.body;
 
-    const user = await Model.findOne({_id:userId});
+    // Convert userId string to ObjectId before querying
+    const user = await Model.findOne({ _id: new mongoose.Types.ObjectId(userId) });
 
-    user.savedPosts.push(postId);
-    await user.save();
+    if (user) {
+      const isSaved = user.savedPosts.indexOf(postId);
+      console.log(isSaved);
 
-    res.status(200).json({saved:"yes"});
+      if(isSaved===-1){
+        user.savedPosts.push(postId);
+        await user.save();
+        return res.status(200).json({ saved: "yes" });
+      }else{
+        user.savedPosts.pop(postId);
+        await user.save();
+        return res.status(200).json({ saved: "no" });
+      }
+
+    }
+
+    res.status(404).json({ saved: "no", message: "User not found" });
   } catch (error) {
-    console.log("issue occur in saving post router.");
+    console.log("Issue occurred in saving post router.", error);
     next(error);
   }
-})
+});
 
 // -----------------------------------------------
 // -------------------------------------------------
