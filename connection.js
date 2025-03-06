@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express();
 const authRouter = require('./routes/authRouters')
+const basicRouters = require('./routes/basicRouters')
 const seePost = require('./routes/seePost')
 const path = require('path')
 const mongoose = require('mongoose')
@@ -28,7 +29,7 @@ mongoose
 
 //base router
 app.use('/',authRouter);
-app.use('/homePage',seePost);
+app.use('/',basicRouters);
 
 //default error handler
 function errorHandler(err,req,res,next){

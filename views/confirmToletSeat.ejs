@@ -63,14 +63,18 @@
                 id="profile-box2"
                 >
                 <button
-                  class="btn btn-default text-green-600"
-                >
-                  Save this
-                </button>
+              class="btn btn-default text-green-600"
+              id="saveButton<%= postInfo._id %>"
+              onclick="saveThisPost('To-let','<%= student._id %>','<%= postInfo._id %>')"
+            >
+              <%= student.savedPosts.includes(postInfo._id) ? 'Saved' : 'Save it' %>
+            </button>
                 <button
                   class="btn btn-default text-green-600"
+                  id="confirmRequestSeatButton<%= postInfo._id %>"
+              onclick="confirmRequestSent('To-let','<%= student._id %>','<%= postInfo._id %>')"
                 >
-                  Confirm Sent
+                  Request for Confirm
                 </button>
                 </div>
         </div>
@@ -188,7 +192,7 @@
 
         <!-- location -->
         <div class="box mt-9">
-          <div class="boxHead center text-3xl shadow">Location</div>
+          <div class="boxHead center text-3xl shadow text-green-500">Location</div>
           <div class="boxContent">
             <div class="contentBoxSmaller border flex">
               <div class="h-1/1 w-1/3 center"><img class="h-[70px] w-[70px]" src="images/location.png" alt=""></div>
@@ -281,7 +285,7 @@
 
         <!-- image  -->
         <div class="box mt-9 justify-between items-center">
-          <div class="boxHead center text-3xl shadow">Images</div>
+          <div class="boxHead center text-3xl shadow text-green-500">Images</div>
           <div class="boxContent center gap-2">
             <div
               class="h-[100px] w-[100px] rounded-full hover:bg-gray-300 center"
@@ -320,7 +324,7 @@
 
         <!-- facilities -->
         <div class="box mt-9">
-          <div class="boxHead center text-3xl shadow">Facilities Available</div>
+          <div class="boxHead center text-3xl shadow text-green-500">Facilities Available</div>
           <div class="boxContent">
             <% postInfo.facilities.forEach((element)=>{ %>
 
@@ -338,7 +342,7 @@
 
         <!-- post man info  -->
         <div class="box mt-9 mb-10">
-          <div class="boxHead center text-3xl shadow">Contact</div>
+          <div class="boxHead center text-3xl shadow text-green-500">Contact</div>
           <div class="boxContent">
             <div class="contentBoxSmaller border flex">
               <div class="h-1/1 w-1/3 center"><img class="h-[70px] w-[70px]" src="images/user.png" alt=""></div>
@@ -455,6 +459,7 @@
     </script>
     <script src="\javaScriptFiles\sideNavBarShow.js"></script>
     <script src="\javaScriptFiles\confirmPage.js"></script>
+    <script src="\javaScriptFiles\savePost.js"></script>
   </body>
   <%- include("layout/footer.ejs") %>
 </html>
