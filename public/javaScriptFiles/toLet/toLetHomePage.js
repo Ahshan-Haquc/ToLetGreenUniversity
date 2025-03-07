@@ -54,3 +54,23 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("x3").addEventListener("change", fetchSeats);
 });
 
+
+
+
+//this is for sending request for confirm seat for confirm tolet page
+async function confirmRequestSent(pageName,userId,postId){
+  const response = await fetch("/confirmToletSeat",{
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({pageName,userId,postId})
+  });
+
+  const data =await response.json();
+
+  if(data.requestSent==="yes"){
+    document.getElementById(`confirmRequestSeatButton${postId}`).innerText="Request sented";
+}else{
+    document.getElementById(`confirmRequestSeatButton${postId}`).innerText="Request for Confirm";
+}
+
+}
