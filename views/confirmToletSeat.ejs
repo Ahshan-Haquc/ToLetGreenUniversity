@@ -72,7 +72,7 @@
                 <button
                   class="btn btn-default text-green-600"
                   id="confirmRequestSeatButton<%= postInfo._id %>"
-              onclick="confirmRequestSent('To-let','<%= student._id %>','<%= postInfo._id %>')"
+                  onclick="confirmRequestSent('To-let','<%= student._id %>','<%= postInfo.studentPostedId %>','<%= postInfo._id %>')"
                 >
                   Request for Confirm
                 </button>
@@ -460,6 +460,7 @@
     <script src="\javaScriptFiles\sideNavBarShow.js"></script>
     <script src="\javaScriptFiles\confirmPage.js"></script>
     <script src="\javaScriptFiles\savePost.js"></script>
+    <script src="\javaScriptFiles\toLet\toLetHomePage.js"></script>
   </body>
   <%- include("layout/footer.ejs") %>
 </html>

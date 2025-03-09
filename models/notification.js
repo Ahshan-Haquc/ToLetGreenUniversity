@@ -8,10 +8,14 @@ const notification = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'StudentInformation'
     },
-    postId:{
+    notificationFromUser:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'PostShare'
+    }],
+    notificationFromPost:[{
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'PostShare'
-    },
+    }],
     date:{
         type: Date,
         default: Date.now

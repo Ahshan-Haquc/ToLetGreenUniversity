@@ -1,6 +1,7 @@
 const express = require("express");
 const Model = require("../models/studentSchema");
 const PostShareModel = require("../models/postShareSchema");
+const NotificationModel = require("../models/notification");
 const basicRouter = express.Router();
 const bcrypt = require("bcrypt");
 const accessPermission = require("../middlewares/accessPermission");
@@ -115,7 +116,7 @@ basicRouter.get("/home",accessPermission,(req,res)=>{
 })
 
 //router for profile page
-route.get("/profile", accessPermission, async (req, res) => {
+basicRouter.get("/profile", accessPermission, async (req, res) => {
   try {
     // .find({}) ----> eita ekta array of object return kore, ejs file a etake if else & loop diye access korte hobe
     // .findOne({}) ----> eita just akta  object return kore, tai etake ejs file a dirrectly access kora jabe
@@ -137,7 +138,7 @@ route.get("/profile", accessPermission, async (req, res) => {
 });
 
 //router for message
-route.get("/messages", accessPermission, (req, res) => {
+basicRouter.get("/messages", accessPermission, (req, res) => {
   res.send("welcome to message page. It will be inplement later.");
 });
 
@@ -148,9 +149,52 @@ basicRouter.get('/notification',accessPermission,(req,res)=>{
       });
 })
 
+basicRouter.post("/notification", accessPermission, async (req, res, next) => {
+  console.log("Notification post router working.");
+  try {
+    const postName = req.body.pageName;
+    const userId = new mongoose.Types.ObjectId(req.body.userId);
+    const postBy = new mongoose.Types.ObjectId(req.body.postBy);
+    const postId = new mongoose.Types.ObjectId(req.body.postId);
+
+    const isUserExist = await NotificationModel.findOne({ userId: postBy });
+
+    if (isUserExist) {
+      const isRequested = isUserExist.notificationFromPost.some(id => id.equals(postId));
+      // equals() eita mongoose er method ja sudhu object er jonno use hoy
+      // === or indexOf() use kora jabe na object compare er time a, eita just premetive data type er jonno kaj kore like string, int
+      // indexOf(postId) dile output -1
+      // equals(postId) dile output true
+
+      if (isRequested) {
+        return res.status(200).json({ requestSent: "no" });
+      } else {
+        isUserExist.notificationFromUser.push(userId);
+        isUserExist.notificationFromPost.push(postId);
+        await isUserExist.save();
+        return res.status(200).json({ requestSent: "yes" });
+      }
+    } else {
+      const newEntry = new NotificationModel({
+        notificationFrom: postName,
+        userId: postBy,
+        notificationFromUser: [userId],  
+        notificationFromPost: [postId]  
+      });
+
+      await newEntry.save();
+      return res.status(200).json({ requestSent: "yes" });
+    }
+  } catch (error) {
+    console.log("error in notification router:", error);
+    next(error);
+  }
+});
+
+
 
 //router for saving any post
-route.post("/savePost",accessPermission, async (req, res, next) => {
+basicRouter.post("/savePost",accessPermission, async (req, res, next) => {
   try {
     const { postName, userId, postId } = req.body;
 
@@ -188,7 +232,7 @@ route.post("/savePost",accessPermission, async (req, res, next) => {
 // ----------------------------------------------
 
 //this is for sending email from website to my gmail account
-route.post("/send-email", async (req, res) => {
+basicRouter.post("/send-email", async (req, res) => {
   const { userEmail, userMessage } = req.body;
 
   try {
