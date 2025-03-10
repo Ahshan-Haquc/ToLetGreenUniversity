@@ -33,6 +33,7 @@
     <div class="contentBox">
       <div class="min-h-[100vh] max-h-fit w-full p-3 bg-[#EEEEEE]">
         <!-- if student have no notification  -->
+        <% if(!notifications){ %>
         <div
           class="w-full min-h-[80vh] flex flex-col justify-center items-center"
         >
@@ -49,8 +50,9 @@
             <a class="text-yellow-700" href="/homePageToLet">home</a> page.
           </div>
         </div>
-        <!--Notification box -->
-        <!-- <div
+        <% } else { %>
+        <!--If user have Notification -->
+        <div
           class="w-full h-[185px] p-3 mb-3 bg-white rounded-md flex transition duration-600 hover:shadow-lg"
         >
           <div class="h-full min-w-[45%]">
@@ -105,7 +107,8 @@
               Delete Request
             </button>
           </div>
-        </div> -->
+        </div>
+        <% } %>
       </div>
     </div>
     <script src="\javaScriptFiles\sideNavBarShow.js"></script>
