@@ -166,36 +166,39 @@ basicRouter.post("/notification", accessPermission, async (req, res, next) => {
     const isUserExist = await NotificationModel.findOne({ userId: postBy });
 
     if (isUserExist) {
-      const isRequested = isUserExist.notificationFromPost.some(id => id.equals(postId));
-      // equals() eita mongoose er method ja sudhu object er jonno use hoy
-      // === or indexOf() use kora jabe na object compare er time a, eita just premetive data type er jonno kaj kore like string, int
-      // indexOf(postId) dile output -1
-      // equals(postId) dile output true
+      const isRequested = isUserExist.notificationInfo.some(info => info.notificationFromPost.equals(postId));
 
       if (isRequested) {
         return res.status(200).json({ requestSent: "no" });
       } else {
-        isUserExist.notificationFromUser.push(userId);
-        isUserExist.notificationFromPost.push(postId);
+        isUserExist.notificationInfo.push({
+          notificationFrom: postName,
+          notificationFromUser: userId,
+          notificationFromPost: postId
+        });
+
         await isUserExist.save();
         return res.status(200).json({ requestSent: "yes" });
       }
     } else {
       const newEntry = new NotificationModel({
-        notificationFrom: postName,
         userId: postBy,
-        notificationFromUser: [userId],  
-        notificationFromPost: [postId]  
+        notificationInfo: [{
+          notificationFrom: postName,
+          notificationFromUser: userId,
+          notificationFromPost: postId
+        }]
       });
 
       await newEntry.save();
       return res.status(200).json({ requestSent: "yes" });
     }
   } catch (error) {
-    console.log("error in notification router:", error);
+    console.log("Error in notification router:", error);
     next(error);
   }
 });
+
 
 
 
