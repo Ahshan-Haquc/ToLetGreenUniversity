@@ -142,10 +142,16 @@ basicRouter.get("/messages", accessPermission, (req, res) => {
   res.send("welcome to message page. It will be inplement later.");
 });
 
+//router for notification
+basicRouter.get('/notification',accessPermission,async(req,res)=>{
+  console.log("Notification get router is working");
+  const userNotifications = await NotificationModel.findOne({userId:req.studentInfo._id});
 
-basicRouter.get('/notification',accessPermission,(req,res)=>{
+  console.log(userNotifications);
+
     res.status(200).render("notification", {
-        student: req.studentInfo
+        student: req.studentInfo,
+        notifications: userNotifications,
       });
 })
 
