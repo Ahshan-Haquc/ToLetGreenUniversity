@@ -10,6 +10,7 @@ const upload = require("../middlewares/uploadImages");
 const ratingCalculate = require("../controller/ratingCalculate");
 const nodemailer = require("nodemailer");
 const mongoose = require("mongoose");
+const notificationModel = require("../models/notification");
 
 //routers for signup
 basicRouter.get("/signup", (req, res) => {
@@ -137,23 +138,40 @@ basicRouter.get("/profile", accessPermission, async (req, res) => {
   }
 });
 
+
 //router for message
 basicRouter.get("/messages", accessPermission, (req, res) => {
   res.send("welcome to message page. It will be inplement later.");
 });
 
 //router for notification
-basicRouter.get('/notification',accessPermission,async(req,res)=>{
+basicRouter.get('/notification', accessPermission, async (req, res) => {
   console.log("Notification get router is working");
-  const userNotifications = await NotificationModel.findOne({userId:req.studentInfo._id});
 
-  console.log(userNotifications);
+  const notificationArray = [];
+  const userNotifications = await NotificationModel.findOne({ userId: req.studentInfo._id });
 
-    res.status(200).render("notification", {
-        student: req.studentInfo,
-        notifications: userNotifications,
+  if (userNotifications) {
+    for (const element of userNotifications.notificationInfo) {
+      const user = await Model.findOne({ _id: element.notificationFromUser });
+      const post = await PostShareModel.findOne({ _id: element.notificationFromPost });
+
+      notificationArray.push({
+        notificationId: element._id,
+        notificationFrom: element.notificationFrom,
+        date: element.date,
+        notificationFromUser: user,
+        notificationFromPost: post
       });
-})
+    }
+  }
+
+  res.status(200).render("notification", {
+    student: req.studentInfo,
+    notifications: notificationArray.length > 0 ? notificationArray : null,
+  });
+});
+
 
 basicRouter.post("/notification", accessPermission, async (req, res, next) => {
   console.log("Notification post router working.");
@@ -199,7 +217,64 @@ basicRouter.post("/notification", accessPermission, async (req, res, next) => {
   }
 });
 
+// basicRouter.post('/deleteNotification', accessPermission, async (req,res,next)=>{
+//   try {
+//     console.log("Delete notification router is working.");
+//     const notificationId = req.body.notificationId;
+//     console.log(typeof notificationId,notificationId);
 
+//     const notification = await notificationModel.findOne({userId:req.studentInfo._id});
+//     console.log(notification);
+
+//     const notificationInArrayExist = notification.notificationInfo.some(info => info._id.equals(notificationId));
+//     console.log("notification found : ");
+//     console.log(notificationInArrayExist);
+
+//     res.redirect('/notification');
+
+//   } catch (error) {
+//     console.log("Error in deleting notification router.");
+//     next(error);
+//   }
+// })
+
+basicRouter.post('/deleteNotification', accessPermission, async (req, res, next) => {
+  try {
+    console.log("Delete notification router is working.");
+    const notificationId = req.body.notificationId;
+
+    if (!notificationId) {
+      console.log("Notification ID is missing.");
+      return res.status(400).json({ error: "Notification ID is required" });
+    }
+
+    const notification = await NotificationModel.findOne({ userId: req.studentInfo._id });
+
+    if (!notification) {
+      console.log("No notifications found for this user.");
+      return res.status(404).json({ error: "Notification not found" });
+    }
+
+    // Check if the notification exists in the array
+    const notificationIndex = notification.notificationInfo.findIndex(info => info._id.toString() === notificationId);
+
+    if (notificationIndex === -1) {
+      console.log("Notification not found in array.");
+      return res.status(404).json({ error: "Notification not found" });
+    }
+
+    // Remove the notification from the array
+    notification.notificationInfo.splice(notificationIndex, 1);
+    await notification.save();
+
+    console.log("Notification deleted successfully.");
+    res.redirect('/notification'); 
+
+  } catch (error) {
+    console.log("Error in deleting notification router.");
+    next(error);
+  }
+});
 
 
 //router for saving any post
