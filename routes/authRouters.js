@@ -240,6 +240,8 @@ route.post("/confirmToletSeat", accessPermission, async (req,res,next)=>{
   }
 })
 
+
+
 //showing facilities of ToLet when clicking button in seeAllAvailablePost is toLet
 route.post("/facilitiesShowUsingPopup",async (req,res)=>{
   //this will come from frontend

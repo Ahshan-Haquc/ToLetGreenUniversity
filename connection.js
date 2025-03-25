@@ -1,7 +1,8 @@
 const express = require('express')
 const app = express();
-const authRouter = require('./routes/authRouters')
 const basicRouters = require('./routes/basicRouters')
+const authRouter = require('./routes/authRouters')
+const buyAndSellRouter = require('./routes/buyAndSellRouter')
 const seePost = require('./routes/seePost')
 const path = require('path')
 const mongoose = require('mongoose')
@@ -30,6 +31,7 @@ mongoose
 //base router
 app.use('/',authRouter);
 app.use('/',basicRouters);
+app.use('/',buyAndSellRouter);
 
 //default error handler
 function errorHandler(err,req,res,next){
