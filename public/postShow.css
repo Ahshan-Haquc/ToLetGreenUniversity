@@ -15,6 +15,7 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 #postArea3 {
   height: 20%;
@@ -36,25 +37,25 @@
   align-items: center;
   gap: 23px;
 }
-#postArea2 #box1 {
+/* #postArea2 #box1 {
   height: 325px;
   width: 72%;
   padding: 5px;
   justify-content: start;
   gap: 15px;
-}
+} */
 #postArea2 #box1 .image {
   height: 280px;
   width: 280px;
   background-color: rgb(181, 181, 181);
 }
-#postArea2 #box2 {
+/* #postArea2 #box2 {
   height: 325px;
   width: 28%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-}
+} */
 #postArea2 #box2 .text {
   height: 60px;
   width: 180px;
