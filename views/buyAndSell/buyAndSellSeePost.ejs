@@ -52,13 +52,12 @@
       <div class="post_area">
         <div id="postArea1">
           <div id="postArea1Box1">
-            <div class="text-5xl mt-3 mb-6 overflow-hidden text-red-700">
+            <div class="text-5xl mt-3 mb-2 overflow-hidden text-red-700">
               <%= post.title %>
             </div>
-            <h5 class="mb-2">
+            <h5 class="mb-4">
               <span class="glyphicon glyphicon-time mb-2"></span>
-              Posted on <%= student ? student.firstName + ' ' + student.lastName
-              : 'an User' %>
+              Posted on <%= post.postDate %>
             </h5>
           </div>
 
@@ -87,106 +86,93 @@
               <%= student.savedPosts.includes(post._id) ? 'Saved' : 'Save it' %>
             </button>
             <button
-              class="btn btn-danger btn-md"
+              class="btn btn-primary btn-md"
               onclick="goConfirmPage('<%= post._id %>')"
             >
-              View All
+              Request for confirm
             </button>
           </div>
         </div>
         <div id="postArea2">
-          <div class="center" id="box1">
-            <div class="h-[200px] w-[200px] bg-gray-300">
-              <div>
-                <% if (post.roomImages && post.roomImages.length > 0) { %>
-                <img src="/<%= post.roomImages[0] %>" alt="Room Image1" />
-                <% } else { %>
-                <p class="center">No image</p>
-                <% } %>
-              </div>
-            </div>
-            <div class="h-[200px] w-[200px] bg-gray-300">
-              <div>
-                <!-- Here 2nd images will visible from database -->
-                <% if (post.roomImages && post.roomImages.length > 0) { %>
-                <img src="/<%= post.roomImages[1] %>" alt="Room Image2" />
-                <% } else { %>
-                <p class="center">No image</p>
-                <% } %>
-              </div>
-            </div>
-
-            <div
-              class="h-[200px] w-[200px] bg-gray-300"
-              id="image3"
-              style="width: 120px; position: relative"
-            >
-              <!-- Here 3rd image will be visible from the database -->
-              <% if (post.roomImages && post.roomImages.length > 0) { %>
-              <div class="image-background"></div>
-              <p
-                class="centered-text hover:cursor-pointer"
-                onclick="goConfirmPage('<%= post._id %>')"
-              >
-                See More
-              </p>
+          <div class="w-fit flex">
+            <!-- imageBox1 -->
+            <div class="h-[200px] w-[200px] bg-gray-300 mr-2 overflow-hidden flex justify-center items-center duration-300 hover:scale-105 hover:mr-4">
+              <% if (post.images && post.images.length > 0) { %>
+                <img src="/<%= post.images[0] %>" alt="Image1" class="w-full h-full object-cover" />
               <% } else { %>
-              <p>No image</p>
+                <p class="text-center">No image</p>
               <% } %>
             </div>
+            
+            <!-- imageBox2 -->
+            <% if (post.images && post.images.length > 1) { %>
+            <div class="h-[200px] w-[200px] bg-gray-300 mr-2 overflow-hidden flex justify-center items-center duration-300 hover:scale-105 hover:ml-2 hover:mr-4">
+                <img src="/<%= post.images[1] %>" alt="Image2" class="w-full h-full object-cover" />
+              </div>
+              <% } %>
+
+            <!-- imageBox3 -->
+            <% if (post.images && post.images.length > 2) { %>
+              <div class="h-[200px] w-[200px] bg-gray-300 mr-2 overflow-hidden flex justify-center items-center duration-300 hover:scale-105 hover:mx-4">
+                  <img src="/<%= post.images[2] %>" alt="Image3" class="w-full h-full object-cover" />
+                </div>
+                <% } %>
+
           </div>
-          <!-- info part 1 -->
+          <div class="flex">
+            <!-- info part 1 -->
           <div
-            class="h-[200px] w-[300px] mx-3 pl-3 flex flex-col justify-center"
-          >
-            <p class="text-3xl font-bold mb-5">Post informations</p>
-            <p class="text-2xl font-semibold my-1">
-              Price - <span class="text-red-700"><%= post.price %> tk</span>
-            </p>
-            <p class="text-2xl font-semibold my-1">
-              Category -
-              <span class="text-red-700"><%= post.category %></span>
-            </p>
-            <p class="text-2xl font-semibold my-1">
-              Location -
-              <span class="text-red-700"><%= post.location %></span>
-            </p>
-            <p class="text-2xl font-semibold my-1">
-              Condition -
-              <span class="text-red-700"><%= post.condition %></span>
-            </p>
-            <p class="text-2xl font-semibold my-1">
-              Negotiable -
-              <span class="text-red-700"><%= post.contact %></span>
-            </p>
-          </div>
-          <!-- info part 2-->
-          <div
-            class="h-[200px] w-[300px] mx-3 pl-3 flex flex-col justify-center"
-          >
-            <p class="text-3xl font-bold mb-5">Contact informations</p>
-            <p class="text-2xl font-semibold my-1">
-              Posted by -
-              <span class="text-red-700"
-                ><%= student.firstName %> <%= student.lastName %></span
-              >
-            </p>
-            <p class="text-2xl font-semibold my-1">
-              Student ID -
-              <span class="text-red-700"><%= student.studentId %></span>
-            </p>
-            <p class="text-2xl font-semibold my-1">
-              Department -
-              <span class="text-red-700"><%= student.department %></span>
-            </p>
-            <p class="text-2xl font-semibold my-1">
-              Phone -
-              <span class="text-red-700"><%= student.phone %></span>
-            </p>
-            <p class="text-2xl font-semibold my-1">
-              Email -
-              <span class="text-red-700"><%= student.email %></span>
-            </p>
+          class="h-[200px] w-[300px] mx-3 pl-3 flex flex-col justify-center"
+        >
+          <p class="text-3xl font-bold mb-5">Post informations</p>
+          <p class="text-2xl font-semibold my-1">
+            Price - <span class="text-red-700"><%= post.price %> tk</span>
+          </p>
+          <p class="text-2xl font-semibold my-1">
+            Category -
+            <span class="text-red-700"><%= post.category %></span>
+          </p>
+          <p class="text-2xl font-semibold my-1">
+            Location -
+            <span class="text-red-700"><%= post.location %></span>
+          </p>
+          <p class="text-2xl font-semibold my-1">
+            Condition -
+            <span class="text-red-700"><%= post.condition %></span>
+          </p>
+          <p class="text-2xl font-semibold my-1">
+            Negotiable -
+            <span class="text-red-700"><%= post.contact %></span>
+          </p>
+        </div>
+        <!-- info part 2-->
+        <div
+          class="h-[200px] w-[300px] mx-3 pl-3 flex flex-col justify-center"
+        >
+          <p class="text-3xl font-bold mb-5">Contact informations</p>
+          <p class="text-2xl font-semibold my-1">
+            Posted by -
+            <span class="text-red-700"
+              ><%= student.firstName %> <%= student.lastName %></span
+            >
+          </p>
+          <p class="text-2xl font-semibold my-1">
+            Student ID -
+            <span class="text-red-700"><%= student.studentId %></span>
+          </p>
+          <p class="text-2xl font-semibold my-1">
+            Department -
+            <span class="text-red-700"><%= student.department %></span>
+          </p>
+          <p class="text-2xl font-semibold my-1">
+            Phone -
+            <span class="text-red-700"><%= student.phone %></span>
+          </p>
+          <p class="text-2xl font-semibold my-1">
+            Email -
+            <span class="text-red-700"><%= student.email %></span>
+          </p>
+        </div>
           </div>
         </div>
         <div id="postArea3">
@@ -317,6 +303,49 @@
       <!-- popup window end here  -->
       <% }) %>
     </div>
+<!-- ------------------- -->
+<!-- Quick find  -->
+<div class="h-[100vh] w-[100vw] fixed top-[5%] flex justify-center items-center hidden" id="quickFindBox">
+  <div class="absolute h-full w-full bg-black opacity-50" onclick="hideQuickFindBox()"></div>
+  <div
+    class="h-[400px] w-[600px] p-10 bg-white absolute rounded-3xl shadow-md flex flex-col justify-between items-center"
+  >
+  <i class="fa-solid fa-xmark absolute top-5 right-5 hover:scale-150 hover:text-red-500" onclick="hideQuickFindBox()"></i>
+    <div class="text-3xl">Enter price range</div>
+    <div class="w-full flex">
+      <div class="w-1/2">
+        <input
+          class="w-full h-[50px] p-4 mr-1 text-3xl text-black bg-gray-200"
+          placeholder="enter starting price"
+          type="number"
+          name="range1"
+        />
+      </div>
+      <div class="w-1/2">
+        <input
+          class="w-full h-[50px] p-4 ml-1 text-3xl text-black bg-gray-200"
+          placeholder="enter ending price"
+          type="number"
+          name="range2"
+        />
+      </div>
+    </div>
+    <div class="text-3xl">Select category</div>
+    <div class="w-full">
+      <select name="" id="" class="w-full h-[50px] p-4 ml-1 text-3xl text-black bg-gray-200"">
+        <option value="phone">Phone</option>
+        <option value="phone">Electronics</option>
+        <option value="phone">Furniture</option>
+      </select>
+    </div>
+    <div class="text-3xl">Total post founded : 4</div>
+    <div class="">
+      <button class="btn btn-primary btn-lg">See now</button>
+    </div>
+  </div>
+</div>
+<!-- --------end quick find-------- -->
+<script src="\javaScriptFiles\buyAndSellEvents.js"></script>
     <script src="\javaScriptFiles\postShow.js"></script>
     <script src="\javaScriptFiles\confirmPage.js"></script>
     <script src="\javaScriptFiles\sideNavBarShow.js"></script>
