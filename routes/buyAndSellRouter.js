@@ -42,7 +42,7 @@ buySellRouter.get('/buyAndSellDoPost',accessPermission,(req,res)=>{
         console.log(error);
     }
 })
-buySellRouter.post('/buyAndSellDoPost',accessPermission,  upload.array('images', 5),async(req,res)=>{
+buySellRouter.post('/buyAndSellDoPost',accessPermission,  upload.array('imageUpload', 5),async(req,res)=>{
     try {
         // const values = req.body;
         // Map uploaded files to get paths
