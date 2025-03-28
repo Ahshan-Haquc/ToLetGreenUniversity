@@ -69,12 +69,13 @@ basicRouter.get("/login",(req, res) => {
 });
 
 
-basicRouter.post("/login", availableSeatFetch, async (req, res, next) => {
+basicRouter.post("/login",availableSeatFetch, async (req, res, next) => {
   try {
     const user = await Model.findOne({ studentId: req.body.studentId });
 
     if (user) {
       const isValidPassword = await bcrypt.compare(req.body.password, user.password);
+      console.log("valid pass is : ",isValidPassword);
       if (isValidPassword) {
         // Generate token and set cookie
         const token = await user.generateToken();
@@ -82,6 +83,7 @@ basicRouter.post("/login", availableSeatFetch, async (req, res, next) => {
 
         res.status(200).redirect('/home');
       } else {
+        console.log("error in login");
         res.status(400).render("login", { error: true, student: false });
       }
     }
