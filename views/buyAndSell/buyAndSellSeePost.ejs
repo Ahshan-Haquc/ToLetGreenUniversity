@@ -87,7 +87,8 @@
             </button>
             <button
               class="btn btn-primary btn-md"
-              onclick="goConfirmPage('<%= post._id %>')"
+              id="confirmRequestSeatButton<%= post._id %>"
+              onclick="confirmRequestSent('Buy-sell','<%= student._id %>','<%= post.studentPostedId %>','<%= post._id %>')"
             >
               Request for confirm
             </button>
