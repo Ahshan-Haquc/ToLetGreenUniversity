@@ -21,6 +21,8 @@ buySellRouter.get('/buyAndSellSeePost',accessPermission,async(req,res)=>{
     try {
         const availablePosts = await BuySellModel.find({available:"yes"});
 
+        
+
         res.status(200).render("buyAndSell/buyAndSellSeePost",{
             student: req.studentInfo,
             totalSeatAvailable: availablePosts
