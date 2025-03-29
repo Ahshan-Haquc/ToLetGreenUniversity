@@ -2,6 +2,7 @@ const express = require("express");
 const Model = require("../models/studentSchema");
 const PostShareModel = require("../models/postShareSchema");
 const NotificationModel = require("../models/notification");
+const BuySellModel = require("../models/buyAndSellPostShareSchema");
 const basicRouter = express.Router();
 const bcrypt = require("bcrypt");
 const accessPermission = require("../middlewares/accessPermission");
@@ -310,6 +311,90 @@ basicRouter.post("/savePost",accessPermission, async (req, res, next) => {
     next(error);
   }
 });
+
+
+// updating like and likeCounts
+basicRouter.post("/toggle-like", async (req, res) => {
+  const { likeFrom, postId, userId } = req.body;
+
+  console.log("working on toggle like");
+
+  try {
+      if(likeFrom === "To-let"){
+        var post = await PostShareModel.findById(postId);
+      }else if(likeFrom === "Buy-sell"){
+        var post = await BuySellModel.findById(postId);
+      }
+      
+      
+      // Check if user has already liked the post
+      const userIndex = post.likes.indexOf(userId);
+
+      if (userIndex === -1) {
+          // User has not liked the post yet, so add their ID and increment likeCount
+          post.likes.push(userId);
+          post.likeCount += 1;
+      } else {
+          // User has already liked the post, so remove their ID and decrement likeCount
+          post.likes.splice(userIndex, 1);
+          post.likeCount -= 1;
+      }
+
+      await post.save();
+
+      // Calculating rating
+      const updateRating = ratingCalculate(post.likeCount, post.dislikeCount);
+      post.reviewScore = updateRating;
+      await post.save();
+
+      res.json({ likeCount: post.likeCount, liked: userIndex === -1 });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "An error occurred while toggling the like." });
+  }
+});
+
+// updating dislike and dislikeCounts
+basicRouter.post("/toggle-dislike", async (req, res) => {
+  const { dislikeFrom, postId, userId } = req.body;
+
+  console.log("working on toggle dislike");
+
+  try {
+    if(dislikeFrom === "To-let"){
+      var post = await PostShareModel.findById(postId);
+    }else if(dislikeFrom === "Buy-sell"){
+      var post = await BuySellModel.findById(postId);
+    }
+      
+      // Check if user has already liked the post
+      const userIndex = post.dislikes.indexOf(userId);
+
+      if (userIndex === -1) {
+          // User has not liked the post yet, so add their ID and increment likeCount
+          post.dislikes.push(userId);
+          post.dislikeCount += 1;
+      } else {
+          // User has already liked the post, so remove their ID and decrement likeCount
+          post.dislikes.splice(userIndex, 1);
+          post.dislikeCount -= 1;
+      }
+
+      await post.save();
+
+      // Calculating rating
+      const updateRating = ratingCalculate(post.likeCount, post.dislikeCount);
+      post.reviewScore = updateRating;
+      await post.save();
+      
+      res.json({ dislikeCount: post.likeCount, disliked: userIndex === -1 });  //Send updated like count and like status
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "An error occurred while toggling the like." });
+  }
+});
+
+
 
 // -----------------------------------------------
 // -------------------------------------------------

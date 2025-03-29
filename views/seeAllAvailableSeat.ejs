@@ -193,7 +193,7 @@
           <!-- ei people review a click korle akta popup window ashbe r dekhabe total koyta like r dislike r rating count ta boro kore dekhabe -->
           <div
             id="like-button-<%= post._id %>"
-            onclick="toggleLike('<%= post._id %>', '<%= student._id %>')"
+            onclick="toggleLike('To-let','<%= post._id %>', '<%= student._id %>')"
           >
             <i class="fa-regular fa-thumbs-up fa-1x"></i>
             <span class="ffsize" id="like-count-<%= post._id %>"
@@ -203,7 +203,7 @@
 
           <div
             id="post_button1"
-            onclick="toggleDisLike('<%= post._id %>','<%= student._id %>')"
+            onclick="toggleDisLike('To-let', '<%= post._id %>','<%= student._id %>')"
           >
             <i class="fa-regular fa-thumbs-down"></i>
             <span class="ffsize" id="dislike-count-<%= post._id %>"
@@ -313,6 +313,7 @@
       <!-- popup window end here  -->
       <% }) %>
     </div>
+    <script src="\javaScriptFiles\basicEvents.js"></script>
     <script src="\javaScriptFiles\postShow.js"></script>
     <script src="\javaScriptFiles\confirmPage.js"></script>
     <script src="\javaScriptFiles\sideNavBarShow.js"></script>
