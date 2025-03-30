@@ -47,3 +47,17 @@ async function toggleDisLike(dislikeFrom, postId, userId) {
     }
   }
   
+
+
+// this event is for showing pupup and hinding pupup 
+// for showing pupup 
+function openPopup(divBoxId){
+  const item = document.getElementById(divBoxId);
+  item.classList.remove("hidden");
+  item.classList.add("flex");
+}
+function closePopup(divBoxId){
+  const item = document.getElementById(divBoxId);
+  item.classList.remove("flex");
+  item.classList.add("hidden");
+}

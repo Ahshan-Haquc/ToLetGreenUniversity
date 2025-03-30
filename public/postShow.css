@@ -168,13 +168,13 @@
 .peopleReviewPopUp {
   height: 50vh;
   width: 50vw;
-  background-color: antiquewhite;
+  background-color: #faebd7;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 10px;
-  border: 1px solid rgb(0, 222, 0);
+  border: 1px solid #00de00;
   z-index: 6;
   visibility: hidden;
   opacity: 0;

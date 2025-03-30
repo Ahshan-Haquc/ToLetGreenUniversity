@@ -143,7 +143,7 @@
           </p>
           <p class="text-2xl font-semibold my-1">
             Negotiable -
-            <span class="text-red-700"><%= post.contact %></span>
+            <span class="text-red-700"><%= post.negotiable %></span>
           </p>
         </div>
         <!-- info part 2-->
@@ -211,7 +211,7 @@
           </div>
           <div
             id="post_button2"
-            onclick="showingGoogleMapPopup('<%= post._id %>')"
+            onclick="openPopup('popupInBuySell<%= post._id %>')"
           >
             <i class="fa-regular fa-compass"></i
             ><span class="ffsize">Description</span>
@@ -285,6 +285,16 @@
           </div>
         </div>
       </div>
+
+      <!-- popup description  -->
+       <div class="popupBox h-screen w-screen fixed top-16 left-0 bg-[#0000009d] center hidden" id="popupInBuySell<%= post._id %>">
+        <div class="h-[400px] w-[700px] bg-[#faebd7] border border-[#00de00] rounded-xl p-5 ">
+          <div class="h-fit  flex justify-end" onclick="closePopup('popupInBuySell<%= post._id %>')"><i class="fa-solid fa-xmark fa-2x hover:text-red-500 hover:scale-110"></i></div>
+          <div class="h-[300px] mt-5 text-3xl overflow-y-auto">
+            <%= post.description %>
+        </div>        
+          </div>
+       </div>
 
       <!-- popup facilities  -->
       <div
