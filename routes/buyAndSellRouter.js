@@ -5,10 +5,13 @@ const upload = require("../middlewares/uploadImages");
 const ratingCalculate = require("../controller/ratingCalculate");
 const BuySellModel = require("../models/buyAndSellPostShareSchema")
 
-buySellRouter.get('/buyAndSellHomePage',accessPermission,(req,res)=>{
+buySellRouter.get('/buyAndSellHomePage',accessPermission,async(req,res)=>{
+    console.log("Working on buySell home page get router.");
     try {
+        const totalPostAvailable = await BuySellModel.find();
         res.status(200).render("buyAndSell/buyAndSellHomePage",{
             student: req.studentInfo,
+            totalPostAvailable: totalPostAvailable.length,
             comeFromFilterRouter: false,
         });
     } catch (error) {
@@ -20,8 +23,6 @@ buySellRouter.get('/buyAndSellHomePage',accessPermission,(req,res)=>{
 buySellRouter.get('/buyAndSellSeePost',accessPermission,async(req,res)=>{
     try {
         const availablePosts = await BuySellModel.find({available:"yes"});
-
-        
 
         res.status(200).render("buyAndSell/buyAndSellSeePost",{
             student: req.studentInfo,
@@ -57,6 +58,7 @@ buySellRouter.post('/buyAndSellDoPost',accessPermission,  upload.array('imageUpl
         condition: req.body.condition,
         description: req.body.description,
         contact: req.body.contact,
+        negotiable: req.body.negotiable,
         location: req.body.location,
         images: imagePaths,
         studentPostedId: req.studentInfo._id

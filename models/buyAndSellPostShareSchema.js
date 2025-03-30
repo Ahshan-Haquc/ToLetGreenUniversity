@@ -21,6 +21,11 @@ const postSchema = mongoose.Schema({
         required: true,
         // enum: ['New', 'Used', 'Like New']
       },
+      negotiable:{
+        type: String,
+        require: true,
+        default: "Yes"
+      },
       description: {
         type: String,
         trim: true

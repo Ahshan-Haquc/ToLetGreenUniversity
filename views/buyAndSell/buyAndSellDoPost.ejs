@@ -39,10 +39,10 @@
             <form class="w-1/2 bg-white p-6 shadow-lg rounded-lg" method="post" action="/buyAndSellDoPost" enctype="multipart/form-data">
               <h2 class="text-4xl font-semibold mb-4 text-center text-green-600">Post an Item for Sale</h2>
               
-              <label class="block font-medium">Title / Item Name</label>
+              <label class="block font-bold">Title / Item Name</label>
               <input type="text" name="title" placeholder="Enter a title or item name" class="w-full p-2 border rounded mb-4" required />
               
-              <label class="block font-medium">Category</label>
+              <label class="block font-bold">Category</label>
               <select name="category" class="w-full p-2 border rounded mb-4">
                 <option>Electronics</option>
                 <option>Furniture</option>
@@ -51,27 +51,33 @@
                 <option>Other</option>
               </select>
               
-              <label class="block font-medium">Price (in BDT)</label>
+              <label class="block font-bold">Price (in BDT)</label>
               <input type="number" name="price" placeholder="Enter price" class="w-full p-2 border rounded mb-4" required />
               
-              <label class="block font-medium">Item Condition</label>
+              <label class="block font-bold">Item Condition</label>
               <select name="condition" class="w-full p-2 border rounded mb-4">
                 <option>New</option>
                 <option>Used - Like New</option>
                 <option>Used - Good</option>
                 <option>Used - Fair</option>
               </select>
+
+              <label class="block font-bold">Nagotiable</label>
+              <select name="negotiable" class="w-full p-2 border rounded mb-4">
+                <option>Yes</option>
+                <option>No - (fixed price)</option>
+              </select>
               
-              <label class="block font-medium">Description</label>
+              <label class="block font-bold">Description</label>
               <textarea name="description" placeholder="Write details about your item" class="w-full p-2 border rounded mb-4" rows="4"></textarea>
               
-              <label class="block font-medium">Upload Images (Max 3)</label>
+              <label class="block font-bold">Upload Images (Max 3)</label>
               <input type="file" name="imageUpload" accept="image/*" multiple class="w-full p-2 border rounded mb-4" />
               
-              <label class="block font-medium">Contact Number</label>
+              <label class="block font-bold">Contact Number</label>
               <input type="tel" name="contact" placeholder="Enter your contact number" class="w-full p-2 border rounded mb-4" required />
               
-              <label class="block font-medium">Location</label>
+              <label class="block font-bold">Location</label>
               <input type="text" name="location" placeholder="Enter location" class="w-full p-2 border rounded mb-4" required />
               
               <button type="submit" class="w-full btn btn-primary text-white p-2 rounded hover:bg-blue-600">Post Item</button>
