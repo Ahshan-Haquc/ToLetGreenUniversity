@@ -3,7 +3,9 @@ const buySellRouter = express.Router();
 const accessPermission = require("../middlewares/accessPermission");
 const upload = require("../middlewares/uploadImages");
 const ratingCalculate = require("../controller/ratingCalculate");
-const BuySellModel = require("../models/buyAndSellPostShareSchema")
+const Model = require("../models/studentSchema");
+const BuySellModel = require("../models/buyAndSellPostShareSchema");
+const mongoose = require('mongoose');
 
 buySellRouter.get('/buyAndSellHomePage',accessPermission,async(req,res)=>{
     console.log("Working on buySell home page get router.");
@@ -24,9 +26,26 @@ buySellRouter.get('/buyAndSellSeePost',accessPermission,async(req,res)=>{
     try {
         const availablePosts = await BuySellModel.find({available:"yes"});
 
+        const totalSeatAvailableArray = [];
+
+        for (const element of availablePosts) {
+            const user = await Model.findOne({_id:element.studentPostedId});
+      
+            totalSeatAvailableArray.push({
+              userFirstName: user.firstName,
+              userLastName: user.lastName,
+              userStudentId: user.studentId,
+              userDepartment: user.department,
+              userEmail: user.email,
+              userPhone: user.phone,
+              postInfo: element
+            });
+          }
+
         res.status(200).render("buyAndSell/buyAndSellSeePost",{
             student: req.studentInfo,
-            totalSeatAvailable: availablePosts
+            totalSeatAvailable: totalSeatAvailableArray,
+            comeFromFilterRouter: false,
         });
     } catch (error) {
         console.log("Error in lost and found home page get router.");
@@ -72,6 +91,34 @@ buySellRouter.post('/buyAndSellDoPost',accessPermission,  upload.array('imageUpl
         console.log("Error in lost and found do post page POST router.");
         console.log(error);
     }
+})
+
+// this router is for filter means quickFind post 
+buySellRouter.post('/quickFind',accessPermission,async(req,res)=>{
+    console.log("working on quickFind router");
+    try {
+        const data = req.body;
+
+        const availablePosts = await BuySellModel.find({price:{$gte : req.body.range1, $lte: req.body.range2}, category: req.body.category});
+
+        res.status(200).render("buyAndSell/buyAndSellSeePost",{
+            student: req.studentInfo,
+            totalSeatAvailable: availablePosts,
+            comeFromFilterRouter: true,
+        });
+
+    } catch (error) {
+        console.log("Error in buySell quick find router : \n",error);
+    }
+})
+
+//finding just seats counts when just someone put inputs for filter quick find without reloading page
+buySellRouter.post("/filterFetchResultAssynchronously",async (req,res)=>{
+  const {renge1,renge2,category} = req.body;
+
+  const numberOfSeats = await BuySellModel.find({price:{$gte:renge1,$lte:renge2},category: category});
+
+  res.json({availableSeats:numberOfSeats.length});
 })
 
 module.exports = buySellRouter;
