@@ -23,7 +23,7 @@ function updateSeatCounter() {
 
 
 
-// this is for fetching filder result assynchronusly display in the page 
+// this is for fetching filter result assynchronusly display in the page 
 
 document.addEventListener("DOMContentLoaded", function () {
   function fetchSeats() {

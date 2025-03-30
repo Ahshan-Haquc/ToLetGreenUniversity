@@ -42,6 +42,19 @@
     <!-- side nav bar -->
     <%- include("../layout/sideNavBar") %>
 
+    <!-- showing filtering result, if render come from quick find router  -->
+    <% if (comeFromFilterRouter === true) { %>
+    <script>
+      window.onload = function () {
+        // Pass `totalSeatAvailable` from the server to the script
+        const totalSeats = <%- JSON.stringify(totalSeatAvailable) %>;
+
+        alert("Total "+totalSeats.length + " posts found between these range.");
+
+      };
+    </script>
+    <% } %>
+
     <!-- post page content starts from here -->
     <div class="contentBox">
       <!-- nav bar part , this will appear above of the page -->
@@ -53,11 +66,11 @@
         <div id="postArea1">
           <div id="postArea1Box1">
             <div class="text-5xl mt-3 mb-2 overflow-hidden text-red-700">
-              <%= post.title %>
+              <%= post.postInfo.title %>
             </div>
             <h5 class="mb-4">
               <span class="glyphicon glyphicon-time mb-2"></span>
-              Posted on <%= post.postDate %>
+              Posted on <%= post.postInfo.postDate %>
             </h5>
           </div>
 
@@ -67,7 +80,7 @@
                 id="reviewCountShowBigly"
                 style="font-size: 20px; font-weight: bold"
               >
-                <%= post.reviewScore %>
+                <%= post.postInfo.reviewScore %>
               </div>
               &nbsp;
               <div>
@@ -80,15 +93,16 @@
             </div>
             <button
               class="btn btn-default btn-md"
-              id="saveButton<%= post._id %>"
-              onclick="saveThisPost('To-let','<%= student._id %>','<%= post._id %>')"
+              id="saveButton<%= post.postInfo._id %>"
+              onclick="saveThisPost('Buy-sell','<%= student._id %>','<%= post.postInfo._id %>')"
             >
-              <%= student.savedPosts.includes(post._id) ? 'Saved' : 'Save it' %>
+              <%= student.savedPosts.includes(post.postInfo._id) ? 'Saved' :
+              'Save it' %>
             </button>
             <button
               class="btn btn-primary btn-md"
-              id="confirmRequestSeatButton<%= post._id %>"
-              onclick="confirmRequestSent('Buy-sell','<%= student._id %>','<%= post.studentPostedId %>','<%= post._id %>')"
+              id="confirmRequestSeatButton<%= post.postInfo._id %>"
+              onclick="confirmRequestSent('Buy-sell','<%= student._id %>','<%= post.postInfo.studentPostedId %>','<%= post.postInfo._id %>')"
             >
               Request for confirm
             </button>
@@ -97,121 +111,143 @@
         <div id="postArea2">
           <div class="w-fit flex">
             <!-- imageBox1 -->
-            <div class="h-[200px] w-[200px] bg-gray-300 mr-2 overflow-hidden flex justify-center items-center duration-300 hover:scale-105 hover:mr-4">
-              <% if (post.images && post.images.length > 0) { %>
-                <img src="/<%= post.images[0] %>" alt="Image1" class="w-full h-full object-cover" />
+            <div
+              class="h-[200px] w-[200px] bg-gray-300 mr-2 overflow-hidden flex justify-center items-center duration-300 hover:scale-105 hover:mr-4"
+            >
+              <% if (post.postInfo.images && post.postInfo.images.length > 0) {
+              %>
+              <img
+                src="/<%= post.postInfo.images[0] %>"
+                alt="Image1"
+                class="w-full h-full object-cover"
+              />
               <% } else { %>
-                <p class="text-center">No image</p>
+              <p class="text-center">No image</p>
               <% } %>
             </div>
-            
+
             <!-- imageBox2 -->
-            <% if (post.images && post.images.length > 1) { %>
-            <div class="h-[200px] w-[200px] bg-gray-300 mr-2 overflow-hidden flex justify-center items-center duration-300 hover:scale-105 hover:ml-2 hover:mr-4">
-                <img src="/<%= post.images[1] %>" alt="Image2" class="w-full h-full object-cover" />
-              </div>
-              <% } %>
+            <% if (post.postInfo.images && post.postInfo.images.length > 1) { %>
+            <div
+              class="h-[200px] w-[200px] bg-gray-300 mr-2 overflow-hidden flex justify-center items-center duration-300 hover:scale-105 hover:ml-2 hover:mr-4"
+            >
+              <img
+                src="/<%= post.postInfo.images[1] %>"
+                alt="Image2"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <% } %>
 
             <!-- imageBox3 -->
-            <% if (post.images && post.images.length > 2) { %>
-              <div class="h-[200px] w-[200px] bg-gray-300 mr-2 overflow-hidden flex justify-center items-center duration-300 hover:scale-105 hover:mx-4">
-                  <img src="/<%= post.images[2] %>" alt="Image3" class="w-full h-full object-cover" />
-                </div>
-                <% } %>
-
+            <% if (post.postInfo.images && post.postInfo.images.length > 2) { %>
+            <div
+              class="h-[200px] w-[200px] bg-gray-300 mr-2 overflow-hidden flex justify-center items-center duration-300 hover:scale-105 hover:mx-4"
+            >
+              <img
+                src="/<%= post.postInfo.images[2] %>"
+                alt="Image3"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <% } %>
           </div>
           <div class="flex">
             <!-- info part 1 -->
-          <div
-          class="h-[200px] w-[300px] mx-3 pl-3 flex flex-col justify-center"
-        >
-          <p class="text-3xl font-bold mb-5">Post informations</p>
-          <p class="text-2xl font-semibold my-1">
-            Price - <span class="text-red-700"><%= post.price %> tk</span>
-          </p>
-          <p class="text-2xl font-semibold my-1">
-            Category -
-            <span class="text-red-700"><%= post.category %></span>
-          </p>
-          <p class="text-2xl font-semibold my-1">
-            Location -
-            <span class="text-red-700"><%= post.location %></span>
-          </p>
-          <p class="text-2xl font-semibold my-1">
-            Condition -
-            <span class="text-red-700"><%= post.condition %></span>
-          </p>
-          <p class="text-2xl font-semibold my-1">
-            Negotiable -
-            <span class="text-red-700"><%= post.negotiable %></span>
-          </p>
-        </div>
-        <!-- info part 2-->
-        <div
-          class="h-[200px] w-[300px] mx-3 pl-3 flex flex-col justify-center"
-        >
-          <p class="text-3xl font-bold mb-5">Contact informations</p>
-          <p class="text-2xl font-semibold my-1">
-            Posted by -
-            <span class="text-red-700"
-              ><%= student.firstName %> <%= student.lastName %></span
+            <div
+              class="h-[200px] w-[300px] mx-3 pl-3 flex flex-col justify-center"
             >
-          </p>
-          <p class="text-2xl font-semibold my-1">
-            Student ID -
-            <span class="text-red-700"><%= student.studentId %></span>
-          </p>
-          <p class="text-2xl font-semibold my-1">
-            Department -
-            <span class="text-red-700"><%= student.department %></span>
-          </p>
-          <p class="text-2xl font-semibold my-1">
-            Phone -
-            <span class="text-red-700"><%= student.phone %></span>
-          </p>
-          <p class="text-2xl font-semibold my-1">
-            Email -
-            <span class="text-red-700"><%= student.email %></span>
-          </p>
-        </div>
+              <p class="text-3xl font-bold mb-5">Post informations</p>
+              <p class="text-2xl font-semibold my-1">
+                Price -
+                <span class="text-red-700"><%= post.postInfo.price %> tk</span>
+              </p>
+              <p class="text-2xl font-semibold my-1">
+                Category -
+                <span class="text-red-700"><%= post.postInfo.category %></span>
+              </p>
+              <p class="text-2xl font-semibold my-1">
+                Location -
+                <span class="text-red-700"><%= post.postInfo.location %></span>
+              </p>
+              <p class="text-2xl font-semibold my-1">
+                Condition -
+                <span class="text-red-700"><%= post.postInfo.condition %></span>
+              </p>
+              <p class="text-2xl font-semibold my-1">
+                Negotiable -
+                <span class="text-red-700"
+                  ><%= post.postInfo.negotiable %></span
+                >
+              </p>
+            </div>
+            <!-- info part 2-->
+            <div
+              class="h-[200px] w-[300px] mx-3 pl-3 flex flex-col justify-center"
+            >
+              <p class="text-3xl font-bold mb-5">Contact informations</p>
+              <p class="text-2xl font-semibold my-1">
+                Posted by -
+                <span class="text-red-700"
+                  ><%= post.userFirstName %> <%= post.userLastName %></span
+                >
+              </p>
+              <p class="text-2xl font-semibold my-1">
+                Student ID -
+                <span class="text-red-700"><%= post.userStudentId %></span>
+              </p>
+              <p class="text-2xl font-semibold my-1">
+                Department -
+                <span class="text-red-700"><%= post.userDepartment %></span>
+              </p>
+              <p class="text-2xl font-semibold my-1">
+                Phone -
+                <span class="text-red-700"><%= post.userPhone %></span>
+              </p>
+              <p class="text-2xl font-semibold my-1">
+                Email -
+                <span class="text-red-700"><%= post.userEmail %></span>
+              </p>
+            </div>
           </div>
         </div>
         <div id="postArea3">
           <!-- ekhane like review confirm button thakbe -->
           <div
             id="post_button0"
-            onclick="showingPopup(<%=totalSeatAvailable.indexOf(post)%>)"
+            onclick="showingPopup('<%= post.postInfo._id %>')"
           >
             <span>
-              <span id="reviewCount"><%= post.reviewScore %></span>
+              <span id="reviewCount"><%= post.postInfo.reviewScore %></span>
               <i class="fa-regular fa-star"></i>
             </span>
             <span class="ffsize">Rating</span>
           </div>
           <!-- ei people review a click korle akta popup window ashbe r dekhabe total koyta like r dislike r rating count ta boro kore dekhabe -->
           <div
-            id="like-button-<%= post._id %>"
-            onclick="toggleLike('Buy-sell','<%= post._id %>', '<%= student._id %>')"
+            id="like-button-<%= post.postInfo._id %>"
+            onclick="toggleLike('Buy-sell','<%= post.postInfo._id %>', '<%= student._id %>')"
           >
             <i class="fa-regular fa-thumbs-up fa-1x"></i>
-            <span class="ffsize" id="like-count-<%= post._id %>"
-              ><%= post.likes.includes(student._id) ? 'Liked' : 'Like' %></span
+            <span class="ffsize" id="like-count-<%= post.postInfo._id %>"
+              ><%= post.postInfo.likes.includes(student._id) ? 'Liked' : 'Like'
+              %></span
             >
           </div>
 
           <div
             id="post_button1"
-            onclick="toggleDisLike('Buy-sell', '<%= post._id %>','<%= student._id %>')"
+            onclick="toggleDisLike('Buy-sell', '<%= post.postInfo._id %>','<%= student._id %>')"
           >
             <i class="fa-regular fa-thumbs-down"></i>
-            <span class="ffsize" id="dislike-count-<%= post._id %>"
-              ><%= post.dislikes.includes(student._id) ? 'Dis-liked' :
+            <span class="ffsize" id="dislike-count-<%= post.postInfo._id %>"
+              ><%= post.postInfo.dislikes.includes(student._id) ? 'Dis-liked' :
               'Dis-Like' %></span
             >
           </div>
           <div
             id="post_button2"
-            onclick="openPopup('popupInBuySell<%= post._id %>')"
+            onclick="openPopup('popupInBuySell<%= post.postInfo._id %>')"
           >
             <i class="fa-regular fa-compass"></i
             ><span class="ffsize">Description</span>
@@ -223,46 +259,49 @@
       <!-- Popup content for showing rating-->
       <div
         class="peopleReviewPopUpBackground"
-        id="peopleReviewPopUpBackground<%=totalSeatAvailable.indexOf(post)%>"
-        onclick="hidePopup(<%=totalSeatAvailable.indexOf(post)%>)"
+        id="peopleReviewPopUpBackground<%= post.postInfo._id %>"
+        onclick="hidePopup('<%= post.postInfo._id %>')"
       ></div>
 
       <div
         class="peopleReviewPopUp"
-        id="peopleReviewPopUp<%=totalSeatAvailable.indexOf(post)%>"
+        id="peopleReviewPopUp<%= post.postInfo._id %>"
       >
         <div
           class="crossButton"
-          onclick="hidePopup(<%=totalSeatAvailable.indexOf(post)%>)"
+          onclick="hidePopup('<%= post.postInfo._id %>')"
         >
           <i class="fa-solid fa-xmark fa-2x"></i>
         </div>
         <div id="textLikeAndDislikeShow">
           <div>
             <i class="fa-regular fa-thumbs-up fa-1x"></i> Total Liked:
-            <span class="text-green-800"><%= post.likeCount %></span>
+            <span class="text-green-800"><%= post.postInfo.likeCount %></span>
           </div>
           <div>
             <i class="fa-regular fa-thumbs-down"></i> Total Disliked:
-            <span class="text-green-800"><%= post.dislikeCount %></span>
+            <span class="text-green-800"
+              ><%= post.postInfo.dislikeCount %></span
+            >
           </div>
           <div>
             <i class="fa-regular fa-star"></i>
-            Rating: <span class="text-green-800"><%= post.reviewScore %></span>
+            Rating:
+            <span class="text-green-800"><%= post.postInfo.reviewScore %></span>
           </div>
         </div>
       </div>
       <!-- Popup Content for google map show-->
       <div
         class="peopleReviewPopUpBackground"
-        id="peopleReviewPopUpBackground<%=post._id%>"
-        onclick="hideGoogleMapPopupBackground('<%=post._id%>')"
+        id="peopleReviewPopUpBackground<%=post.postInfo._id%>"
+        onclick="hideGoogleMapPopupBackground('<%=post.postInfo._id%>')"
       ></div>
 
-      <div class="peopleReviewPopUp" id="googleMapPopUp<%=post._id%>">
+      <div class="peopleReviewPopUp" id="googleMapPopUp<%=post.postInfo._id%>">
         <div
           class="crossButton"
-          onclick="hideGoogleMapPopupBackground('<%=post._id%>')"
+          onclick="hideGoogleMapPopupBackground('<%=post.postInfo._id%>')"
         >
           <i class="fa-solid fa-xmark fa-2x"></i>
         </div>
@@ -273,7 +312,7 @@
               class="h-fit text-black text-5xl flex justify-between pl-5 md:h-[40%] md:text-black md:text-3xl md:flex md:pl-5 pr-5"
             >
               <div class="w-4/5 h-fit overflow-hidden" id="copyGoogleMapLink">
-                <%= post.googleMapLink %>
+                <%= post.postInfo.googleMapLink %>
               </div>
               <div
                 class="w-1/5 flex justify-end hover:cursor-pointer hover:scale-110"
@@ -287,14 +326,26 @@
       </div>
 
       <!-- popup description  -->
-       <div class="popupBox h-screen w-screen fixed top-16 left-0 bg-[#0000009d] center hidden" id="popupInBuySell<%= post._id %>">
-        <div class="h-[400px] w-[700px] bg-[#faebd7] border border-[#00de00] rounded-xl p-5 ">
-          <div class="h-fit  flex justify-end" onclick="closePopup('popupInBuySell<%= post._id %>')"><i class="fa-solid fa-xmark fa-2x hover:text-red-500 hover:scale-110"></i></div>
-          <div class="h-[300px] mt-5 text-3xl overflow-y-auto">
-            <%= post.description %>
-        </div>        
+      <div
+        class="popupBox h-screen w-screen fixed top-16 left-0 bg-[#0000009d] center hidden"
+        id="popupInBuySell<%= post.postInfo._id %>"
+      >
+        <div
+          class="h-[400px] w-[700px] bg-[#faebd7] border border-[#00de00] rounded-xl p-5"
+        >
+          <div
+            class="h-fit flex justify-end"
+            onclick="closePopup('popupInBuySell<%= post.postInfo._id %>')"
+          >
+            <i
+              class="fa-solid fa-xmark fa-2x hover:text-red-500 hover:scale-110"
+            ></i>
           </div>
-       </div>
+          <div class="h-[300px] mt-5 text-3xl overflow-y-auto">
+            <%= post.postInfo.description %>
+          </div>
+        </div>
+      </div>
 
       <!-- popup facilities  -->
       <div
@@ -314,50 +365,71 @@
       <!-- popup window end here  -->
       <% }) %>
     </div>
-<!-- ------------------- -->
-<!-- Quick find  -->
-<div class="h-[100vh] w-[100vw] fixed top-[5%] flex justify-center items-center hidden" id="quickFindBox">
-  <div class="absolute h-full w-full bg-black opacity-50" onclick="hideQuickFindBox()"></div>
-  <div
-    class="h-[400px] w-[600px] p-10 bg-white absolute rounded-3xl shadow-md flex flex-col justify-between items-center"
-  >
-  <i class="fa-solid fa-xmark absolute top-5 right-5 hover:scale-150 hover:text-red-500" onclick="hideQuickFindBox()"></i>
-    <div class="text-3xl">Enter price range</div>
-    <div class="w-full flex">
-      <div class="w-1/2">
-        <input
-          class="w-full h-[50px] p-4 mr-1 text-3xl text-black bg-gray-200"
-          placeholder="enter starting price"
-          type="number"
-          name="range1"
-        />
-      </div>
-      <div class="w-1/2">
-        <input
-          class="w-full h-[50px] p-4 ml-1 text-3xl text-black bg-gray-200"
-          placeholder="enter ending price"
-          type="number"
-          name="range2"
-        />
-      </div>
+    <!-- ------------------- -->
+    <!-- Quick find  -->
+    <div
+      class="h-[100vh] w-[100vw] fixed top-[5%] flex justify-center items-center hidden"
+      id="quickFindBox"
+    >
+      <div
+        class="absolute h-full w-full bg-black opacity-50"
+        onclick="hideQuickFindBox()"
+      ></div>
+      <form
+        action="/quickFind"
+        method="post"
+        class="h-[400px] w-[600px] p-10 bg-white absolute rounded-3xl shadow-md flex flex-col justify-between items-center"
+      >
+        <i
+          class="fa-solid fa-xmark absolute top-5 right-5 hover:scale-150 hover:text-red-500"
+          onclick="hideQuickFindBox()"
+        ></i>
+
+        <div class="text-3xl">Enter price range</div>
+        <div class="w-full flex">
+          <div class="w-1/2">
+            <input
+              class="w-full h-[50px] p-4 mr-1 text-3xl text-black bg-gray-200"
+              id="x1"
+              placeholder="enter starting price"
+              type="number"
+              name="range1"
+            />
+          </div>
+          <div class="w-1/2">
+            <input
+              class="w-full h-[50px] p-4 ml-1 text-3xl text-black bg-gray-200"
+              id="x2"
+              placeholder="enter ending price"
+              type="number"
+              name="range2"
+            />
+          </div>
+        </div>
+        <div class="text-3xl">Select category</div>
+        <div class="w-full">
+          <select
+            name="category"
+            id="x3"
+            class="w-full h-[50px] p-4 ml-1 text-3xl text-black bg-gray-200"
+          >
+            <option>Electronics</option>
+            <option>Furniture</option>
+            <option>Books</option>
+            <option>Clothing</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <!-- div for showing filter result assynchronously -->
+        <div class="text-3xl" id="resultText"></div>
+        <div class="">
+          <button type="submit" class="btn btn-primary btn-lg">See now</button>
+        </div>
+      </form>
     </div>
-    <div class="text-3xl">Select category</div>
-    <div class="w-full">
-      <select name="" id="" class="w-full h-[50px] p-4 ml-1 text-3xl text-black bg-gray-200"">
-        <option value="phone">Phone</option>
-        <option value="phone">Electronics</option>
-        <option value="phone">Furniture</option>
-      </select>
-    </div>
-    <div class="text-3xl">Total post founded : 4</div>
-    <div class="">
-      <button class="btn btn-primary btn-lg">See now</button>
-    </div>
-  </div>
-</div>
-<!-- --------end quick find-------- -->
-<script src="\javaScriptFiles\buyAndSellEvents.js"></script>
-<script src="\javaScriptFiles\basicEvents.js"></script>
+    <!-- --------end quick find-------- -->
+    <script src="\javaScriptFiles\buyAndSellEvents.js"></script>
+    <script src="\javaScriptFiles\basicEvents.js"></script>
     <script src="\javaScriptFiles\postShow.js"></script>
     <script src="\javaScriptFiles\confirmPage.js"></script>
     <script src="\javaScriptFiles\sideNavBarShow.js"></script>
