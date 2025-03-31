@@ -2,8 +2,8 @@ const { application, json } = require("express");
 
 // function for showing popup and hiding popup of rating
 function showingPopup(postCount) {
-  const popup = document.querySelector(`#peopleReviewPopUp${postCount}`);
-  const background = document.querySelector(
+  const popup = document.getElementById(`#peopleReviewPopUp${postCount}`);
+  const background = document.getElementById(
     `#peopleReviewPopUpBackground${postCount}`
   );
   // Show popup and background overlay
@@ -12,8 +12,8 @@ function showingPopup(postCount) {
 }
 
 function hidePopup(postCount) {
-  const popup = document.querySelector(`#peopleReviewPopUp${postCount}`);
-  const background = document.querySelector(
+  const popup = document.getElementById(`#peopleReviewPopUp${postCount}`);
+  const background = document.getElementById(
     `#peopleReviewPopUpBackground${postCount}`
   );
   popup.classList.remove("showPopup");

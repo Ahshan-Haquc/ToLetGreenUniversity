@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Lost & Found</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <link rel="stylesheet" href="sideNavBar.css" />
+    <link rel="stylesheet" href="headerNavBar.css" />
+    <link rel="stylesheet" href="homePage.css" />
+    <link href="output.css" rel="stylesheet" />
+    <link rel="stylesheet" href="footer.css" />
+    <link rel="stylesheet" href="homePageToLet.css" />
+  </head>
+
+  <body>
+    <!-- header nav bar -->
+    <%- include("../layout/headerNavBar") %> <%- include("../layout/sideNavBar")
+    %> <%- include("../layout/buyAndSellNavBar") %>
+    <div class="contentBox">
+      <div
+        class="w-full min-h-[80vh] max-h-fit p-3 bg-gray-100 flex justify-center items-center"
+      >
+        <!-- box -->
+        <div
+          class="w-[600px] h-[380px] p-3 m-10 bg-[#00bbff1d] rounded-3xl flex flex-col justify-center items-center gap-3 shadow-sm"
+        >
+          <div class="w-full h-fit p-2 flex justify-center items-center">
+            <img class="h-[150px] w-[150px]" src="images/bed.png" alt="" />
+          </div>
+          <div class="w-full h-fit p-2 font-bold text-7xl text-center">
+            Post What You Lost!
+          </div>
+          <div class="w-full h-fit p-2 text-center font-bold text-3xl">
+            You can sell your used or unused items to your university friends or
+            other.
+          </div>
+          <div class="w-full h-fit p-2 flex justify-center">
+            <button
+              class="btn btn-primary"
+              onclick="window.location.href='/buyAndSellDoPost'"
+            >
+              Report Now
+            </button>
+          </div>
+        </div>
+        <!-- box -->
+        <div
+          class="w-[600px] h-[380px] p-3 m-10 bg-[#00bbff1d] rounded-3xl flex flex-col justify-center items-center gap-3 shadow-sm"
+        >
+          <div class="w-full h-fit p-2 flex justify-center items-center">
+            <img
+              class="h-[150px] w-[150px]"
+              src="images/buyAndSell.png"
+              alt=""
+            />
+          </div>
+          <div class="w-full h-fit p-2 font-bold text-7xl text-center">
+            See Found Post
+          </div>
+          <div class="w-full h-fit p-2 text-center font-bold text-3xl">
+            Total post available : <strong>0</strong>
+          </div>
+          <div class="w-full h-fit p-2 flex justify-center">
+            <button
+              class="btn btn-primary"
+              onclick="window.location.href='/buyAndSellSeePost'"
+            >
+              Find Now
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Quick find  -->
+    <div
+      class="h-[100vh] w-[100vw] fixed top-[5%] flex justify-center items-center hidden"
+      id="quickFindBox"
+    >
+      <div
+        class="absolute h-full w-full bg-black opacity-50"
+        onclick="hideQuickFindBox()"
+      ></div>
+      <form
+        action="/quickFindLostAndFound"
+        method="post"
+        class="h-[400px] w-[600px] p-10 bg-white absolute rounded-3xl shadow-md flex flex-col justify-between items-center"
+      >
+        <i
+          class="fa-solid fa-xmark absolute top-5 right-5 hover:scale-150 hover:text-red-500"
+          onclick="hideQuickFindBox()"
+        ></i>
+
+        <div class="text-3xl">Enter price range</div>
+        <div class="w-full flex">
+          <div class="w-1/2">
+            <input
+              class="w-full h-[50px] p-4 mr-1 text-3xl text-black bg-gray-200"
+              id="x1"
+              placeholder="enter starting price"
+              type="number"
+              name="range1"
+            />
+          </div>
+          <div class="w-1/2">
+            <input
+              class="w-full h-[50px] p-4 ml-1 text-3xl text-black bg-gray-200"
+              id="x2"
+              placeholder="enter ending price"
+              type="number"
+              name="range2"
+            />
+          </div>
+        </div>
+        <div class="text-3xl">Select category</div>
+        <div class="w-full">
+          <select
+            name="category"
+            id="x3"
+            class="w-full h-[50px] p-4 ml-1 text-3xl text-black bg-gray-200"
+          >
+            <option>Electronics</option>
+            <option>Furniture</option>
+            <option>Books</option>
+            <option>Clothing</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <!-- div for showing filter result assynchronously -->
+        <div class="text-3xl" id="resultText"></div>
+        <div class="">
+          <button type="submit" class="btn btn-primary btn-lg">See now</button>
+        </div>
+      </form>
+    </div>
+    <script src="\javaScriptFiles\sideNavBarShow.js"></script>
+    <script src="\javaScriptFiles\lostAndFoundEvents.js"></script>
+  </body>
+  <%- include("../layout/footer.ejs") %>
+</html>

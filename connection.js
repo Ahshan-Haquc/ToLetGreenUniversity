@@ -3,6 +3,7 @@ const app = express();
 const basicRouters = require('./routes/basicRouters')
 const authRouter = require('./routes/authRouters')
 const buyAndSellRouter = require('./routes/buyAndSellRouter')
+const lostFoundRouter = require('./routes/lostAndFoundRouters')
 const seePost = require('./routes/seePost')
 const path = require('path')
 const mongoose = require('mongoose')
@@ -32,6 +33,7 @@ mongoose
 app.use('/',authRouter);
 app.use('/',basicRouters);
 app.use('/',buyAndSellRouter);
+app.use('/',lostFoundRouter);
 
 //default error handler
 function errorHandler(err,req,res,next){

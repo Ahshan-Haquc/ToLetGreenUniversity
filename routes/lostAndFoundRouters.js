@@ -1,11 +1,56 @@
 const express = require('express');
-const router = express.Router();
+const lostFoundRouter = express.Router();
 const accessPermission = require("../middlewares/accessPermission");
+const upload = require("../middlewares/uploadImages");
+const ratingCalculate = require("../controller/ratingCalculate");
+const Model = require("../models/studentSchema");
+// const lostFoundModel = require("../models/lostFoundPostShareSchema");
+const mongoose = require('mongoose');
 
-router.get('/lostAndFoundHomePage',accessPermission,(req,res)=>{
+lostFoundRouter.get('/lostAndFoundHomePage',accessPermission,async(req,res)=>{
+    console.log("Working on lostFound home page get router.");
     try {
-        res.status(200).render("lostAndFoundHomePage",{
-            student: req.studentInfo
+        // const totalPostAvailable = await lostFoundModel.find();
+        res.status(200).render("lostAndFound/lostAndFoundHomePage",{
+            student: req.studentInfo,
+            comeFromFilterRouter: false,
+        });
+
+        // res.status(200).render("buyAndSell/buyAndSellHomePage",{
+        //     student: req.studentInfo,
+        //     totalPostAvailable: totalPostAvailable.length,
+        //     comeFromFilterRouter: false,
+        // });
+    } catch (error) {
+        console.log("Error in lost and found home page get router.");
+        console.log(error);
+    }
+})
+
+lostFoundRouter.get('/lostAndFoundSeePost',accessPermission,async(req,res)=>{
+    try {
+        const availablePosts = await lostFoundModel.find({available:"yes"});
+
+        const totalSeatAvailableArray = [];
+
+        for (const element of availablePosts) {
+            const user = await Model.findOne({_id:element.studentPostedId});
+      
+            totalSeatAvailableArray.push({
+              userFirstName: user.firstName,
+              userLastName: user.lastName,
+              userStudentId: user.studentId,
+              userDepartment: user.department,
+              userEmail: user.email,
+              userPhone: user.phone,
+              postInfo: element
+            });
+          }
+
+        res.status(200).render("buyAndSell/buyAndSellSeePost",{
+            student: req.studentInfo,
+            totalSeatAvailable: totalSeatAvailableArray,
+            comeFromFilterRouter: false,
         });
     } catch (error) {
         console.log("Error in lost and found home page get router.");
@@ -13,4 +58,72 @@ router.get('/lostAndFoundHomePage',accessPermission,(req,res)=>{
     }
 })
 
-module.exports = router;
+// router for doing post 
+lostFoundRouter.get('/lostAndFoundDoPost',accessPermission,(req,res)=>{
+    try {
+        res.status(200).render("buyAndSell/buyAndSellDoPost",{
+            student: req.studentInfo
+        });
+    } catch (error) {
+        console.log("Error in lost and found do post page get router.");
+        console.log(error);
+    }
+})
+lostFoundRouter.post('/lostAndFoundDoPost',accessPermission,  upload.array('imageUpload', 5),async(req,res)=>{
+    try {
+        // const values = req.body;
+        // Map uploaded files to get paths
+      const imagePaths = req.files.map(file => file.path);
+
+      const PostInfo = new lostFoundModel({
+        title: req.body.title,
+        category: req.body.category,
+        price:req.body.price,
+        condition: req.body.condition,
+        description: req.body.description,
+        contact: req.body.contact,
+        negotiable: req.body.negotiable,
+        location: req.body.location,
+        images: imagePaths,
+        studentPostedId: req.studentInfo._id
+      })
+
+      await PostInfo.save();
+
+        console.log("Sell post form submitted successfully");
+        res.status(200).redirect('/buyAndSellHomePage');
+    } catch (error) {
+        console.log("Error in lost and found do post page POST router.");
+        console.log(error);
+    }
+})
+
+// this router is for filter means quickFind post 
+lostFoundRouter.post('/quickFindLostAndFound',accessPermission,async(req,res)=>{
+    console.log("working on quickFind router");
+    try {
+        const data = req.body;
+
+        const availablePosts = await lostFoundModel.find({price:{$gte : req.body.range1, $lte: req.body.range2}, category: req.body.category});
+
+        res.status(200).render("buyAndSell/buyAndSellSeePost",{
+            student: req.studentInfo,
+            totalSeatAvailable: availablePosts,
+            comeFromFilterRouter: true,
+        });
+
+    } catch (error) {
+        console.log("Error in buySell quick find router : \n",error);
+    }
+})
+
+//finding just seats counts when just someone put inputs for filter quick find without reloading page
+lostFoundRouter.post("/filterFetchResultAssynchronously",async (req,res)=>{
+  const {renge1,renge2,category} = req.body;
+
+  const numberOfSeats = await lostFoundModel.find({price:{$gte:renge1,$lte:renge2},category: category});
+
+  res.json({availableSeats:numberOfSeats.length});
+})
+
+module.exports = lostFoundRouter;
