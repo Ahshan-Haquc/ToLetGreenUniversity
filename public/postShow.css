@@ -33,9 +33,9 @@
 #postArea1Box2 {
   width: 30%;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 23px;
+  justify-content: end;
+  align-items: start;
+  gap: 10px;
 }
 #postArea2 #box1 {
   height: 325px;

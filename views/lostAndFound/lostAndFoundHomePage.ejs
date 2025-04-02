@@ -30,7 +30,7 @@
   <body>
     <!-- header nav bar -->
     <%- include("../layout/headerNavBar") %> <%- include("../layout/sideNavBar")
-    %> <%- include("../layout/buyAndSellNavBar") %>
+    %> <%- include("../lostAndFound/lostAndFoundNavBar") %>
     <div class="contentBox">
       <div
         class="w-full min-h-[80vh] max-h-fit p-3 bg-gray-100 flex justify-center items-center"
@@ -52,7 +52,7 @@
           <div class="w-full h-fit p-2 flex justify-center">
             <button
               class="btn btn-primary"
-              onclick="window.location.href='/buyAndSellDoPost'"
+              onclick="window.location.href='/lostAndFoundDoPost'"
             >
               Report Now
             </button>
@@ -78,7 +78,7 @@
           <div class="w-full h-fit p-2 flex justify-center">
             <button
               class="btn btn-primary"
-              onclick="window.location.href='/buyAndSellSeePost'"
+              onclick="window.location.href='/lostAndFoundSeePost'"
             >
               Find Now
             </button>
@@ -88,7 +88,7 @@
     </div>
     <!-- Quick find  -->
     <div
-      class="h-[100vh] w-[100vw] fixed top-[5%] flex justify-center items-center hidden"
+      class="h-[100vh] w-[100vw] fixed top-[8%] flex justify-center items-center hidden"
       id="quickFindBox"
     >
       <div
@@ -98,55 +98,67 @@
       <form
         action="/quickFindLostAndFound"
         method="post"
-        class="h-[400px] w-[600px] p-10 bg-white absolute rounded-3xl shadow-md flex flex-col justify-between items-center"
+        class="h-[500px] w-[600px] p-10 bg-white absolute rounded-3xl shadow-md flex flex-col justify-between items-center"
       >
         <i
           class="fa-solid fa-xmark absolute top-5 right-5 hover:scale-150 hover:text-red-500"
           onclick="hideQuickFindBox()"
         ></i>
 
-        <div class="text-3xl">Enter price range</div>
-        <div class="w-full flex">
-          <div class="w-1/2">
-            <input
-              class="w-full h-[50px] p-4 mr-1 text-3xl text-black bg-gray-200"
-              id="x1"
-              placeholder="enter starting price"
-              type="number"
-              name="range1"
-            />
-          </div>
-          <div class="w-1/2">
-            <input
-              class="w-full h-[50px] p-4 ml-1 text-3xl text-black bg-gray-200"
-              id="x2"
-              placeholder="enter ending price"
-              type="number"
-              name="range2"
-            />
-          </div>
+        <div class="text-3xl">Enter item name</div>
+        <div class="w-full">
+          <input
+            class="w-full h-[50px] p-4 text-3xl text-black bg-gray-200"
+            id="itemName"
+            placeholder="Enter item name (e.g., Wallet)"
+            type="text"
+            name="itemName"
+          />
         </div>
+
         <div class="text-3xl">Select category</div>
         <div class="w-full">
           <select
             name="category"
-            id="x3"
-            class="w-full h-[50px] p-4 ml-1 text-3xl text-black bg-gray-200"
+            id="category"
+            class="w-full h-[50px] p-4 text-3xl text-black bg-gray-200"
           >
             <option>Electronics</option>
-            <option>Furniture</option>
-            <option>Books</option>
+            <option>Documents</option>
+            <option>Bags</option>
+            <option>Accessories</option>
             <option>Clothing</option>
             <option>Other</option>
           </select>
         </div>
-        <!-- div for showing filter result assynchronously -->
+
+        <div class="text-3xl">Date Lost</div>
+        <div class="w-full">
+          <input
+            type="date"
+            name="dateLost"
+            class="w-full h-[50px] p-4 text-3xl text-black bg-gray-200"
+          />
+        </div>
+
+        <div class="text-3xl">Location Lost</div>
+        <div class="w-full">
+          <input
+            class="w-full h-[50px] p-4 text-3xl text-black bg-gray-200"
+            id="location"
+            placeholder="Enter location (e.g., Library)"
+            type="text"
+            name="location"
+          />
+        </div>
+
         <div class="text-3xl" id="resultText"></div>
         <div class="">
-          <button type="submit" class="btn btn-primary btn-lg">See now</button>
+          <button type="submit" class="btn btn-primary btn-lg">Search</button>
         </div>
       </form>
     </div>
+
     <script src="\javaScriptFiles\sideNavBarShow.js"></script>
     <script src="\javaScriptFiles\lostAndFoundEvents.js"></script>
   </body>
