@@ -180,10 +180,7 @@
         </div>
         <div id="postArea3">
           <!-- ekhane like review confirm button thakbe -->
-          <div
-            id="post_button0"
-            onclick="showingPopup(<%=totalSeatAvailable.indexOf(post)%>)"
-          >
+          <div id="post_button0" onclick="showingPopup('<%= post._id %>')">
             <span>
               <span id="reviewCount"><%= post.reviewScore %></span>
               <i class="fa-regular fa-star"></i>
@@ -232,18 +229,12 @@
       <!-- Popup content for showing rating-->
       <div
         class="peopleReviewPopUpBackground"
-        id="peopleReviewPopUpBackground<%=totalSeatAvailable.indexOf(post)%>"
-        onclick="hidePopup(<%=totalSeatAvailable.indexOf(post)%>)"
+        id="peopleReviewPopUpBackground<%=post._id %>"
+        onclick="hidePopup('<%= post._id %>')"
       ></div>
 
-      <div
-        class="peopleReviewPopUp"
-        id="peopleReviewPopUp<%=totalSeatAvailable.indexOf(post)%>"
-      >
-        <div
-          class="crossButton"
-          onclick="hidePopup(<%=totalSeatAvailable.indexOf(post)%>)"
-        >
+      <div class="peopleReviewPopUp" id="peopleReviewPopUp<%= post._id %>">
+        <div class="crossButton" onclick="hidePopup('<%= post._id %>')">
           <i class="fa-solid fa-xmark fa-2x"></i>
         </div>
         <div id="textLikeAndDislikeShow">

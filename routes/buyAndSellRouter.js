@@ -94,16 +94,35 @@ buySellRouter.post('/buyAndSellDoPost',accessPermission,  upload.array('imageUpl
 })
 
 // this router is for filter means quickFind post 
-buySellRouter.post('/quickFind',accessPermission,async(req,res)=>{
+buySellRouter.post('/quickFindInBuySell',accessPermission,async(req,res)=>{
     console.log("working on quickFind router");
     try {
-        const data = req.body;
+        const renge1 = req.body.renge1;
+        const renge2 = req.body.renge2;
+        const category = req.body.category;
+        const condition = req.body.condition;
 
-        const availablePosts = await BuySellModel.find({price:{$gte : req.body.range1, $lte: req.body.range2}, category: req.body.category});
+        const numberOfSeats = await BuySellModel.find({price:{$gte:renge1,$lte:renge2},category: category, condition: condition});
+
+        const totalSeatAvailableArray = [];
+
+        for (const element of numberOfSeats) {
+            const user = await Model.findOne({_id:element.studentPostedId});
+      
+            totalSeatAvailableArray.push({
+              userFirstName: user.firstName,
+              userLastName: user.lastName,
+              userStudentId: user.studentId,
+              userDepartment: user.department,
+              userEmail: user.email,
+              userPhone: user.phone,
+              postInfo: element
+            });
+          }
 
         res.status(200).render("buyAndSell/buyAndSellSeePost",{
             student: req.studentInfo,
-            totalSeatAvailable: availablePosts,
+            totalSeatAvailable: totalSeatAvailableArray,
             comeFromFilterRouter: true,
         });
 
@@ -113,10 +132,10 @@ buySellRouter.post('/quickFind',accessPermission,async(req,res)=>{
 })
 
 //finding just seats counts when just someone put inputs for filter quick find without reloading page
-buySellRouter.post("/filterFetchResultAssynchronously",async (req,res)=>{
-  const {renge1,renge2,category} = req.body;
+buySellRouter.post("/filterFetchResultAssynchronouslyInBuySell",accessPermission,async (req,res)=>{
+  const {renge1,renge2,category,condition} = req.body;
 
-  const numberOfSeats = await BuySellModel.find({price:{$gte:renge1,$lte:renge2},category: category});
+  const numberOfSeats = await BuySellModel.find({price:{$gte:renge1,$lte:renge2},category: category, condition: condition});
 
   res.json({availableSeats:numberOfSeats.length});
 })
