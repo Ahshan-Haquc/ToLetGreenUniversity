@@ -44,13 +44,20 @@
 
     <!-- showing filtering result, if render come from quick find router  -->
     <% if (comeFromFilterRouter === true) { %>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
       window.onload = function () {
-        // Pass `totalSeatAvailable` from the server to the script
         const totalSeats = <%- JSON.stringify(totalSeatAvailable) %>;
 
-        alert("Total "+totalSeats.length + " posts found between these range.");
-
+        Swal.fire({
+          title: "Search Results",
+          text: "Total " + totalSeats.length + " posts found between this range.",
+          icon: "info",
+          confirmButtonText: "OK",
+          timer: 5000,
+          timerProgressBar: true,
+          showCloseButton: true
+        });
       };
     </script>
     <% } %>
@@ -376,7 +383,7 @@
         onclick="hideQuickFindBox()"
       ></div>
       <form
-        action="/quickFind"
+        action="/quickFindInBuySell"
         method="post"
         class="h-[400px] w-[600px] p-10 bg-white absolute rounded-3xl shadow-md flex flex-col justify-between items-center"
       >
@@ -393,7 +400,7 @@
               id="x1"
               placeholder="enter starting price"
               type="number"
-              name="range1"
+              name="renge1"
             />
           </div>
           <div class="w-1/2">
@@ -402,7 +409,7 @@
               id="x2"
               placeholder="enter ending price"
               type="number"
-              name="range2"
+              name="renge2"
             />
           </div>
         </div>
@@ -418,6 +425,21 @@
             <option>Books</option>
             <option>Clothing</option>
             <option>Other</option>
+          </select>
+        </div>
+
+        <!-- ei part er kaj kora hoyni backend a  -->
+        <div class="text-3xl">Select item condition</div>
+        <div class="w-full">
+          <select
+            name="condition"
+            id="x4"
+            class="w-full h-[50px] p-4 ml-1 text-3xl text-black bg-gray-200"
+          >
+            <option>New</option>
+            <option>Used - Like New</option>
+            <option>Used - Good</option>
+            <option>Used - Fair</option>
           </select>
         </div>
         <!-- div for showing filter result assynchronously -->

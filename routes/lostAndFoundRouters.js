@@ -10,17 +10,13 @@ const mongoose = require('mongoose');
 lostFoundRouter.get('/lostAndFoundHomePage',accessPermission,async(req,res)=>{
     console.log("Working on lostFound home page get router.");
     try {
-        // const totalPostAvailable = await lostFoundModel.find();
+        const totalPostAvailable = await lostFoundModel.find();
+
         res.status(200).render("lostAndFound/lostAndFoundHomePage",{
             student: req.studentInfo,
+            totalPostAvailable: totalPostAvailable.length,
             comeFromFilterRouter: false,
         });
-
-        // res.status(200).render("buyAndSell/buyAndSellHomePage",{
-        //     student: req.studentInfo,
-        //     totalPostAvailable: totalPostAvailable.length,
-        //     comeFromFilterRouter: false,
-        // });
     } catch (error) {
         console.log("Error in lost and found home page get router.");
         console.log(error);
@@ -128,7 +124,7 @@ lostFoundRouter.post("/filterFetchResultAssynchronouslyInLostFound", async (req,
         const { itemName, category, dateLost, location, status } = req.body;
 
         // Ensure all fields are provided before processing
-        if (!itemName || !category || !dateLost || !location) {
+        if (!itemName || !category || !dateLost || !location || !status) {
             return res.json({ totalPosts: 0, message: "All fields must be filled" });
         }
 
