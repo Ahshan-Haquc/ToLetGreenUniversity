@@ -5,6 +5,7 @@ const postSchema = mongoose.Schema({
     category: { type: String, required: true },
     dateLost: { type: Date, required: true },
     locationLost: { type: String, required: true },
+    locationCategory: { type: String, required: true },
     description: { type: String, required: true },
     contact: { type: String, required: true },
     status: { type: String, enum: ["Lost", "Found"], default: "Lost" },

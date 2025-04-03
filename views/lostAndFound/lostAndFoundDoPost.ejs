@@ -51,6 +51,12 @@
             required
           />
 
+          <label class="block font-bold">Status</label>
+          <select name="status" class="w-full p-2 border rounded mb-4" required>
+            <option>Lost</option>
+            <option>Found</option>
+          </select>
+
           <label class="block font-bold">Category</label>
           <select
             name="category"
@@ -64,13 +70,7 @@
             <option>Other</option>
           </select>
 
-          <label class="block font-bold">Status</label>
-          <select name="status" class="w-full p-2 border rounded mb-4" required>
-            <option>Lost</option>
-            <option>Found</option>
-          </select>
-
-          <label class="block font-bold">Date Lost</label>
+          <label class="block font-bold">Date Lost/Found</label>
           <input
             type="date"
             name="dateLost"
@@ -78,11 +78,26 @@
             required
           />
 
-          <label class="block font-bold">Location Lost</label>
+          <label class="block font-bold">Location Lost/Found area type</label>
+          <select
+            name="locationCategory"
+            class="w-full p-2 border rounded mb-4"
+            required
+          >
+            <option>Campus any area</option>
+            <option>Library</option>
+            <option>Love road</option>
+            <option>Bus terminal</option>
+            <option>Canteen</option>
+            <option>Admin building</option>
+            <option>Classroom</option>
+          </select>
+
+          <label class="block font-bold">Location Lost/Found</label>
           <input
             type="text"
             name="locationLost"
-            placeholder="Enter last seen location"
+            placeholder="Enter last seen location specificly"
             class="w-full p-2 border rounded mb-4"
             required
           />
@@ -122,7 +137,7 @@
         </form>
       </div>
     </div>
-    <!-- quick found  -->
+    <!-- quick find  -->
     <div
       class="h-[100vh] w-[100vw] fixed top-[8%] flex justify-center items-center hidden"
       id="quickFindBox"
@@ -141,15 +156,16 @@
           onclick="hideQuickFindBox()"
         ></i>
 
-        <div class="text-3xl">Enter item name</div>
+        <div class="text-3xl">Select category</div>
         <div class="w-full">
-          <input
+          <select
+            name="status"
+            id="category"
             class="w-full h-[50px] p-4 text-3xl text-black bg-gray-200"
-            id="itemName"
-            placeholder="Enter item name (e.g., Wallet)"
-            type="text"
-            name="itemName"
-          />
+          >
+            <option>Lost</option>
+            <option>Found</option>
+          </select>
         </div>
 
         <div class="text-3xl">Select category</div>
@@ -177,15 +193,21 @@
           />
         </div>
 
-        <div class="text-3xl">Location Lost</div>
+        <div class="text-3xl">Location Lost Area</div>
         <div class="w-full">
-          <input
+          <select
+            name="locationCategory"
+            id="category"
             class="w-full h-[50px] p-4 text-3xl text-black bg-gray-200"
-            id="location"
-            placeholder="Enter location (e.g., Library)"
-            type="text"
-            name="location"
-          />
+          >
+            <option>Campus any area</option>
+            <option>Library</option>
+            <option>Love road</option>
+            <option>Bus terminal</option>
+            <option>Canteen</option>
+            <option>Admin building</option>
+            <option>Classroom</option>
+          </select>
         </div>
 
         <div class="text-3xl" id="resultText"></div>

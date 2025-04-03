@@ -190,15 +190,16 @@
           onclick="hideQuickFindBox()"
         ></i>
 
-        <div class="text-3xl">Enter item name</div>
+        <div class="text-3xl">Select category</div>
         <div class="w-full">
-          <input
+          <select
+            name="status"
+            id="category"
             class="w-full h-[50px] p-4 text-3xl text-black bg-gray-200"
-            id="itemName"
-            placeholder="Enter item name (e.g., Wallet)"
-            type="text"
-            name="itemName"
-          />
+          >
+            <option>Lost</option>
+            <option>Found</option>
+          </select>
         </div>
 
         <div class="text-3xl">Select category</div>
@@ -226,15 +227,21 @@
           />
         </div>
 
-        <div class="text-3xl">Location Lost</div>
+        <div class="text-3xl">Location Lost Area</div>
         <div class="w-full">
-          <input
+          <select
+            name="locationCategory"
+            id="category"
             class="w-full h-[50px] p-4 text-3xl text-black bg-gray-200"
-            id="location"
-            placeholder="Enter location (e.g., Library)"
-            type="text"
-            name="location"
-          />
+          >
+            <option>Campus any area</option>
+            <option>Library</option>
+            <option>Love road</option>
+            <option>Bus terminal</option>
+            <option>Canteen</option>
+            <option>Admin building</option>
+            <option>Classroom</option>
+          </select>
         </div>
 
         <div class="text-3xl" id="resultText"></div>
