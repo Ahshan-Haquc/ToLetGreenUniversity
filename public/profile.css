@@ -33,7 +33,7 @@
   height: 170px;
   width: 170px;
   margin-top: 10px;
-  border: 5px solid #0069ff;
+  /* border: 5px solid #0069ff; */
   box-shadow: 5px 5px 15px #00000024;
   background-color: rgb(51, 51, 51);
   border-radius: 50%;
@@ -48,7 +48,7 @@
   height: 90px;
   width: 340px;
   color: black;
-  background-color: white;
+  background-color: rgb(227 255 222);
   border-radius: 15px;
 }
 
