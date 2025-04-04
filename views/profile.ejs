@@ -33,17 +33,26 @@
       <div
         class="bg-[#EFEFEF] flex items-center flex-col md:bg-[#EFEFEF] md:flex md:items-center md:flex-col"
       >
-        <div class="w-[100%] h-[390px] flex md:w-[100%] md:h-[390px] md:flex">
+        <div
+          class="w-[100%] h-[390px] flex md:w-[100%] md:h-[390px] md:flex relative bg-cover bg-center"
+          style="background-image: url('images/GreenUniversityImage.jpg')"
+        >
+          <!-- user info part  -->
           <div class="w-[30%] h-[100%] center md:w-[30%] md:h-[100%] md:center">
             <div class="profileImageBox">
-              <div class="profileImage"></div>
+              <div class="profileImage">
+                <img class="h-fit" src="images/user.png" alt="" />
+              </div>
               <div class="profileName">
                 <%= student.firstName %> <%= student.lastName %>
+              </div>
+              <div class="hover:text-blue-500 hover:cursor-pointer">
+                <i class="fa-solid fa-user-pen"></i> Update Info
               </div>
             </div>
           </div>
           <div
-            class="w-[70%] flex flex-wrap justify-around items-center md:w-[70%] md:flex md:flex-wrap md:justify-around md:items-center"
+            class="w-[70%] flex flex-col flex-wrap justify-center items-center gap-5"
           >
             <div class="userInfo">
               <div
@@ -117,47 +126,75 @@
               <div
                 class="md:h-[30%] md:w-[60%] text-black text-4xl flex pl-5 md:h-[40%] md:text-black md:text-4xl md:flex md:pl-5 md:overflow-hidden"
               >
-                <%= student.registrationDate %>
+                <% const date = new Date(student.registrationDate); const
+                dateString = date.toDateString(); %> <%= dateString %>
               </div>
             </div>
           </div>
         </div>
 
+        <!-- buttons -->
         <div
-          class="w-[98%] h-[70px] bg-white rounded-2xl flex items-center justify-start pl-2 gap-3 md:w-[98%] md:h-[70px] md:bg-white md:rounded-2xl md:flex md:items-center md:justify-start md:pl-2 md:gap-3"
+          class="w-[98%] h-[70px] bg-gray-800 rounded-2xl flex items-center justify-start mt-5 pl-2 gap-3 md:w-[98%] md:h-[70px] md:rounded-2xl md:flex md:items-center md:justify-start md:pl-2 md:gap-3 sticky top-[80px]"
           id="profile-box2"
         >
           <button
-            class="btn btn-default w-[150px] h-[5rem] btn-primary md:w-[150px] md:h-[5rem]"
+            id="savedPostsBtn"
+            onclick="postShow('Saved Posts')"
+            class="btn btn-default w-[150px] h-[5rem] text-3xl btn-primary md:w-[150px] md:h-[5rem]"
           >
             Saved Posts
           </button>
           <button
-            class="btn btn-default w-[150px] h-[5rem] md:w-[150px] md:h-[5rem]"
+            id="myPostBtn"
+            onclick="postShow('My Post')"
+            class="btn btn-default w-[150px] h-[5rem] text-3xl md:w-[150px] md:h-[5rem]"
           >
             My Post
           </button>
           <button
-            class="btn btn-default w-[150px] h-[5rem] md:w-[150px] md:h-[5rem]"
+            id="myAchievementBtn"
+            onclick="postShow('My Achievement')"
+            class="btn btn-default w-[200px] h-[5rem] text-3xl md:w-[200px] md:h-[5rem]"
           >
             My Acheivement
           </button>
         </div>
 
         <div
-          class="w-[98%] h-[50px] rounded-2xl flex items-center justify-end pr-3 gap-3 md:w-[98%] md:h-[50px] md:rounded-2xl md:flex md:items-center md:justify-end md:pr-3 md:gap-3"
+          class="w-[98%] h-[50px] bg-gray-300 rounded-2xl flex items-center justify-end pr-3 gap-3 md:w-[98%] md:h-[50px] md:rounded-2xl md:flex md:items-center md:justify-end md:pr-3 md:gap-3 sticky top-[155px]"
         >
-          <button class="btn btn-default w-[150px] md:w-[150px]">To-let</button>
-          <button class="btn btn-default w-[150px] md:w-[150px]">
+          <button
+            id="toletBtn"
+            onclick="postShow('To-let')"
+            class="btn btn-default w-[150px] md:w-[150px]"
+          >
+            To-let
+          </button>
+          <button
+            id="foodShareBtn"
+            onclick="postShow('Food Share')"
+            class="btn btn-default w-[150px] md:w-[150px]"
+          >
             Food Share
           </button>
-          <button class="btn btn-default w-[150px] md:w-[150px]">
+          <button
+            id="lostFoundBtn"
+            onclick="postShow('Lost & Found')"
+            class="btn btn-default w-[150px] md:w-[150px]"
+          >
             Lost & Found
           </button>
-          <button class="btn btn-default w-[150px] md:w-[150px]">
+          <button
+            id="bloodCollectBtn"
+            onclick="postShow('Blood Collect')"
+            class="btn btn-default w-[150px] md:w-[150px]"
+          >
             Blood Collect
           </button>
           <button
+            id="buySellBtn"
+            onclick="postShow('Buy & Sell')"
             class="btn btn-default w-[150px] bg-[#757575] text-white md:w-[150px] md:bg-[#757575] md:text-white"
           >
             Buy & Sell
@@ -168,7 +205,7 @@
         <div class="w-[98%] h-fit py-5">
           <!-- box  -->
           <div
-            class="h-[470px] w-[400px] p-3 bg-white rounded-2xl shadow-lg flex flex-col justify-between"
+            class="h-[470px] w-[400px] p-5 bg-white rounded-2xl shadow-lg flex flex-col justify-between"
           >
             <div>
               <div class="flex justify-between items-center">
