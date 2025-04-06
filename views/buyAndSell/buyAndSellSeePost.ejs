@@ -65,7 +65,24 @@
     <!-- post page content starts from here -->
     <div class="contentBox">
       <!-- nav bar part , this will appear above of the page -->
-      <%- include("../layout/buyAndSellNavBar") %>
+      <%- include("../layout/buyAndSellNavBar") %> <%
+      if(totalSeatAvailable.length==0){ %>
+      <div class="flex flex-col items-center justify-start h-screen">
+        <img class="h-[300px] w-[300px]" src="images\no-results.png" alt="" />
+        <h1 class="text-2xl font-semibold text-center mb-2">
+          No Post Founded !!!
+        </h1>
+        <p class="text-gray-600 text-center mb-4">
+          Please go to home Page or quick find and try with another.
+        </p>
+        <button
+          class="btn btn-default btn-md"
+          onclick="window.location.href='/buyAndSellHomePage'"
+        >
+          Go Home
+        </button>
+      </div>
+      <% } %>
 
       <!-- ei category range er post gula akta akta kore show korabo eita diye -->
       <% totalSeatAvailable.forEach((post)=>{ %>
