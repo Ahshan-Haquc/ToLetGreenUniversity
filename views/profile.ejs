@@ -135,67 +135,55 @@
 
         <!-- buttons -->
         <div
-          class="w-[98%] h-[70px] bg-gray-800 rounded-2xl flex items-center justify-start mt-5 pl-2 gap-3 md:w-[98%] md:h-[70px] md:rounded-2xl md:flex md:items-center md:justify-start md:pl-2 md:gap-3 sticky top-[80px]"
+          class="w-[98%] h-[60px] bg-white rounded-2xl flex items-center justify-start mt-5 pl-2 gap-3 md:w-[98%] md:h-[60px] md:rounded-2xl md:flex md:items-center md:justify-start md:pl-3 md:gap-3 sticky top-[80px]"
           id="profile-box2"
         >
           <button
             id="savedPostsBtn"
-            onclick="postShow('Saved Posts')"
-            class="btn btn-default w-[150px] h-[5rem] text-3xl btn-primary md:w-[150px] md:h-[5rem]"
+            class="btn btn-lg btn-default btn-success"
+            onclick="fetchSeats('savedPostsBtn')"
           >
             Saved Posts
           </button>
           <button
             id="myPostBtn"
-            onclick="postShow('My Post')"
-            class="btn btn-default w-[150px] h-[5rem] text-3xl md:w-[150px] md:h-[5rem]"
+            class="btn btn-default btn-lg"
+            onclick="fetchSeats('myPostBtn')"
           >
             My Post
           </button>
           <button
             id="myAchievementBtn"
-            onclick="postShow('My Achievement')"
-            class="btn btn-default w-[200px] h-[5rem] text-3xl md:w-[200px] md:h-[5rem]"
+            class="btn btn-default btn-lg"
+            onclick="fetchSeats('myAchievementBtn')"
           >
             My Acheivement
           </button>
         </div>
 
         <div
-          class="w-[98%] h-[50px] bg-gray-300 rounded-2xl flex items-center justify-end pr-3 gap-3 md:w-[98%] md:h-[50px] md:rounded-2xl md:flex md:items-center md:justify-end md:pr-3 md:gap-3 sticky top-[155px]"
+          class="w-[98%] h-[50px] bg-white rounded-2xl mt-2 flex items-center justify-end pr-3 gap-3 md:w-[98%] md:h-[50px] md:rounded-2xl md:flex md:items-center md:justify-end md:pr-3 md:gap-3 sticky top-[145px]"
         >
           <button
             id="toletBtn"
-            onclick="postShow('To-let')"
-            class="btn btn-default w-[150px] md:w-[150px]"
+            class="btn btn-default btn-md btn-success"
+            onclick="fetchSeats('toletBtn')"
           >
             To-let
           </button>
-          <button
-            id="foodShareBtn"
-            onclick="postShow('Food Share')"
-            class="btn btn-default w-[150px] md:w-[150px]"
-          >
-            Food Share
-          </button>
+
           <button
             id="lostFoundBtn"
-            onclick="postShow('Lost & Found')"
-            class="btn btn-default w-[150px] md:w-[150px]"
+            class="btn btn-default btn-md"
+            onclick="fetchSeats('lostFoundBtn')"
           >
             Lost & Found
           </button>
-          <button
-            id="bloodCollectBtn"
-            onclick="postShow('Blood Collect')"
-            class="btn btn-default w-[150px] md:w-[150px]"
-          >
-            Blood Collect
-          </button>
+
           <button
             id="buySellBtn"
-            onclick="postShow('Buy & Sell')"
-            class="btn btn-default w-[150px] bg-[#757575] text-white md:w-[150px] md:bg-[#757575] md:text-white"
+            class="btn btn-md btn-default"
+            onclick="fetchSeats('buySellBtn')"
           >
             Buy & Sell
           </button>
@@ -210,7 +198,10 @@
             <div>
               <div class="flex justify-between items-center">
                 <div class="text-gray-400">Date : Web Feb 12 2025</div>
-                <div class="btn btn-danger">Delete</div>
+                <div class="flex gap-2">
+                  <div class="btn btn-info">View</div>
+                  <div class="btn btn-danger">Delete</div>
+                </div>
               </div>
               <div class="py-3 text-4xl min-h-fit max-h-[120px]">
                 <span class="text-gray-500">Title : </span>One seat will be
@@ -235,6 +226,7 @@
       </div>
     </div>
     <script src="\javaScriptFiles\sideNavBarShow.js"></script>
+    <script src="\javaScriptFiles\basicEvents.js"></script>
   </body>
   <%- include("layout/footer.ejs") %>
 </html>
