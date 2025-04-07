@@ -51,6 +51,10 @@ const studentInformationSchema = mongoose.Schema({
          type: mongoose.Schema.Types.ObjectId, 
          ref: 'PostShare'
     }],
+    requestedInPost:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'PostShare'
+    }],
     tokens:[{                              //jotobar e kono user login korbe je kono device theke , prottek login er jonno tar authentication token ekhane store hobe 
         token:{
             type: String

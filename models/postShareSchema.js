@@ -64,7 +64,7 @@ const postShareSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    roomImages: {   // Array to store multiple image paths
+    images: {   // Array to store multiple image paths
         type: [String],
         default: []
     },
@@ -72,6 +72,10 @@ const postShareSchema = mongoose.Schema({
         type: String,
         enum: ["yes", "no"],
         default: "yes",
+    },
+    postDate:{
+        type: Date,
+        default: Date.now
     },
     likeCount: {
         type: Number,
