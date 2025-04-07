@@ -9,10 +9,10 @@ const postSchema = mongoose.Schema({
     description: { type: String, required: true },
     contact: { type: String, required: true },
     status: { type: String, enum: ["Lost", "Found"], default: "Lost" },
-      images: {
+    images: {
         type: [String], // Array of image URLs
         validate: [arrayLimit, 'You can upload up to 3 images']
-      },
+    },
     available: {
         type: String,
         enum: ["yes", "no"],
@@ -22,7 +22,7 @@ const postSchema = mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: "StudentInformation",
     },
-    postedDate:{
+    postDate:{
       type: Date,
       default: Date.now,
     }

@@ -141,6 +141,58 @@ basicRouter.get("/profile", accessPermission, async (req, res) => {
   }
 });
 
+// const a = document.getElementById("savedPostsBtn");
+// const b = document.getElementById("myPostBtn");
+// const c = document.getElementById("myAchievementBtn");
+// const x = document.getElementById("toletBtn");
+// const y = document.getElementById("lostFoundBtn");
+// const z = document.getElementById("buySellBtn");
+basicRouter.post("/fetchPostAndShowInProfile",accessPermission, async(req,res)=>{
+  try {
+    const aboveButton = req.body.aboveButton;
+    const belowButton = req.body.belowButton;
+    let postsFounded = [];
+
+    if(aboveButton==="savedPostsBtn" && belowButton==="toletBtn"){
+      const user = await Model.findOne({_id: req.studentInfo._id});
+      for(const element of user.savedPosts){
+        const post = await PostShareModel.findOne({_id: element});
+        if(post){
+          postsFounded.push({
+            postId: post._id,
+            postDate: post.postDate,
+            postTitle: post.title,
+            postImage: post.images
+          });
+        }
+      }
+      console.log("Post founded : ");
+      console.log(postsFounded);
+    }else if(aboveButton==="savedPostsBtn" && belowButton==="lostFoundBtn"){
+      posts = await Model.find({savedPosts: "LostAndFound"});
+    }else if(aboveButton==="savedPostsBtn" && belowButton==="buySellBtn"){
+      posts = await Model.find({savedPosts: "BuyAndSell"});
+    }else if(aboveButton==="myPostBtn" && belowButton==="toletBtn"){
+
+    }else if(aboveButton==="myPostBtn" && belowButton==="lostFoundBtn"){
+
+    }else if(aboveButton==="myPostBtn" && belowButton==="buySellBtn"){
+
+    }else if(aboveButton==="myAchievementBtn" && belowButton==="toletBtn"){
+
+    }else if(aboveButton==="myAchievementBtn" && belowButton==="lostFoundBtn"){
+
+    }else if(aboveButton==="myAchievementBtn" && belowButton==="buySellBtn"){
+
+    }
+
+    res.status(200).json({fetchedPosts: postsFounded});
+    
+  } catch (error) {
+    console.log("Error in fetchPostAndShowInProfile")
+    res.json({message: error});
+  }
+})
 
 //router for message
 basicRouter.get("/messages", accessPermission, (req, res) => {
