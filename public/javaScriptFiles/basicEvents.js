@@ -65,10 +65,7 @@ function closePopup(divBoxId){
 
 
 // this is for showing posts in profile
-// document.addEventListener("DOMContentLoaded", function () {
-//   document.getElementById("myPostBtn").classList.add("btn-success");
-//   document.getElementById("lostFoundBtn").classList.add("btn-success");
-// });
+document.addEventListener("DOMContentLoaded", fetchSeats("savedPostsBtn"));
 let btn1 = "savedPostsBtn";
 let btn2 = "toletBtn";
 const a = document.getElementById("savedPostsBtn");
@@ -159,7 +156,6 @@ async function fetchSeats(btnName) {
 
   // ekhon eitar vitor theke api call korbo
   if(btn1 && btn2){
-    // Replace your .then() block like this:
 const response = await fetch("/fetchPostAndShowInProfile", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
@@ -167,7 +163,6 @@ const response = await fetch("/fetchPostAndShowInProfile", {
 });
 
 const data = await response.json();
-console.log(data);
 const postsContainer = document.getElementById("postsContainer"); // Add this ID to your container in EJS
 postsContainer.innerHTML = ""; // Clear old posts
 
@@ -176,29 +171,28 @@ if (data.fetchedPosts.length === 0) {
 } else {
   data.fetchedPosts.forEach(post => {
     const html = `
-      <div class="h-[470px] w-[400px] p-5 bg-white rounded-2xl shadow-lg flex flex-col justify-between">
-        <div>
-          <div class="flex justify-between items-center">
-            <div class="text-gray-400">Date : ${new Date(post.postDate).toDateString()}</div>
-            <div class="flex gap-2">
-              <div class="btn btn-info">View</div>
-              <div class="btn btn-danger">Delete</div>
+    <div style="padding: 20px; background-color: white; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; justify-content: space-between; height: 470px; width: 400px;">
+    <div>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="color: #9ca3af;">Date : ${new Date(post.postDate).toDateString()}</div>
+            <div style="display: flex; gap: 8px;">
+                <div class="btn btn-info">View</div>
+                <div class="btn btn-danger">Delete</div>
             </div>
-          </div>
-          <div class="py-3 text-4xl min-h-fit max-h-[120px]">
-            <span class="text-gray-500">Title : </span>${post.postTitle}
-          </div>
-          <div class="flex">
-            <div class="h-fit w-fit mr-6 mt-1"><i class="fa-solid fa-user"></i> 5</div>
-            <div class="h-fit w-fit mr-6 mt-1"><i class="fa-solid fa-thumbs-up"></i> 23</div>
-            <div class="h-fit w-fit mr-6 mt-1"><i class="fa-solid fa-thumbs-down"></i> 4</div>
-          </div>
         </div>
-        <div class="w-full h-[260px] bg-gray-300 rounded-2xl">
-          <!-- If you want to show image: -->
-          <!-- <img src="${post.postImage}" class="w-full h-full object-cover rounded-2xl" /> -->
+        <div style="padding-top: 12px; padding-bottom: 12px; font-size: 24px; min-height: fit-content; max-height: 120px; overflow: auto;">
+            <span style="color: #6b7280;">Title : </span>${post.postTitle}
         </div>
-      </div>
+        <div style="display: flex;">
+            <div style="height: fit-content; width: fit-content; margin-right: 24px; margin-top: 4px;"><i class="fa-solid fa-user"></i> 5</div>
+            <div style="height: fit-content; width: fit-content; margin-right: 24px; margin-top: 4px;"><i class="fa-solid fa-thumbs-up"></i> 23</div>
+            <div style="height: fit-content; width: fit-content; margin-right: 24px; margin-top: 4px;"><i class="fa-solid fa-thumbs-down"></i> 4</div>
+        </div>
+    </div>
+    <div style="width: 100%; height: 260px; border-radius: 8px; overflow: hidden;">
+        <img src="${post.postImage[0]}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;" />
+    </div>
+</div>
     `;
     postsContainer.innerHTML += html;
   });
@@ -206,48 +200,3 @@ if (data.fetchedPosts.length === 0) {
 
   }
 }
-// document.addEventListener("DOMContentLoaded", function () {
-//   function fetchSeats(btnName) {
-//     let btn1 = document.getElementById("savedPostsBtn").textContent;
-//     let btn2 = document.getElementById("myPostBtn").textContent;
-//     let btn3 = document.getElementById("myAchievementBtn").textContent;
-//     let btn4 = document.getElementById("toletBtn").textContent;
-//     let btn5 = document.getElementById("lostFoundBtn").textContent;
-//     let btn6 = document.getElementById("buySellBtn").textContent;
-//     console.log("peremeter name : ",btnName);
-
-//     let btnClickedNamge = "";
-//     let belowBtnClickedNamge = "";
-//     console.log("initially buttons are : 1 -",btnClickedNamge,"and 2 -",belowBtnClickedNamge);
-
-//     if(btn1===btnName){
-//       btnClickedNamge = btn1;
-//     }else if(btn2===btnName){
-//       btnClickedNamge = btn2;
-//     }else if(btn3===btnName){
-//       btnClickedNamge = btn3;
-//     }else if(btn4===btnName){
-//       belowBtnClickedNamge = btn4;
-//     }else if(btn5===btnName){
-//       belowBtnClickedNamge = btn5;
-//     }else if(btn6===btnName){
-//       belowBtnClickedNamge = btn6;
-//     }
-
-//     console.log("After Buttons name are: ",btnClickedNamge,belowBtnClickedNamge)
-//     // Ensure all fields have values before sending request
-//     if (btnClickedNamge && belowBtnClickedNamge) {
-//       alert("worked");
-//       console.log("After Buttons name are: ",btnClickedNamge,belowBtnClickedNamge)
-//     }
-//   }
-
-//   // Add event listeners to inputs to trigger fetchSeats when values change
-//   document.getElementById("savedPostsBtn").addEventListener("click", fetchSeats("Saved Posts"));
-//   document.getElementById("myPostBtn").addEventListener("click", fetchSeats("My Post"));
-//   document.getElementById("myAchievementBtn").addEventListener("click", fetchSeats("My Acheivement"));
-//   document.getElementById("toletBtn").addEventListener("click", fetchSeats("To-let"));
-//   document.getElementById("lostFoundBtn").addEventListener("click", fetchSeats("Lost & Found"));
-//   document.getElementById("buySellBtn").addEventListener("click", fetchSeats("Buy & Sell"));
-  
-// });

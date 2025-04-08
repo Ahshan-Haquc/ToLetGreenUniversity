@@ -52,8 +52,8 @@
         </div>
         <% } else { %>
         <!--If user have Notification -->
-        <% notifications.forEach(element =>{ %>
-
+        <% notifications.forEach(element =>{ %> <%
+        if(element.notificationFromPost){ %>
         <div
           class="w-full h-[185px] p-3 mb-3 bg-white rounded-md flex transition duration-600 hover:shadow-lg"
         >
@@ -83,13 +83,12 @@
               </div>
             </div>
             <div class="w-full h-fit py-1 font-bold flex">
-              <div class="w-1/3 text-gray-500">Your post info was</div>
+              <div class="w-1/3 text-gray-500">Your post title was</div>
               <div class="w-2/3">
-                Total <%=element.notificationFromPost.seat%> seat available from
-                <%=element.notificationFromPost.entryMonth%> month for
-                <%=element.notificationFromPost.gender%>. The location is in
-                <%=element.notificationFromPost.locationDistick%> and each seat
-                rent is <%=element.notificationFromPost.rent%> tk.
+                :&nbsp;
+                <span class="w-[50px] overflow-hidden"
+                  ><%= element.notificationFromPost.title %></span
+                >
               </div>
             </div>
           </div>
@@ -136,8 +135,7 @@
             </button>
           </div>
         </div>
-
-        <% }); %>
+        <% } %> <% }); %>
         <!-- end of if else  -->
         <% }; %>
       </div>
