@@ -3,6 +3,7 @@ const Model = require("../models/studentSchema");
 const PostShareModel = require("../models/postShareSchema");
 const NotificationModel = require("../models/notification");
 const BuySellModel = require("../models/buyAndSellPostShareSchema");
+const LostFoundModel = require("../models/lostAndFoundSchema");
 const basicRouter = express.Router();
 const bcrypt = require("bcrypt");
 const accessPermission = require("../middlewares/accessPermission");
@@ -146,7 +147,6 @@ basicRouter.post("/fetchPostAndShowInProfile",accessPermission, async(req,res)=>
     if(aboveButton==="savedPostsBtn" && belowButton==="toletBtn"){
       for(const element of user.savedPosts){
         const post = await PostShareModel.findOne({_id: element});
-        console.log(!!post);
         if(post){
           postsFounded.push({
             postId: post._id,
@@ -156,23 +156,102 @@ basicRouter.post("/fetchPostAndShowInProfile",accessPermission, async(req,res)=>
           });
         }
       }
-      console.log(postsFounded);
     }else if(aboveButton==="savedPostsBtn" && belowButton==="lostFoundBtn"){
-      posts = await Model.find({savedPosts: "LostAndFound"});
+      for(const element of user.savedPosts){
+        const post = await LostFoundModel.findOne({_id: element});
+        if(post){
+          postsFounded.push({
+            postId: post._id,
+            postDate: post.postDate,
+            postTitle: post.title,
+            postImage: post.images
+          });
+        }
+      }
     }else if(aboveButton==="savedPostsBtn" && belowButton==="buySellBtn"){
-      posts = await Model.find({savedPosts: "BuyAndSell"});
+      for(const element of user.savedPosts){
+        const post = await BuySellModel.findOne({_id: element});
+        if(post){
+          postsFounded.push({
+            postId: post._id,
+            postDate: post.postDate,
+            postTitle: post.title,
+            postImage: post.images
+          });
+        }
+      }
     }else if(aboveButton==="myPostBtn" && belowButton==="toletBtn"){
-
+      for(const element of user.sharedPosts){
+        const post = await PostShareModel.findOne({_id: element});
+        if(post){
+          postsFounded.push({
+            postId: post._id,
+            postDate: post.postDate,
+            postTitle: post.title,
+            postImage: post.images
+          });
+        }
+      }
     }else if(aboveButton==="myPostBtn" && belowButton==="lostFoundBtn"){
-
+      for(const element of user.sharedPosts){
+        const post = await LostFoundModel.findOne({_id: element});
+        if(post){
+          postsFounded.push({
+            postId: post._id,
+            postDate: post.postDate,
+            postTitle: post.title,
+            postImage: post.images
+          });
+        }
+      }
     }else if(aboveButton==="myPostBtn" && belowButton==="buySellBtn"){
-
+      for(const element of user.sharedPosts){
+        const post = await BuySellModel.findOne({_id: element});
+        if(post){
+          postsFounded.push({
+            postId: post._id,
+            postDate: post.postDate,
+            postTitle: post.title,
+            postImage: post.images
+          });
+        }
+      }
     }else if(aboveButton==="myAchievementBtn" && belowButton==="toletBtn"){
-
+      for(const element of user.requestedInPost){
+        const post = await PostShareModel.findOne({_id: element});
+        if(post){
+          postsFounded.push({
+            postId: post._id,
+            postDate: post.postDate,
+            postTitle: post.title,
+            postImage: post.images
+          });
+        }
+      }
     }else if(aboveButton==="myAchievementBtn" && belowButton==="lostFoundBtn"){
-
+      for(const element of user.requestedInPost){
+        const post = await LostFoundModel.findOne({_id: element});
+        if(post){
+          postsFounded.push({
+            postId: post._id,
+            postDate: post.postDate,
+            postTitle: post.title,
+            postImage: post.images
+          });
+        }
+      }
     }else if(aboveButton==="myAchievementBtn" && belowButton==="buySellBtn"){
-
+      for(const element of user.requestedInPost){
+        const post = await BuySellModel.findOne({_id: element});
+        if(post){
+          postsFounded.push({
+            postId: post._id,
+            postDate: post.postDate,
+            postTitle: post.title,
+            postImage: post.images
+          });
+        }
+      }
     }
 
     res.status(200).json({fetchedPosts: postsFounded});
@@ -193,13 +272,21 @@ basicRouter.get('/notification', accessPermission, async (req, res) => {
   console.log("Notification get router is working");
 
   const notificationArray = [];
+  let post = {};
   const userNotifications = await NotificationModel.findOne({ userId: req.studentInfo._id });
 
   if (userNotifications) {
     for (const element of userNotifications.notificationInfo) {
       const user = await Model.findOne({ _id: element.notificationFromUser });
-      const post = await PostShareModel.findOne({ _id: element.notificationFromPost });
+      if(element.notificationFrom==="To-let"){
+        post = await PostShareModel.findOne({ _id: element.notificationFromPost });
+      }else if(element.notificationFrom==="Buy-sell"){
+        post = await BuySellModel.findOne({ _id: element.notificationFromPost });
+      }else if(element.notificationFrom==="Lost-found"){
+        post = await LostFoundModel.findOne({ _id: element.notificationFromPost });
+      }
 
+      if(post){
       notificationArray.push({
         notificationId: element._id,
         notificationFrom: element.notificationFrom,
@@ -207,6 +294,7 @@ basicRouter.get('/notification', accessPermission, async (req, res) => {
         notificationFromUser: user,
         notificationFromPost: post
       });
+    }
     }
   }
 
@@ -221,10 +309,16 @@ basicRouter.post("/notification", accessPermission, async (req, res, next) => {
   console.log("Notification post router working.");
   try {
     const postName = req.body.pageName;
-    const userId = new mongoose.Types.ObjectId(req.body.userId);
-    const postBy = new mongoose.Types.ObjectId(req.body.postBy);
-    const postId = new mongoose.Types.ObjectId(req.body.postId);
+    const userId = new mongoose.Types.ObjectId(req.body.userId); //which user using this website
+    const postBy = new mongoose.Types.ObjectId(req.body.postBy); //which user posted this
+    const postId = new mongoose.Types.ObjectId(req.body.postId); //for which post that user requesting
 
+    //updating user request field by this post id
+    const userRequested = await Model.findOne({_id: userId});
+    userRequested.requestedInPost.push(postId);
+    await userRequested.save();
+
+    //checking is this user is already exist in notification collection
     const isUserExist = await NotificationModel.findOne({ userId: postBy });
 
     if (isUserExist) {

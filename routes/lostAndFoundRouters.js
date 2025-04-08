@@ -83,7 +83,12 @@ lostFoundRouter.post('/lostAndFoundDoPost',accessPermission,  upload.array('imag
         studentPostedId: req.studentInfo._id
       })
 
-      await PostInfo.save();
+    const savedPost = await PostInfo.save();
+
+    //updating user postShared field by this post id
+    const userPosted = await Model.findOne({_id: req.studentInfo._id});
+    userPosted.sharedPosts.push(savedPost._id);
+    await userPosted.save();
 
         console.log("form submitted successfully");
         res.status(200).redirect('/lostAndFoundHomePage');

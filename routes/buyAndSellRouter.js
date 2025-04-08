@@ -66,8 +66,6 @@ buySellRouter.get('/buyAndSellDoPost',accessPermission,(req,res)=>{
 })
 buySellRouter.post('/buyAndSellDoPost',accessPermission,  upload.array('imageUpload', 5),async(req,res)=>{
     try {
-        // const values = req.body;
-        // Map uploaded files to get paths
       const imagePaths = req.files.map(file => file.path);
 
       const PostInfo = new BuySellModel({
@@ -83,7 +81,12 @@ buySellRouter.post('/buyAndSellDoPost',accessPermission,  upload.array('imageUpl
         studentPostedId: req.studentInfo._id
       })
 
-      await PostInfo.save();
+    const savedPost = await PostInfo.save();
+
+    //updating user postShared field by this post id
+    const userPosted = await Model.findOne({_id: req.studentInfo._id});
+    userPosted.sharedPosts.push(savedPost._id);
+    await userPosted.save();
 
         console.log("Sell post form submitted successfully");
         res.status(200).redirect('/buyAndSellHomePage');
