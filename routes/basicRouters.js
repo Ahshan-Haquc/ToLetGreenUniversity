@@ -122,18 +122,12 @@ basicRouter.get("/home",accessPermission,(req,res)=>{
 //router for profile page
 basicRouter.get("/profile", accessPermission, async (req, res) => {
   try {
-    // .find({}) ----> eita ekta array of object return kore, ejs file a etake if else & loop diye access korte hobe
-    // .findOne({}) ----> eita just akta  object return kore, tai etake ejs file a dirrectly access kora jabe
-    const postInfo = {id:324653456,name:"Ahsan"};
-    // const postInfo = await PostShareModel.find({
-    //   studentPostedId: req.studentInfo._id,
-    // });
+
     console.log("working on profile router");
 
-    //ekhane aro kaj baki ase, res.render korte hobe
     res.status(200).render("profile", {
       student: req.studentInfo,
-      studentPost: postInfo,
+      fetchedPosts: null
     });
   } catch (error) {
     console.log(error);
@@ -141,22 +135,18 @@ basicRouter.get("/profile", accessPermission, async (req, res) => {
   }
 });
 
-// const a = document.getElementById("savedPostsBtn");
-// const b = document.getElementById("myPostBtn");
-// const c = document.getElementById("myAchievementBtn");
-// const x = document.getElementById("toletBtn");
-// const y = document.getElementById("lostFoundBtn");
-// const z = document.getElementById("buySellBtn");
 basicRouter.post("/fetchPostAndShowInProfile",accessPermission, async(req,res)=>{
   try {
+    console.log("working on fetch post for profile router");
     const aboveButton = req.body.aboveButton;
     const belowButton = req.body.belowButton;
     let postsFounded = [];
+    const user = await Model.findOne({_id: req.studentInfo._id});
 
     if(aboveButton==="savedPostsBtn" && belowButton==="toletBtn"){
-      const user = await Model.findOne({_id: req.studentInfo._id});
       for(const element of user.savedPosts){
         const post = await PostShareModel.findOne({_id: element});
+        console.log(!!post);
         if(post){
           postsFounded.push({
             postId: post._id,
@@ -166,7 +156,6 @@ basicRouter.post("/fetchPostAndShowInProfile",accessPermission, async(req,res)=>
           });
         }
       }
-      console.log("Post founded : ");
       console.log(postsFounded);
     }else if(aboveButton==="savedPostsBtn" && belowButton==="lostFoundBtn"){
       posts = await Model.find({savedPosts: "LostAndFound"});

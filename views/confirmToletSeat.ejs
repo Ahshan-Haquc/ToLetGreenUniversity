@@ -295,7 +295,7 @@
             </div>
             <div class="h-[500px] w-[1000px] bg-black center relative py-5">
               <!-- Here the image will dynamically update -->
-              <img id="displayImage" class="h-[100%] overflow-hidden" src="/<%= postInfo.roomImages[0] %>" alt="">
+              <img id="displayImage" class="h-[100%] overflow-hidden" src="/<%= postInfo.images[0] %>" alt="">
               <div class="bg-gray-800 rounded-full h-[50px] w-[50px] center absolute bottom-5 right-5 hover:bg-gray-600 hover:scale-110 hover:cursor-pointer" onclick="fullScreen()"><img class="invert h-10 w-10 " src="images/full-screen.png" alt=""></div>
             </div>
             <div
@@ -306,8 +306,8 @@
             </div>
           </div>
           <div class="imageCount center flex-col h-10 my-5">
-            <div id="currentImageIndex">1/<%= postInfo.roomImages.length %></div>
-            <div>Total Images: <%= postInfo.roomImages.length %></div>
+            <div id="currentImageIndex">1/<%= postInfo.images.length %></div>
+            <div>Total Images: <%= postInfo.images.length %></div>
           </div>
         </div>
         
@@ -317,7 +317,7 @@
           <div class="bg-gray-800 rounded-full h-[50px] w-[50px] center absolute top-7 right-14 hover:cursor-pointer hover:scale-110 hover:bg-gray-600" onclick="cancelFullScreen()"><img class="invert h-10 w-10 " src="images/cancel.png" alt=""></div>
 
 
-          <img id="displayFullScreenImage" class="h-[100%] overflow-hidden" src="/<%= postInfo.roomImages[0] %>" alt="">
+          <img id="displayFullScreenImage" class="h-[100%] overflow-hidden" src="/<%= postInfo.images[0] %>" alt="">
         </div>
 
 
@@ -455,7 +455,7 @@
       </div>
     </div>
     <script>
-      const roomImages = <%- JSON.stringify(postInfo.roomImages) %>;
+      const roomImages = <%- JSON.stringify(postInfo.images) %>;
     </script>
     <script src="\javaScriptFiles\sideNavBarShow.js"></script>
     <script src="\javaScriptFiles\confirmPage.js"></script>
