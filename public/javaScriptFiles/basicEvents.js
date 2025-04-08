@@ -78,7 +78,7 @@ const x = document.getElementById("toletBtn");
 const y = document.getElementById("lostFoundBtn");
 const z = document.getElementById("buySellBtn");
 
-function fetchSeats(btnName) {
+async function fetchSeats(btnName) {
   // upper button 
   if(btnName==="savedPostsBtn" || btnName==="myPostBtn" || btnName==="myAchievementBtn"){
     if(btnName==="savedPostsBtn"){
@@ -159,7 +159,51 @@ function fetchSeats(btnName) {
 
   // ekhon eitar vitor theke api call korbo
   if(btn1 && btn2){
-    alert(`up button name = ${btn1} and below button name = ${btn2}`);
+    // Replace your .then() block like this:
+const response = await fetch("/fetchPostAndShowInProfile", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ aboveButton: btn1, belowButton: btn2 })
+});
+
+const data = await response.json();
+console.log(data);
+const postsContainer = document.getElementById("postsContainer"); // Add this ID to your container in EJS
+postsContainer.innerHTML = ""; // Clear old posts
+
+if (data.fetchedPosts.length === 0) {
+  postsContainer.innerHTML = "<h2>No posts found.</h2>";
+} else {
+  data.fetchedPosts.forEach(post => {
+    const html = `
+      <div class="h-[470px] w-[400px] p-5 bg-white rounded-2xl shadow-lg flex flex-col justify-between">
+        <div>
+          <div class="flex justify-between items-center">
+            <div class="text-gray-400">Date : ${new Date(post.postDate).toDateString()}</div>
+            <div class="flex gap-2">
+              <div class="btn btn-info">View</div>
+              <div class="btn btn-danger">Delete</div>
+            </div>
+          </div>
+          <div class="py-3 text-4xl min-h-fit max-h-[120px]">
+            <span class="text-gray-500">Title : </span>${post.postTitle}
+          </div>
+          <div class="flex">
+            <div class="h-fit w-fit mr-6 mt-1"><i class="fa-solid fa-user"></i> 5</div>
+            <div class="h-fit w-fit mr-6 mt-1"><i class="fa-solid fa-thumbs-up"></i> 23</div>
+            <div class="h-fit w-fit mr-6 mt-1"><i class="fa-solid fa-thumbs-down"></i> 4</div>
+          </div>
+        </div>
+        <div class="w-full h-[260px] bg-gray-300 rounded-2xl">
+          <!-- If you want to show image: -->
+          <!-- <img src="${post.postImage}" class="w-full h-full object-cover rounded-2xl" /> -->
+        </div>
+      </div>
+    `;
+    postsContainer.innerHTML += html;
+  });
+}
+
   }
 }
 // document.addEventListener("DOMContentLoaded", function () {

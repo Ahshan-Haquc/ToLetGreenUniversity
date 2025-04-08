@@ -136,8 +136,8 @@
           <div class="center" id="box1">
             <div class="image" id="image1">
               <div id="image">
-                <% if (post.roomImages && post.roomImages.length > 0) { %>
-                <img src="/<%= post.roomImages[0] %>" alt="Room Image1" />
+                <% if (post.images && post.images.length > 0) { %>
+                <img src="/<%= post.images[0] %>" alt="Room Image1" />
                 <% } else { %>
                 <p class="center">No image</p>
                 <% } %>
@@ -146,8 +146,8 @@
             <div class="image" id="image2">
               <div id="image">
                 <!-- Here 2nd images will visible from database -->
-                <% if (post.roomImages && post.roomImages.length > 0) { %>
-                <img src="/<%= post.roomImages[1] %>" alt="Room Image2" />
+                <% if (post.images && post.images.length > 0) { %>
+                <img src="/<%= post.images[1] %>" alt="Room Image2" />
                 <% } else { %>
                 <p class="center">No image</p>
                 <% } %>
@@ -160,7 +160,7 @@
               style="width: 120px; position: relative"
             >
               <!-- Here 3rd image will be visible from the database -->
-              <% if (post.roomImages && post.roomImages.length > 0) { %>
+              <% if (post.images && post.images.length > 0) { %>
               <div class="image-background"></div>
               <p
                 class="centered-text hover:cursor-pointer"

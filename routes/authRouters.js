@@ -88,7 +88,7 @@ route.post(
         facilities: facilities, // Properly handled facilities as an array
         description: req.body.description,
         contactNumber: req.body.contactNumber,
-        roomImages: imagePaths, // Save image paths to roomImages
+        images: imagePaths, // Save image paths to roomImages
         studentPostedId: req.studentInfo._id, // Save student ID for reference
       });
 
