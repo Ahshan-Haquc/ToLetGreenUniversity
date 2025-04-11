@@ -6,6 +6,11 @@ const notification = mongoose.Schema({
         ref: 'StudentInformation'
     },
     notificationInfo:[{
+        notificationType:{
+            type: String,
+            enum:["Request","Response"],
+            default: "Request"
+        },
         notificationFrom:{
             type: String,
         },

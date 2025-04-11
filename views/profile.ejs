@@ -35,7 +35,7 @@
       >
         <!-- user info  -->
         <div
-          class="w-[100%] h-[390px] flex md:w-[100%] md:h-[390px] md:flex relative bg-cover bg-center"
+          class="w-[100%] h-[390px] center md:w-[100%] md:h-[390px] relative bg-cover bg-center"
           style="background-image: url('images/GreenUniversityImage.jpg')"
         >
           <!-- user info part  -->
@@ -47,13 +47,21 @@
               <div class="profileName">
                 <%= student.firstName %> <%= student.lastName %>
               </div>
+              <div
+                class="hover:text-blue-500 hover:cursor-pointer mb-2"
+                id="myInfoText"
+                onclick="viewYourInfoByClicking()"
+              >
+                <i class="fa-solid fa-eye"></i> View Info
+              </div>
               <div class="hover:text-blue-500 hover:cursor-pointer">
                 <i class="fa-solid fa-user-pen"></i> Update Info
               </div>
             </div>
           </div>
           <div
-            class="w-[70%] flex flex-col flex-wrap justify-center items-center gap-5"
+            class="w-[70%] flex flex-wrap justify-center items-center gap-5 hidden"
+            id="viewYourInfo"
           >
             <div class="userInfo">
               <div
@@ -163,11 +171,11 @@
         </div>
 
         <div
-          class="w-[98%] h-[50px] bg-white rounded-2xl mt-2 flex items-center justify-end pr-3 gap-3 md:w-[98%] md:h-[50px] md:rounded-2xl md:flex md:items-center md:justify-end md:pr-3 md:gap-3"
+          class="w-[98%] h-[50px] bg-white rounded-2xl mt-1 flex items-center justify-end pr-3 gap-3 md:w-[98%] md:h-[50px] md:rounded-2xl md:flex md:items-center md:justify-end md:pr-3 md:gap-3"
         >
           <button
             id="toletBtn"
-            class="btn btn-default btn-md btn-success"
+            class="btn btn-default btn-md"
             onclick="fetchSeats('toletBtn')"
           >
             To-let
