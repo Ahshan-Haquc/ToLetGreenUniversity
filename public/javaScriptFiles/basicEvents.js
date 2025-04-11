@@ -63,6 +63,13 @@ function closePopup(divBoxId){
 }
 
 
+//---------------profile page------------
+// this is for clicking button to see user info 
+function viewYourInfoByClicking(){
+  document.getElementById("viewYourInfo").classList.toggle("hidden");
+  //this innerText is not working
+  document.getElementById("myInfoText").innerText("Hide Your Info");
+}
 
 // this is for showing posts in profile
 document.addEventListener("DOMContentLoaded", fetchSeats("savedPostsBtn"));
