@@ -53,8 +53,8 @@
         </div>
         <% } else { %>
         <!--If user have Notification -->
-        <% notifications.forEach(element =>{ %> <%
-        if(element.notificationFromPost){ %>
+        <% notifications.forEach(element =>{ %> <% if (element.notificationType
+        && element.notificationType === "Request") { %>
         <div class="notificationRequestBox">
           <div class="requestBoxTexts">
             <div class="RequestBoxDate">
@@ -91,9 +91,54 @@
             >
               Delete
             </div>
-            <div class="btn btn-default">Confirm</div>
+            <div
+              class="btn btn-default"
+              id="confirmRequestSeatButton<%=element.notificationFromPost._id %>"
+              onclick="confirmRequestSent(
+              'Response',
+              '<%= element.notificationFrom %>',
+              '<%= student._id %>',
+              '<%= element.notificationFromUser %>',
+              '<%= element.notificationFromPost._id %>')"
+            >
+              Confirm
+            </div>
           </div>
         </div>
+        <% } else if (element.notificationType === "Response") { %>
+        <div class="notificationRequestBox">
+          <div class="requestBoxTexts">
+            <div class="RequestBoxDate bg-green-200 px-1">
+              Responsed on : <% const date = new Date(element.date); const
+              dateString = date.toDateString(); %> <%= dateString %>
+            </div>
+            <div class="RequestBoxText">
+              <%= element.notificationFromUser.firstName %>
+              <%=element.notificationFromUser.lastName %> has responsed you from
+              <%= element.notificationFrom %> for the post “<%=
+              element.notificationFromPost.title %>”. Now you can contact using
+              below contact informations.
+            </div>
+            <div class="RequestBoxContactInfo">
+              <div><i class="fa-regular fa-address-book"></i></div>
+              <div class="areas">
+                Id : <%= element.notificationFromUser.studentId %>
+              </div>
+              <div class="areas">
+                Dept of <%= element.notificationFromUser.department %>
+              </div>
+              <div class="areas">
+                Phone : <%= element.notificationFromUser.phone %>
+              </div>
+              <div class="areas">
+                Email : <%= element.notificationFromUser.email %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% } else { %>
+        <!-- Unknown notification type -->
+        <p>Unknown notification type: <%= element.notificationType %></p>
         <% } %> <% }); %>
         <!-- end of if else  -->
         <% }; %>
@@ -101,6 +146,7 @@
     </div>
     <script src="\javaScriptFiles\sideNavBarShow.js"></script>
     <script src="\javaScriptFiles\notification.js"></script>
+    <script src="\javaScriptFiles\savePost.js"></script>
   </body>
   <%- include("layout/footer.ejs") %>
 </html>

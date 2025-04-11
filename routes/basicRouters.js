@@ -287,13 +287,14 @@ basicRouter.get('/notification', accessPermission, async (req, res) => {
       }
 
       if(post){
-      notificationArray.push({
-        notificationId: element._id,
-        notificationFrom: element.notificationFrom,
-        date: element.date,
-        notificationFromUser: user,
-        notificationFromPost: post
-      });
+        notificationArray.push({
+          notificationId: element._id,
+          notificationType: element.notificationType, //kon type er notification like request nki response
+          notificationFrom: element.notificationFrom, //kon feature theke asche like tolet, buysell etc
+          date: element.date, //kobe notification ta asche j req pathaise tar kas theke
+          notificationFromUser: user, //kon user req pathaise
+          notificationFromPost: post //kon post er theke pathaise
+        });
     }
     }
   }
@@ -308,12 +309,13 @@ basicRouter.get('/notification', accessPermission, async (req, res) => {
 basicRouter.post("/notification", accessPermission, async (req, res, next) => {
   console.log("Notification post router working.");
   try {
+    const requestType = req.body.requestType;
     const postName = req.body.pageName;
     const userId = new mongoose.Types.ObjectId(req.body.userId); //which user using this website
     const postBy = new mongoose.Types.ObjectId(req.body.postBy); //which user posted this
     const postId = new mongoose.Types.ObjectId(req.body.postId); //for which post that user requesting
 
-    //updating user request field by this post id
+    //updating user request field by this post id in student schema
     const userRequested = await Model.findOne({_id: userId});
     userRequested.requestedInPost.push(postId);
     await userRequested.save();
@@ -323,14 +325,16 @@ basicRouter.post("/notification", accessPermission, async (req, res, next) => {
 
     if (isUserExist) {
       const isRequested = isUserExist.notificationInfo.some(info => info.notificationFromPost.equals(postId));
+      const isRequestedType = isUserExist.notificationInfo.some(info => info.notificationType.equals(requestType));
 
-      if (isRequested) {
+      if (isRequested && isRequestedType) {
         return res.status(200).json({ requestSent: "no" });
       } else {
         isUserExist.notificationInfo.push({
-          notificationFrom: postName,
-          notificationFromUser: userId,
-          notificationFromPost: postId
+          notificationType: requestType, //kon type er notification like request nki response
+          notificationFrom: postName, //kon feature theke asche like tolet, buysell etc
+          notificationFromUser: userId, //kon user req pathaise
+          notificationFromPost: postId //kon post er theke pathaise
         });
 
         await isUserExist.save();
@@ -340,6 +344,7 @@ basicRouter.post("/notification", accessPermission, async (req, res, next) => {
       const newEntry = new NotificationModel({
         userId: postBy,
         notificationInfo: [{
+          notificationType: requestType,
           notificationFrom: postName,
           notificationFromUser: userId,
           notificationFromPost: postId

@@ -66,15 +66,26 @@ function closePopup(divBoxId){
 //---------------profile page------------
 // this is for clicking button to see user info 
 function viewYourInfoByClicking(){
-  document.getElementById("viewYourInfo").classList.toggle("hidden");
+  const profileInfo = document.getElementById("viewYourInfo");
+  const button = document.getElementById("myInfoText");
+  profileInfo.classList.toggle("hidden");
+  if(profileInfo.classList.contains("hidden")){
+    const content = `<i class="fa-solid fa-eye"></i> View Info`;
+    button.innerHTML= content;
+  }else{
+    const content = `<i class="fa-solid fa-eye-slash"></i> Hide Info`;
+    button.innerHTML= content;
+  }
+  alert(text);
+
   //this innerText is not working
-  document.getElementById("myInfoText").innerText("Hide Your Info");
+  // document.getElementById("myInfoText").innerText("Hide Your Info");
 }
 
 // this is for showing posts in profile
 document.addEventListener("DOMContentLoaded", fetchSeats("savedPostsBtn"));
-let btn1 = "savedPostsBtn";
-let btn2 = "toletBtn";
+let btn1 = "";
+let btn2 = "";
 const a = document.getElementById("savedPostsBtn");
 const b = document.getElementById("myPostBtn");
 const c = document.getElementById("myAchievementBtn");

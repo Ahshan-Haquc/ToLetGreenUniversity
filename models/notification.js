@@ -8,7 +8,8 @@ const notification = mongoose.Schema({
     notificationInfo:[{
         notificationType:{
             type: String,
-            enum:["Request","Response"]
+            enum:["Request","Response"],
+            default: "Request"
         },
         notificationFrom:{
             type: String,

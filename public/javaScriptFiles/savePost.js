@@ -17,11 +17,16 @@ async function saveThisPost(postName,userId,postId){
 
 
 //this is for sending request for confirm seat for confirm tolet page
-async function confirmRequestSent(pageName,userId,postBy,postId){
+async function confirmRequestSent(requestType,pageName,userId,postBy,postId){
+    console.log("requestType:", requestType);
+console.log("pageName:", pageName);
+console.log("userId:", userId);
+console.log("postBy:", postBy);
+console.log("postId:", postId);
     const response = await fetch("/notification",{
       method: "POST",
       headers: {"Content-Type":"application/json"},
-      body: JSON.stringify({pageName,userId,postBy,postId})
+      body: JSON.stringify({requestType,pageName,userId,postBy,postId})
     });
   
     const data =await response.json();

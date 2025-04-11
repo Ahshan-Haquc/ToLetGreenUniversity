@@ -38,13 +38,6 @@
           class="w-[100%] h-[390px] center md:w-[100%] md:h-[390px] relative bg-cover bg-center"
           style="background-image: url('images/GreenUniversityImage.jpg')"
         >
-          <div
-            class="btn btn-default bg-[#000000] absolute bottom-5 right-5"
-            id="myInfoText"
-            onclick="viewYourInfoByClicking()"
-          >
-            View Your Info
-          </div>
           <!-- user info part  -->
           <div class="w-[30%] h-[100%] center md:w-[30%] md:h-[100%] md:center">
             <div class="profileImageBox">
@@ -53,6 +46,13 @@
               </div>
               <div class="profileName">
                 <%= student.firstName %> <%= student.lastName %>
+              </div>
+              <div
+                class="hover:text-blue-500 hover:cursor-pointer mb-2"
+                id="myInfoText"
+                onclick="viewYourInfoByClicking()"
+              >
+                <i class="fa-solid fa-eye"></i> View Info
               </div>
               <div class="hover:text-blue-500 hover:cursor-pointer">
                 <i class="fa-solid fa-user-pen"></i> Update Info
@@ -171,11 +171,11 @@
         </div>
 
         <div
-          class="w-[98%] h-[50px] bg-white rounded-2xl mt-2 flex items-center justify-end pr-3 gap-3 md:w-[98%] md:h-[50px] md:rounded-2xl md:flex md:items-center md:justify-end md:pr-3 md:gap-3"
+          class="w-[98%] h-[50px] bg-white rounded-2xl mt-1 flex items-center justify-end pr-3 gap-3 md:w-[98%] md:h-[50px] md:rounded-2xl md:flex md:items-center md:justify-end md:pr-3 md:gap-3"
         >
           <button
             id="toletBtn"
-            class="btn btn-default btn-md btn-success"
+            class="btn btn-default btn-md"
             onclick="fetchSeats('toletBtn')"
           >
             To-let
