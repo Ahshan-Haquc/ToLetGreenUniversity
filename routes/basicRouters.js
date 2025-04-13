@@ -136,6 +136,68 @@ basicRouter.get("/profile", accessPermission, async (req, res) => {
   }
 });
 
+basicRouter.post("/updateUserInfoFromProfilePage",accessPermission, async (req,res,next)=>{
+  console.log("Updating user info router is working");
+  try {
+    await Model.updateOne({ _id: req.studentInfo._id }, {
+      $set: {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        studentId: req.body.studentId,
+        email: req.body.email,
+        phone: req.body.phone,
+        gender: req.body.gender,
+        department: req.body.department,
+        batch: req.body.batch,
+      }
+    });
+
+    res.status(200).redirect('/profile');
+  } catch (error) {
+    console.log("Error in updating profile info router");
+    next(error);
+  }
+})
+
+basicRouter.post("/deletePostFromProfilePage",accessPermission, async (req,res,next)=>{
+  console.log("Deleting post from profile page is working.");
+  try {
+    const btnName = req.body.bn;
+    const postId = new mongoose.Types.ObjectId(req.body.pi);
+
+    const user = await Model.findOne({_id:req.studentInfo._id});
+
+    if(btnName && postId){
+      if(btnName==="Saved Posts"){
+        user.savedPosts.pull(postId);
+        await user.save();
+
+        res.json({message:"Yes"});
+      }else if(btnName==="My Post"){
+        user.sharedPosts.pull(postId);
+        await user.save();
+
+        res.json({message:"Yes"});
+      }else if(btnName==="Request Sented"){
+        user.requestedInPost.pull(postId);
+        await user.save();
+
+        res.json({message:"Yes"});
+      }else{
+        console.log("working 4");
+        return res.json({message:"No"});
+      }
+      
+    }else{
+      console.log("working 5");
+      res.json({message:"No"});
+    }
+  } catch (error) {
+    console.log("Error in deleting post from profile page");
+    next(error);
+  }
+})
+
 basicRouter.post("/fetchPostAndShowInProfile",accessPermission, async(req,res)=>{
   try {
     console.log("working on fetch post for profile router");
