@@ -315,10 +315,12 @@ basicRouter.post("/notification", accessPermission, async (req, res, next) => {
     const postBy = new mongoose.Types.ObjectId(req.body.postBy); //which user posted this
     const postId = new mongoose.Types.ObjectId(req.body.postId); //for which post that user requesting
 
+    if(requestType==="Request"){
     //updating user request field by this post id in student schema
     const userRequested = await Model.findOne({_id: userId});
     userRequested.requestedInPost.push(postId);
     await userRequested.save();
+    }
 
     //checking is this user is already exist in notification collection
     const isUserExist = await NotificationModel.findOne({ userId: postBy });
