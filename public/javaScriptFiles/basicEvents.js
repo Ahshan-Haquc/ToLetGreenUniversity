@@ -202,7 +202,7 @@ if (data.fetchedPosts.length === 0) {
             <div style="color: #9ca3af;">Date : ${new Date(post.postDate).toDateString()}</div>
             <div style="display: flex; gap: 8px;">
                 <div class="btn btn-info">View</div>
-                <div class="btn btn-danger" onclick="deletePostFromProfile(${btn1},'${post.postId}')">Delete</div>
+                <div class="btn btn-danger" onclick="deletePostFromProfile(${btn1},${btn2},'${post.postId}')">Delete</div>
             </div>
         </div>
         <div style="padding-top: 12px; padding-bottom: 12px; font-size: 24px; min-height: fit-content; max-height: 120px; overflow: auto;">
@@ -226,13 +226,15 @@ if (data.fetchedPosts.length === 0) {
   }
 }
 
-async function deletePostFromProfile(clickedButton, postId){
+async function deletePostFromProfile(clickedButton, belowclickedButton, postId){
   const buttonName = clickedButton.textContent.trim(); // Get the text content and trim whitespace
+  const BelowButtonName = belowclickedButton.textContent.trim();
+  alert("hello");
 
   const response = await fetch("/deletePostFromProfilePage",{
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ bn: buttonName, pi: postId })
+    body: JSON.stringify({ bn: buttonName,bbn:BelowButtonName, pi: postId })
   });
 
   const data = await response.json();

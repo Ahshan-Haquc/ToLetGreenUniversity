@@ -162,12 +162,13 @@ basicRouter.post("/updateUserInfoFromProfilePage",accessPermission, async (req,r
 basicRouter.post("/deletePostFromProfilePage",accessPermission, async (req,res,next)=>{
   console.log("Deleting post from profile page is working.");
   try {
-    const btnName = req.body.bn;
+    const btnName = req.body.bn; //this will store upper button name
+    const belowBtnName = req.body.bbn; //this will store below button name
     const postId = new mongoose.Types.ObjectId(req.body.pi);
 
     const user = await Model.findOne({_id:req.studentInfo._id});
 
-    if(btnName && postId){
+    if(btnName && belowBtnName && postId){
       if(btnName==="Saved Posts"){
         user.savedPosts.pull(postId);
         await user.save();
@@ -176,6 +177,15 @@ basicRouter.post("/deletePostFromProfilePage",accessPermission, async (req,res,n
       }else if(btnName==="My Post"){
         user.sharedPosts.pull(postId);
         await user.save();
+
+        // deleting post collection too 
+        if(belowBtnName==="To-let"){
+          await PostShareModel.deleteOne({_id:postId});
+        }else if(belowBtnName==="Lost & Found"){
+          await LostFoundModel.deleteOne({_id:postId});
+        }else if(belowBtnName==="Buy & Sell"){
+          await BuySellModel.deleteOne({_id:postId});
+        }
 
         res.json({message:"Yes"});
       }else if(btnName==="Request Sented"){
