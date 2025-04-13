@@ -26,7 +26,7 @@ async function toggleDisLike(dislikeFrom, postId, userId) {
   }
 
 //   for updating like 
-  async function toggleLike(likeFrom, postId, userId) {
+async function toggleLike(likeFrom, postId, userId) {
     try {
       const response = await fetch("/toggle-like", {
         method: "POST",
@@ -67,8 +67,9 @@ function closePopup(divBoxId){
 // this is for clicking button to see user info 
 function viewYourInfoByClicking(){
   const profileInfo = document.getElementById("viewYourInfo");
-  const button = document.getElementById("myInfoText");
   profileInfo.classList.toggle("hidden");
+
+  const button = document.getElementById("myInfoText");
   if(profileInfo.classList.contains("hidden")){
     const content = `<i class="fa-solid fa-eye"></i> View Info`;
     button.innerHTML= content;
@@ -80,6 +81,12 @@ function viewYourInfoByClicking(){
 
   //this innerText is not working
   // document.getElementById("myInfoText").innerText("Hide Your Info");
+}
+
+// this is for clicking button to see form of update user info
+function toggleUpdateForm() {
+  const formDiv = document.getElementById("updateInfoForm");
+  formDiv.classList.toggle("hidden");
 }
 
 // this is for showing posts in profile
@@ -195,7 +202,7 @@ if (data.fetchedPosts.length === 0) {
             <div style="color: #9ca3af;">Date : ${new Date(post.postDate).toDateString()}</div>
             <div style="display: flex; gap: 8px;">
                 <div class="btn btn-info">View</div>
-                <div class="btn btn-danger">Delete</div>
+                <div class="btn btn-danger" onclick="deletePostFromProfile(${btn1},'${post.postId}')">Delete</div>
             </div>
         </div>
         <div style="padding-top: 12px; padding-bottom: 12px; font-size: 24px; min-height: fit-content; max-height: 120px; overflow: auto;">
@@ -216,5 +223,24 @@ if (data.fetchedPosts.length === 0) {
   });
 }
 
+  }
+}
+
+async function deletePostFromProfile(clickedButton, postId){
+  const buttonName = clickedButton.textContent.trim(); // Get the text content and trim whitespace
+
+  const response = await fetch("/deletePostFromProfilePage",{
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ bn: buttonName, pi: postId })
+  });
+
+  const data = await response.json();
+
+  if(data.message==="Yes"){
+    alert("This post has deleted succesfully.");
+    window.location.reload();
+  }else{
+    alert("Something wrong in deleting this post.");
   }
 }
