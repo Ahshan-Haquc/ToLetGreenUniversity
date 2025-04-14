@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Lost & Found</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <link rel="stylesheet" href="sideNavBar.css" />
+    <link rel="stylesheet" href="headerNavBar.css" />
+    <link rel="stylesheet" href="homePage.css" />
+    <link href="output.css" rel="stylesheet" />
+    <link rel="stylesheet" href="footer.css" />
+    <link rel="stylesheet" href="homePageToLet.css" />
+    <link rel="stylesheet" href="postShow.css" />
+  </head>
+
+  <body>
+    <!-- header nav bar -->
+    <%- include("./layout/headerNavBar") %> <%- include("./layout/sideNavBar")
+    %>
+
+    <!-- post page content starts from here -->
+    <div class="contentBox">
+      <% if(btnName === "To-let"){ %>
+      <div class="post_area">
+        <div id="postArea1">
+          <div id="postArea1Box1">
+            <div class="text-5xl mt-3 mb-6 overflow-hidden" id="h2_color">
+              <%= post.title %>
+            </div>
+            <h5 class="mb-2">
+              <span class="glyphicon glyphicon-time mb-2"></span>
+              Posted by <%= student ? student.firstName + ' ' + student.lastName
+              : 'an User' %>
+            </h5>
+            <h5>
+              <span class="label label-danger">rent : <%= post.rent %>tk</span>
+              <span class="label label-primary"
+                >location : <%= post. locationDistick %></span
+              >
+              <span class="label label-primary"
+                >Post for : <%= post.gender %></span
+              >
+            </h5>
+          </div>
+
+          <div id="postArea1Box2">
+            <div class="center">
+              <div
+                id="reviewCountShowBigly"
+                style="font-size: 20px; font-weight: bold"
+              >
+                <%= post.reviewScore %>
+              </div>
+              &nbsp;
+              <div>
+                <img
+                  src="images\star.png"
+                  style="height: 25px; width: 25px; margin-bottom: 4px"
+                  alt="Star"
+                />
+              </div>
+            </div>
+            <button
+              class="btn btn-default btn-md"
+              id="saveButton<%= post._id %>"
+              onclick="saveThisPost('To-let','<%= student._id %>','<%= post._id %>')"
+            >
+              <%= student.savedPosts.includes(post._id) ? 'Saved' : 'Save it' %>
+            </button>
+            <button
+              class="btn btn-default text-green-600"
+              id="confirmRequestSeatButton<%= post._id %>"
+              onclick="confirmRequestSent('Request','To-let','<%= student._id %>','<%= post.studentPostedId %>','<%= post._id %>')"
+            >
+              Request for Confirm
+            </button>
+          </div>
+        </div>
+        <div id="postArea2">
+          <div class="center" id="box1">
+            <div class="image" id="image1">
+              <div id="image">
+                <% if (post.images && post.images.length > 0) { %>
+                <img src="/<%= post.images[0] %>" alt="Room Image1" />
+                <% } else { %>
+                <p class="center">No image</p>
+                <% } %>
+              </div>
+            </div>
+            <div class="image" id="image2">
+              <div id="image">
+                <!-- Here 2nd images will visible from database -->
+                <% if (post.images && post.images.length > 0) { %>
+                <img src="/<%= post.images[1] %>" alt="Room Image2" />
+                <% } else { %>
+                <p class="center">No image</p>
+                <% } %>
+              </div>
+            </div>
+
+            <div
+              class="image"
+              id="image3"
+              style="width: 120px; position: relative"
+            >
+              <!-- Here 3rd image will be visible from the database -->
+              <% if (post.images && post.images.length > 0) { %>
+              <div class="image-background"></div>
+              <p
+                class="centered-text hover:cursor-pointer"
+                onclick="goConfirmPage('<%= post._id %>')"
+              >
+                See More
+              </p>
+              <% } else { %>
+              <p>No image</p>
+              <% } %>
+            </div>
+          </div>
+          <div class="center" id="box2">
+            <div class="text">
+              <div class="name">Total seat available</div>
+              <div class="status"><%= post.seat %></div>
+            </div>
+            <div class="text">
+              <div class="name">Each seat rent</div>
+              <div class="status"><%= post.rent %> tk</div>
+            </div>
+            <div class="text">
+              <div class="name">Location</div>
+              <div class="status">
+                <%= post.locationVillage %>,<%= post.locationDistick %>
+              </div>
+            </div>
+            <div class="text">
+              <div class="name">To-let from</div>
+              <div class="status"><%= post.entryMonth %></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% } else if (btnName === "Lost & Found") { %>
+      <div class="post_area">
+        <div id="postArea1">
+          <div id="postArea1Box1">
+            <div class="text-5xl mt-3 mb-2 overflow-hidden text-red-700">
+              <%= post.title %>
+            </div>
+            <h5 class="mb-4 h-[30px] w-[300px] overflow-hidden">
+              Posted on <% const date = new Date(post.postedDate); const
+              dateString = date.toDateString(); %> <%= dateString %>
+            </h5>
+          </div>
+
+          <div id="postArea1Box2">
+            <button
+              class="btn btn-default btn-md"
+              id="saveButton<%= post._id %>"
+              onclick="saveThisPost('Lost-found','<%= student._id %>','<%= post._id %>')"
+            >
+              <%= student.savedPosts.includes(post._id) ? 'Saved' : 'Save it' %>
+            </button>
+            <button
+              class="btn btn-primary btn-md"
+              id="confirmRequestSeatButton<%= post._id %>"
+              onclick="confirmRequestSent('Request','Lost-found','<%= student._id %>','<%= post.studentPostedId %>','<%= post._id %>')"
+            >
+              Claim now
+            </button>
+          </div>
+        </div>
+        <div id="postArea2">
+          <!-- info div  -->
+          <div class="flex">
+            <!-- info part 1 -->
+            <div class="h-[200px] w-[300px] mx-3 flex flex-col border">
+              <p class="w-full h-[40px] text-3xl font-bold center">
+                Post informations
+              </p>
+              <div class="p-3">
+                <p class="text-2xl font-semibold my-1">
+                  Lost location -
+                  <span class="text-red-700"> <%= post.locationLost %> </span>
+                </p>
+                <p class="text-2xl font-semibold my-1">
+                  Category -
+                  <span class="text-red-700"><%= post.category %></span>
+                </p>
+                <p class="text-2xl font-semibold my-1">
+                  Lost date -
+                  <span class="text-red-700">
+                    <% const dateOfLost = new Date(post.dateLost); const
+                    dateStringOfLost = dateOfLost.toDateString(); %> <%=
+                    dateStringOfLost %>
+                  </span>
+                </p>
+                <p class="text-2xl font-semibold my-1">
+                  Lost description -
+                  <span class="text-red-700"> <%= post.description %> </span>
+                </p>
+              </div>
+            </div>
+            <!-- info part 2-->
+            <div class="h-[200px] w-[300px] mx-3 flex flex-col border">
+              <p class="w-full h-[40px] text-3xl font-bold center">
+                Contact informations
+              </p>
+              <div class="p-3">
+                <p class="text-2xl font-semibold my-1">
+                  Posted by -
+                  <span class="text-red-700"
+                    ><%= post.userFirstName %> <%= post.userLastName %></span
+                  >
+                </p>
+                <p class="text-2xl font-semibold my-1">
+                  Student ID -
+                  <span class="text-red-700"><%= post.userStudentId %></span>
+                </p>
+                <p class="text-2xl font-semibold my-1">
+                  Department -
+                  <span class="text-red-700"><%= post.userDepartment %></span>
+                </p>
+                <p class="text-2xl font-semibold my-1">
+                  Phone -
+                  <span class="text-red-700"><%= post.userPhone %></span>
+                </p>
+                <p class="text-2xl font-semibold my-1">
+                  Email -
+                  <span class="text-red-700"><%= post.userEmail %></span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- image div  -->
+          <div class="w-fit flex">
+            <!-- imageBox1 -->
+            <div
+              class="h-[200px] w-[200px] bg-gray-300 mr-2 overflow-hidden flex justify-center items-center duration-300 hover:scale-105 hover:mr-4"
+            >
+              <% if (post.images && post.images.length > 0) { %>
+              <img
+                src="/<%= post.images[0] %>"
+                alt="Image1"
+                class="w-full h-full object-cover"
+              />
+              <% } else { %>
+              <p class="text-center">No image</p>
+              <% } %>
+            </div>
+
+            <!-- imageBox2 -->
+            <% if (post.images && post.images.length > 1) { %>
+            <div
+              class="h-[200px] w-[200px] bg-gray-300 mr-2 overflow-hidden flex justify-center items-center duration-300 hover:scale-105 hover:ml-2 hover:mr-4"
+            >
+              <img
+                src="/<%= post.images[1] %>"
+                alt="Image2"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <% } %>
+          </div>
+        </div>
+      </div>
+      <% } else if (btnName === "Buy & Sell") { %>
+      <div class="post_area">
+        <div id="postArea1">
+          <div id="postArea1Box1">
+            <div class="text-5xl mt-3 mb-2 overflow-hidden text-red-700">
+              <%= post.title %>
+            </div>
+            <h5 class="mb-4">
+              <span class="glyphicon glyphicon-time mb-2"></span>
+              Posted on <%= post.postDate %>
+            </h5>
+          </div>
+
+          <div id="postArea1Box2">
+            <div class="center">
+              <div
+                id="reviewCountShowBigly"
+                style="font-size: 20px; font-weight: bold"
+              >
+                <%= post.reviewScore %>
+              </div>
+              &nbsp;
+              <div>
+                <img
+                  src="images\star.png"
+                  style="height: 25px; width: 25px; margin-bottom: 4px"
+                  alt="Star"
+                />
+              </div>
+            </div>
+            <button
+              class="btn btn-default btn-md"
+              id="saveButton<%= post._id %>"
+              onclick="saveThisPost('Buy-sell','<%= student._id %>','<%= post._id %>')"
+            >
+              <%= student.savedPosts.includes(post._id) ? 'Saved' : 'Save it' %>
+            </button>
+            <button
+              class="btn btn-primary btn-md"
+              id="confirmRequestSeatButton<%= post._id %>"
+              onclick="confirmRequestSent('Request','Buy-sell','<%= student._id %>','<%= post.studentPostedId %>','<%= post._id %>')"
+            >
+              Request for confirm
+            </button>
+          </div>
+        </div>
+        <div id="postArea2">
+          <div class="w-fit flex">
+            <!-- imageBox1 -->
+            <div
+              class="h-[200px] w-[200px] bg-gray-300 mr-2 overflow-hidden flex justify-center items-center duration-300 hover:scale-105 hover:mr-4"
+            >
+              <% if (post.images && post.images.length > 0) { %>
+              <img
+                src="/<%= post.images[0] %>"
+                alt="Image1"
+                class="w-full h-full object-cover"
+              />
+              <% } else { %>
+              <p class="text-center">No image</p>
+              <% } %>
+            </div>
+
+            <!-- imageBox2 -->
+            <% if (post.images && post.images.length > 1) { %>
+            <div
+              class="h-[200px] w-[200px] bg-gray-300 mr-2 overflow-hidden flex justify-center items-center duration-300 hover:scale-105 hover:ml-2 hover:mr-4"
+            >
+              <img
+                src="/<%= post.images[1] %>"
+                alt="Image2"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <% } %>
+
+            <!-- imageBox3 -->
+            <% if (post.images && post.images.length > 2) { %>
+            <div
+              class="h-[200px] w-[200px] bg-gray-300 mr-2 overflow-hidden flex justify-center items-center duration-300 hover:scale-105 hover:mx-4"
+            >
+              <img
+                src="/<%= post.images[2] %>"
+                alt="Image3"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <% } %>
+          </div>
+          <div class="flex">
+            <!-- info part 1 -->
+            <div
+              class="h-[200px] w-[300px] mx-3 pl-3 flex flex-col justify-center"
+            >
+              <p class="text-3xl font-bold mb-5">Post informations</p>
+              <p class="text-2xl font-semibold my-1">
+                Price -
+                <span class="text-red-700"><%= post.price %> tk</span>
+              </p>
+              <p class="text-2xl font-semibold my-1">
+                Category -
+                <span class="text-red-700"><%= post.category %></span>
+              </p>
+              <p class="text-2xl font-semibold my-1">
+                Location -
+                <span class="text-red-700"><%= post.location %></span>
+              </p>
+              <p class="text-2xl font-semibold my-1">
+                Condition -
+                <span class="text-red-700"><%= post.condition %></span>
+              </p>
+              <p class="text-2xl font-semibold my-1">
+                Negotiable -
+                <span class="text-red-700"><%= post.negotiable %></span>
+              </p>
+            </div>
+            <!-- info part 2-->
+            <div
+              class="h-[200px] w-[300px] mx-3 pl-3 flex flex-col justify-center"
+            >
+              <p class="text-3xl font-bold mb-5">Contact informations</p>
+              <p class="text-2xl font-semibold my-1">
+                Posted by -
+                <span class="text-red-700"
+                  ><%= post.userFirstName %> <%= post.userLastName %></span
+                >
+              </p>
+              <p class="text-2xl font-semibold my-1">
+                Student ID -
+                <span class="text-red-700"><%= post.userStudentId %></span>
+              </p>
+              <p class="text-2xl font-semibold my-1">
+                Department -
+                <span class="text-red-700"><%= post.userDepartment %></span>
+              </p>
+              <p class="text-2xl font-semibold my-1">
+                Phone -
+                <span class="text-red-700"><%= post.userPhone %></span>
+              </p>
+              <p class="text-2xl font-semibold my-1">
+                Email -
+                <span class="text-red-700"><%= post.userEmail %></span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% } %>
+    </div>
+
+    <script src="\javaScriptFiles\sideNavBarShow.js"></script>
+    <script src="\javaScriptFiles\basicEvents.js"></script>
+    <script src="\javaScriptFiles\savePost.js"></script>
+    <script src="\javaScriptFiles\buyAndSellEvents.js"></script>
+    <script src="\javaScriptFiles\lostAndFoundEvents.js"></script>
+    <script src="\javaScriptFiles\postShow.js"></script>
+    <script src="\javaScriptFiles\confirmPage.js"></script>
+    <script src="\javaScriptFiles\notification.js"></script>
+  </body>
+  <%- include("./layout/footer.ejs") %>
+</html>

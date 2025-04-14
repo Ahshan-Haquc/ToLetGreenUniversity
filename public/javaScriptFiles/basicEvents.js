@@ -201,7 +201,7 @@ if (data.fetchedPosts.length === 0) {
         <div style="display: flex; justify-content: space-between; align-items: center;">
             <div style="color: #9ca3af;">Date : ${new Date(post.postDate).toDateString()}</div>
             <div style="display: flex; gap: 8px;">
-                <div class="btn btn-info">View</div>
+                <div class="btn btn-info" onclick="viewOnlyOneSpecificPost(${btn1},${btn2},'${post.postId}')">View</div>
                 <div class="btn btn-danger" onclick="deletePostFromProfile(${btn1},${btn2},'${post.postId}')">Delete</div>
             </div>
         </div>
@@ -225,11 +225,11 @@ if (data.fetchedPosts.length === 0) {
 
   }
 }
-
+// ----------end-------------
+//This is for deleting post from profile page to student schema
 async function deletePostFromProfile(clickedButton, belowclickedButton, postId){
   const buttonName = clickedButton.textContent.trim(); // Get the text content and trim whitespace
   const BelowButtonName = belowclickedButton.textContent.trim();
-  alert("hello");
 
   const response = await fetch("/deletePostFromProfilePage",{
     method: "POST",
@@ -245,4 +245,13 @@ async function deletePostFromProfile(clickedButton, belowclickedButton, postId){
   }else{
     alert("Something wrong in deleting this post.");
   }
+}
+//-------end-------
+//This is for seeing specific post from anywhere (specialy from profile and notification page)
+function viewOnlyOneSpecificPost(clickedButton, belowclickedButton, postId) {
+  const buttonName = clickedButton.textContent.trim();
+  const belowButtonName = belowclickedButton.textContent.trim();
+
+  const url = `/viewingOnlyOneSpecificPost?bn=${encodeURIComponent(buttonName)}&bbn=${encodeURIComponent(belowButtonName)}&pi=${postId}`;
+  window.location.href = url;
 }
