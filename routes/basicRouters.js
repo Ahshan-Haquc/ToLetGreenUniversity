@@ -162,12 +162,13 @@ basicRouter.post("/updateUserInfoFromProfilePage",accessPermission, async (req,r
 basicRouter.post("/deletePostFromProfilePage",accessPermission, async (req,res,next)=>{
   console.log("Deleting post from profile page is working.");
   try {
-    const btnName = req.body.bn;
+    const btnName = req.body.bn; //this will store upper button name
+    const belowBtnName = req.body.bbn; //this will store below button name
     const postId = new mongoose.Types.ObjectId(req.body.pi);
 
     const user = await Model.findOne({_id:req.studentInfo._id});
 
-    if(btnName && postId){
+    if(btnName && belowBtnName && postId){
       if(btnName==="Saved Posts"){
         user.savedPosts.pull(postId);
         await user.save();
@@ -176,6 +177,15 @@ basicRouter.post("/deletePostFromProfilePage",accessPermission, async (req,res,n
       }else if(btnName==="My Post"){
         user.sharedPosts.pull(postId);
         await user.save();
+
+        // deleting post collection too 
+        if(belowBtnName==="To-let"){
+          await PostShareModel.deleteOne({_id:postId});
+        }else if(belowBtnName==="Lost & Found"){
+          await LostFoundModel.deleteOne({_id:postId});
+        }else if(belowBtnName==="Buy & Sell"){
+          await BuySellModel.deleteOne({_id:postId});
+        }
 
         res.json({message:"Yes"});
       }else if(btnName==="Request Sented"){
@@ -424,27 +434,6 @@ basicRouter.post("/notification", accessPermission, async (req, res, next) => {
   }
 });
 
-// basicRouter.post('/deleteNotification', accessPermission, async (req,res,next)=>{
-//   try {
-//     console.log("Delete notification router is working.");
-//     const notificationId = req.body.notificationId;
-//     console.log(typeof notificationId,notificationId);
-
-//     const notification = await notificationModel.findOne({userId:req.studentInfo._id});
-//     console.log(notification);
-
-//     const notificationInArrayExist = notification.notificationInfo.some(info => info._id.equals(notificationId));
-//     console.log("notification found : ");
-//     console.log(notificationInArrayExist);
-
-//     res.redirect('/notification');
-
-//   } catch (error) {
-//     console.log("Error in deleting notification router.");
-//     next(error);
-//   }
-// })
-
 basicRouter.post('/deleteNotification', accessPermission, async (req, res, next) => {
   try {
     console.log("Delete notification router is working.");
@@ -512,6 +501,41 @@ basicRouter.post("/savePost",accessPermission, async (req, res, next) => {
     res.status(404).json({ saved: "no", message: "User not found" });
   } catch (error) {
     console.log("Issue occurred in saving post router.", error);
+    next(error);
+  }
+});
+
+//router for seeing only one specific post from profile page by clicking  "View" button
+basicRouter.get("/viewingOnlyOneSpecificPost", accessPermission, async (req, res, next) => {
+  console.log("GET route to view specific post");
+
+  try {
+    const btnName = req.query.bn;
+    const belowBtnName = req.query.bbn;
+    const postId = new mongoose.Types.ObjectId(req.query.pi);
+
+    let fetchedPost = {};
+
+    if (belowBtnName && postId) {
+      if (belowBtnName === "To-let") {
+        fetchedPost = await PostShareModel.findOne({ _id: postId });
+      } else if (belowBtnName === "Lost & Found") {
+        fetchedPost = await LostFoundModel.findOne({ _id: postId });
+      } else if (belowBtnName === "Buy & Sell") {
+        fetchedPost = await BuySellModel.findOne({ _id: postId });
+      }
+    } else {
+      return res.send("Invalid request. Go back to previous page.");
+    }
+
+    res.status(200).render("viewingOnlyOneSpecificPost", {
+      student: req.studentInfo,
+      post: fetchedPost,
+      btnName: belowBtnName,
+    });
+
+  } catch (error) {
+    console.log("Error rendering specific post page:", error);
     next(error);
   }
 });

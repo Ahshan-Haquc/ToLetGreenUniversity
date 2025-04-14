@@ -18,11 +18,6 @@ async function saveThisPost(postName,userId,postId){
 
 //this is for sending request for confirm seat for confirm tolet page
 async function confirmRequestSent(requestType,pageName,userId,postBy,postId){
-    console.log("requestType:", requestType);
-console.log("pageName:", pageName);
-console.log("userId:", userId);
-console.log("postBy:", postBy);
-console.log("postId:", postId);
     const response = await fetch("/notification",{
       method: "POST",
       headers: {"Content-Type":"application/json"},
