@@ -28,11 +28,11 @@ async function confirmRequestSent(requestType,pageName,userId,postBy,postId){
   
     if(data.requestSent==="yes"){
       document.getElementById(`confirmRequestSeatButton${postId}`).innerText="Request sented";
-  }else if(data.requestSent==="no"){
+    }else if(data.requestSent==="no"){
       // document.getElementById(`confirmRequestSeatButton${postId}`).innerText="Request for Confirm";
       alert("You have already requested for this post.");
-  }else{
-    alert("Request Error");
+    }else{
+        alert("Request Error");
   }
   
   }

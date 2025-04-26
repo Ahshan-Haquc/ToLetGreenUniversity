@@ -399,7 +399,8 @@ basicRouter.post("/notification", accessPermission, async (req, res, next) => {
 
     if (isUserExist) {
       const isRequested = isUserExist.notificationInfo.some(info => info.notificationFromPost.equals(postId));
-      const isRequestedType = isUserExist.notificationInfo.some(info => info.notificationType.equals(requestType));
+const isRequestedType = isUserExist.notificationInfo.some(info => info.notificationType === requestType);
+
 
       if (isRequested && isRequestedType) {
         return res.status(200).json({ requestSent: "no" });
@@ -426,7 +427,7 @@ basicRouter.post("/notification", accessPermission, async (req, res, next) => {
       });
 
       await newEntry.save();
-      return res.status(200).json({ requestSent: "yes" });
+      res.status(200).json({ requestSent: "yes" });
     }
   } catch (error) {
     console.log("Error in notification router:", error);
