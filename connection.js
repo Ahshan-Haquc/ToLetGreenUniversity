@@ -4,6 +4,9 @@ const basicRouters = require('./routes/basicRouters')
 const authRouter = require('./routes/authRouters')
 const buyAndSellRouter = require('./routes/buyAndSellRouter')
 const lostFoundRouter = require('./routes/lostAndFoundRouters')
+const foodCornerRouter = require('./routes/foodCorner')
+const bloodHelpRouter = require('./routes/bloodHelpRouter')
+
 const seePost = require('./routes/seePost')
 const path = require('path')
 const mongoose = require('mongoose')
@@ -34,6 +37,9 @@ app.use('/',authRouter);
 app.use('/',basicRouters);
 app.use('/',buyAndSellRouter);
 app.use('/',lostFoundRouter);
+app.use('/',foodCornerRouter);
+app.use('/',bloodHelpRouter);
+
 
 //default error handler
 function errorHandler(err,req,res,next){
