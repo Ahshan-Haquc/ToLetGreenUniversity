@@ -79,4 +79,10 @@ bloodRouter.delete("/delete-blood-post/:id", accessPermission, async (req, res, 
   }
 });
 
+bloodRouter.get("/bloodDonarList",accessPermission,(req,res)=>{
+  res.render("bloodHelp/bloodDonerList",{
+    student: req.studentInfo
+  });
+})
+
 module.exports = bloodRouter;
