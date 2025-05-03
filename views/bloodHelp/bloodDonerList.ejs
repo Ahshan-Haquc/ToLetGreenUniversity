@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Home Page</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- this is for using google font  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Madimi+One&display=swap"
+      rel="stylesheet"
+    />
+    <!-- this is for adding css style -->
+    <link rel="stylesheet" href="sideNavBar.css" />
+    <link rel="stylesheet" href="headerNavBar.css" />
+    <link rel="stylesheet" href="homePageToLet.css" />
+    <link rel="stylesheet" href="home.css" />
+    <link rel="stylesheet" href="footer.css" />
+    <link rel="stylesheet" href="output.css" />
+  </head>
+
+  <body>
+    <!-- header nav bar -->
+    <%- include("../layout/headerNavBar") %>
+
+    <!-- side nav bar -->
+    <%- include("../layout/sideNavBar") %>
+
+    <!-- home page content -->
+    <div class="contentBox">
+      <h2 class="text-6xl font-bold text-center my-4">🩸 Blood Help Board</h2>
+
+      <!-- header part  -->
+      <div
+        class="w-[1000px] flex flex-wrap items-center justify-center gap-4 mb-6"
+      >
+        <!-- Search Input -->
+        <div class="w-full md:w-1/2">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search by blood group or location"
+            class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500"
+          />
+        </div>
+
+        <!-- Create Blood Post Button -->
+        <div class="w-full md:w-auto">
+          <a
+            href="/create-blood-post"
+            class="inline-block bg-blue-600 hover:bg-blue-700 hover:text-white text-white font-regular px-4 py-2 rounded-md"
+          >
+            + Create Blood Post
+          </a>
+        </div>
+
+        <!-- Register Donor Button -->
+        <div
+          class="w-full md:w-auto inline-block bg-blue-600 hover:bg-blue-700 hover:cursor-pointer text-white font-regular px-4 py-2 rounded-md"
+          onclick="registerAsDonerShowForm()"
+        >
+          Register Donor
+        </div>
+
+        <!-- Available Donors Button -->
+        <div class="w-full md:w-auto">
+          <a
+            href="/create-blood-post"
+            class="inline-block bg-blue-600 hover:bg-blue-700 hover:text-white text-white font-regular px-4 py-2 rounded-md"
+          >
+            Available Donors
+          </a>
+        </div>
+      </div>
+
+      <!--Doner list will display here  -->
+      <div class="w-full h-fit m-3 p-3 flex gap-3 text-2xl font-bold">
+        Donar List
+      </div>
+      <div class="w-full h-fit m-3 p-3 flex gap-3">
+        <!-- donar box -->
+        <div
+          class="h-[250px] w-[200px] p-3 rounded-lg shadow-xl flex flex-col items-center justify-between"
+        >
+          <div
+            class="h-[100px] w-[100px] bg-red-600 text-white text-7xl font-bold rounded-full flex items-center justify-center"
+          >
+            A+
+          </div>
+          <div>
+            <div class="text-4xl font-bold text-center">Ahshanul Haquc</div>
+            <p class="text-center overflow-hidden text-lg">
+              From : Narayanganj, Dhaka
+            </p>
+            <p class="text-center text-lg">Email : ahsan@gmail.com</p>
+          </div>
+          <div class="text-center">
+            <button
+              class="border-2 hover:bg-black hover:text-white font-regular px-6 py-2 rounded-md shadow"
+            >
+              Request for Donate
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <%- include("../layout/footer.ejs") %>
+
+  <!-- js events part -->
+  <script src="\javaScriptFiles\sideNavBarShow.js"></script>
+  <script src="\javaScriptFiles\bloodHelpEvents.js"></script>
+</html>

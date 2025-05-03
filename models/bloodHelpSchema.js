@@ -5,11 +5,6 @@ const bloodHelpSchema = new mongoose.Schema({
     type: String,
     required: true,
     },
-  postType: {
-    type: String,
-    enum: ["Donor", "Request"],
-    required: true
-  },
   bloodGroup: {
     type: String,
     enum: ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"],
