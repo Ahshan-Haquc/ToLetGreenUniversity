@@ -8,5 +8,14 @@
   <body>
     this is food page.
     <h1>Nadib working area</h1>
+    <div>student name : <%= student.firstName %></div>
+    <div>student name : <%= student.password %></div>
+    <div>student name : <%= student.email %></div>
+    <form action="/order" method="post">
+      <input type="text" name="order" id="" />
+      <button>quatity</button>
+      <div>price <%= nadib.price %></div>
+      <button type="submit">Order now</button>
+    </form>
   </body>
 </html>

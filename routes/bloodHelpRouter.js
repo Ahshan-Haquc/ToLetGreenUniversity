@@ -10,29 +10,36 @@ bloodRouter.get("/bloodHelpHomePage",accessPermission, (req, res) => {
     });
 });
 
-bloodRouter.get("/create-blood-post", accessPermission, (req, res) => {
-  res.render("bloodHelp/createBloodPost",{
-    student: req.studentInfo
-  });
+// See all blood posts
+bloodRouter.get("/seeBloodPost", accessPermission, async (req, res) => {
+    try {
+        const posts = await BloodHelpModel.find();
+        if (!posts) {
+            return res.status(404).json({ message: "No blood posts found" });
+        }
+        res.status(200).json(posts);
+    } catch (error) {
+        console.log("Error fetching blood posts");
+        next(error);
+    }
 });
-
-
-// ✅ Route: Create a new blood post (Donor or Request)
-bloodRouter.post("/create-blood-post", accessPermission, async (req, res, next) => {
+// Create a new blood post
+bloodRouter.post("/createBloodPost", accessPermission, async (req, res, next) => {
   try {
-    const { type, bloodGroup, location, contact, dateNeeded, note } = req.body;
+    const { title, bloodGroup, dateNeeded, location, contact, note } = req.body;
+    console.log(title, bloodGroup, dateNeeded, location, contact, note);
     const newPost = new BloodHelpModel({
-      type,
+      title,
       bloodGroup,
       location,
       contact,
       dateNeeded,
-      note,
-      createdBy: req.studentInfo._id
+      description: note || "",
+      studentPostedId: req.studentInfo._id,
     });
 
     await newPost.save();
-    res.status(201).json({ message: "Blood post created successfully" });
+    res.status(201).redirect("/bloodHelpHomePage");
   } catch (error) {
     console.log("Error creating blood post:", error);
     next(error);
