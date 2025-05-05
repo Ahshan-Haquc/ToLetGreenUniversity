@@ -39,6 +39,12 @@ const studentInformationSchema = mongoose.Schema({
         type: Number,
         require: true,
     },
+    bloodGroup:{
+        type: String,
+    },
+    address:{
+        type: String,
+    },
     registrationDate:{
         type:Date,
         default:Date.now,

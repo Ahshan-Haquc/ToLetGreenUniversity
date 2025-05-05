@@ -1,5 +1,6 @@
 const express = require("express");
 const bloodRouter = express.Router();
+const StudentModel = require("../models/studentSchema");
 const BloodHelpModel = require("../models/bloodHelpSchema");
 const accessPermission = require("../middlewares/accessPermission");
 
@@ -42,6 +43,40 @@ bloodRouter.post("/createBloodPost", accessPermission, async (req, res, next) =>
     res.status(201).redirect("/bloodHelpHomePage");
   } catch (error) {
     console.log("Error creating blood post:", error);
+    next(error);
+  }
+});
+// Student can register as a blood donor
+bloodRouter.post("/registerAsBloodDonor", accessPermission, async (req, res, next) => {
+  try {
+    const { bloodGroup, address } = req.body;
+    const user = await StudentModel.findById(req.studentInfo._id);
+    if(user.bloodGroup && user.address) {
+      user.bloodGroup = "";
+      user.address = "";
+      await user.save();
+      return res.status(400).json({ message: "Registration cancelled." });
+    }
+    user.bloodGroup = bloodGroup;
+    user.address = address;
+    await user.save();
+    res.status(200).json({ message: "Successfully registered as a blood donor" });
+  } catch (error) {
+    console.log("Error registering as blood donor:", error);
+    next(error);
+  }
+});
+//see all blood doner list
+bloodRouter.get("/seeDonorList", accessPermission, async (req, res) => {
+  try {
+    const bloodDonors = await StudentModel.find({ bloodGroup: { $ne: "" } });
+    console.log(bloodDonors);
+    if (!bloodDonors) {
+      return res.status(404).json({ message: "No blood donors found" });
+    }
+    res.status(200).json(bloodDonors);
+  } catch (error) {
+    console.log("Error fetching blood donors:", error);
     next(error);
   }
 });

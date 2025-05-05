@@ -104,3 +104,9 @@
   background-color: #343434; /* Slightly lighter color on hover */
   transform: scale(1.05); /* Slight zoom effect */
 }
+
+/* externel css style for blood button */
+.bloodBtn {
+  background-color: #337ab7; /* Bootstrap btn-primary color */
+  color: white !important;
+}
