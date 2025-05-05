@@ -65,7 +65,8 @@
         <!-- See all Post Button -->
         <div class="w-full md:w-auto" onclick="seeBloodPost()">
           <span
-            class="inline-block bg-blue-600 hover:bg-blue-700 hover:text-white hover:cursor-pointer text-white font-regular px-4 py-2 rounded-md"
+            class="inline-block border border-blue-600 text-blue-600 hover:bg-[#337ab7]hover:text-white hover:cursor-pointer font-regular px-4 py-2 rounded-md"
+            id="seePostBtn"
           >
             See Posts
           </span>
@@ -73,25 +74,27 @@
         <!-- Create Blood Post Button -->
         <div class="w-full md:w-auto" onclick="bloodPostShowForm()">
           <span
-            class="inline-block bg-blue-600 hover:cursor-pointer hover:bg-blue-700 hover:text-white text-white font-regular px-4 py-2 rounded-md"
+            class="inline-block border border-blue-600 text-blue-600 hover:cursor-pointer hover:bg-[#337ab7] hover:text-white font-regular px-4 py-2 rounded-md"
           >
             + Create Blood Post
           </span>
         </div>
 
-        <!-- Register Donor Button -->
+        <!-- Register as a Donor Button -->
         <div
-          class="w-full md:w-auto inline-block bg-blue-600 hover:bg-blue-700 hover:cursor-pointer text-white font-regular px-4 py-2 rounded-md"
+          class="w-full md:w-auto inline-block border border-blue-600 text-blue-600 hover:bg-[#337ab7] hover:text-white hover:cursor-pointer font-regular px-4 py-2 rounded-md"
+          id="donorRegistrationBtn"
           onclick="registerAsDonerShowForm()"
         >
-          Register Donor
+          <%= student.bloodGroup ? "Leave from Donation" : "Join Donation" %>
         </div>
 
         <!-- Available Donors Button -->
         <div class="w-full md:w-auto">
           <a
-            href="/bloodDonarList"
-            class="inline-block bg-blue-600 hover:bg-blue-700 hover:text-white text-white font-regular px-4 py-2 rounded-md"
+            class="inline-block border border-blue-600 text-blue-600 hover:bg-[#337ab7] hover:text-white hover:cursor-pointer font-regular px-4 py-2 rounded-md"
+            id="donorListBtn"
+            onclick="seeDonerList()"
           >
             Available Donors
           </a>
@@ -99,7 +102,7 @@
       </div>
 
       <!-- post will display here  -->
-      <div class="w-full h-fit hidden" id="seeBloodPost">
+      <div class="w-full min-h-[50vh] max-h-fit hidden" id="seeBloodPost">
         <div class="w-full h-fit m-3 p-3 flex gap-3 text-2xl font-bold">
           Donate blood
         </div>
@@ -110,7 +113,7 @@
       </div>
 
       <!--Doner list will display here  -->
-      <div class="w-full h-fit" id="seeDonerList">
+      <div class="w-full min-h-[50vh] max-h-fit hidden" id="seeDonerList">
         <div class="w-full h-fit m-3 p-3 flex gap-3 text-2xl font-bold">
           Donar List
         </div>
@@ -164,7 +167,7 @@
           Do You Want to be a Doner ?
         </h2>
 
-        <form action="/create-doner" method="POST" class="space-y-5">
+        <div class="space-y-5">
           <!-- Blood Group -->
           <div>
             <label
@@ -210,13 +213,13 @@
           <!-- Submit Button -->
           <div class="text-center">
             <button
-              type="submit"
               class="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded-md shadow"
+              onclick="submitDonorRegistrationForm()"
             >
               Submit
             </button>
           </div>
-        </form>
+        </div>
       </div>
 
       <!-- this is blood need post form  -->
@@ -348,7 +351,7 @@
               Submit
             </button>
             <button
-              class="hover:bg-red-700 text-white font-semibold px-6 py-2 rounded-md shadow"
+              class="border hover:bg-red-700 hover:text-white font-semibold px-6 py-2 rounded-md shadow"
               onclick="bloodPostHideForm()"
             >
               Cancel
