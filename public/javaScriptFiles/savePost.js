@@ -27,10 +27,17 @@ async function confirmRequestSent(requestType,pageName,userId,postBy,postId){
     const data =await response.json();
   
     if(data.requestSent==="yes"){
+      if(pageName==="Blood-Help"){
+        document.getElementById(`confirmRequestSeatButton${postId}`).innerText="Responsed";
+        return;
+      }
       document.getElementById(`confirmRequestSeatButton${postId}`).innerText="Request sented";
     }else if(data.requestSent==="no"){
-      // document.getElementById(`confirmRequestSeatButton${postId}`).innerText="Request for Confirm";
-      alert("You have already requested for this post.");
+      if(pageName==="Blood-Help"){
+        document.getElementById(`confirmRequestSeatButton${postId}`).innerText="Response for Donation";
+        return;
+      }
+      document.getElementById(`confirmRequestSeatButton${postId}`).innerText="Request for Confirm";
     }else{
         alert("Request Error");
   }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Home Page</title>
+    <title>Blood Help</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
@@ -48,7 +48,7 @@
 
     <!-- home page content -->
     <div class="contentBox">
-      <h2 class="text-6xl font-bold text-center my-4">🩸 Blood Help Board</h2>
+      <h2 class="text-6xl font-bold text-center my-8">🩸 Blood Help Board</h2>
 
       <!-- header part  -->
       <div class="w-full flex flex-wrap items-center justify-center gap-4 mb-6">
@@ -103,8 +103,30 @@
 
       <!-- post will display here  -->
       <div class="w-full min-h-[50vh] max-h-fit hidden" id="seeBloodPost">
-        <div class="w-full h-fit m-3 p-3 flex gap-3 text-2xl font-bold">
-          Donate blood
+        <div
+          class="w-full h-fit m-3 p-3 flex justify-between text-2xl font-bold"
+        >
+          <div class="">Donate blood</div>
+          <div class="flex items-center gap-3 mr-3">
+            <div>Filtar :</div>
+            <div>
+              <select
+                name="filterBloodGroup"
+                class="h-8 md:h-14 mt-1 p-2 block w-full rounded-md shadow-sm border"
+                id="filterBloodGroupSelected"
+                onchange="filterPostByBloodGroup()"
+              >
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+              </select>
+            </div>
+          </div>
         </div>
         <div
           class="w-full h-fit m-3 p-3 flex flex-col gap-3"
@@ -366,4 +388,5 @@
   <!-- js events part -->
   <script src="\javaScriptFiles\sideNavBarShow.js"></script>
   <script src="\javaScriptFiles\bloodHelpEvents.js"></script>
+  <script src="\javaScriptFiles\savePost.js"></script>
 </html>
