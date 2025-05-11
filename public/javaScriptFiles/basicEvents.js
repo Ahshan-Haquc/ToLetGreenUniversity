@@ -99,6 +99,7 @@ const c = document.getElementById("myAchievementBtn");
 const x = document.getElementById("toletBtn");
 const y = document.getElementById("lostFoundBtn");
 const z = document.getElementById("buySellBtn");
+const x1 = document.getElementById("bloodHelpBtn"); 
 
 async function fetchSeats(btnName) {
   // upper button 
@@ -152,6 +153,9 @@ async function fetchSeats(btnName) {
         if(z.classList.contains('btn-success')){
           z.classList.remove("btn-success");
         }
+        if(x1.classList.contains('btn-success')){
+          x1.classList.remove("btn-success");
+        }
       }
       btn2 = "toletBtn";
     }else if(btnName==="lostFoundBtn"){
@@ -163,8 +167,25 @@ async function fetchSeats(btnName) {
         if(z.classList.contains('btn-success')){
           z.classList.remove("btn-success");
         }
+        if(x1.classList.contains('btn-success')){
+          x1.classList.remove("btn-success");
+        }
       }
       btn2 = "lostFoundBtn";
+    }else if(btnName==="bloodHelpBtn"){
+      if(!x1.classList.contains('btn-success')){
+        x1.classList.add("btn-success");
+        if(x.classList.contains('btn-success')){
+          x.classList.remove("btn-success");
+        }
+        if(y.classList.contains('btn-success')){
+          y.classList.remove("btn-success");
+        }
+        if(z.classList.contains('btn-success')){
+          z.classList.remove("btn-success");
+        }
+      }
+      btn2 = "bloodHelpBtn";
     }else{
       if(!z.classList.contains('btn-success')){
         z.classList.add("btn-success");
@@ -173,6 +194,9 @@ async function fetchSeats(btnName) {
         }
         if(y.classList.contains('btn-success')){
           y.classList.remove("btn-success");
+        }
+        if(x1.classList.contains('btn-success')){
+          x1.classList.remove("btn-success");
         }
       }
       btn2 = "buySellBtn";

@@ -355,7 +355,7 @@
               <div
                 class="h-[40%] text-black text-3xl flex pl-5 md:h-[40%] md:text-black md:text-3xl md:flex md:pl-5"
               >
-                <%= student.firstName %> <%= student.lastName %>
+                <%= studentPosted.firstName %> <%= studentPosted.lastName %>
               </div>
               </div>
             </div>
@@ -371,7 +371,7 @@
               <div
                 class="h-[40%] text-black text-3xl flex pl-5 md:h-[40%] md:text-black md:text-3xl md:flex md:pl-5"
               >
-              <%= student.studentId %>
+              <%= studentPosted.studentId %>
               </div>
               </div>
             </div>
@@ -387,7 +387,7 @@
               <div
                 class="h-[40%] text-black text-3xl flex pl-5 md:h-[40%] md:text-black md:text-3xl md:flex md:pl-5"
               >
-              <%= student.department %>
+              <%= studentPosted.department %>
               </div>
               </div>
             </div>
@@ -404,7 +404,7 @@
                 class="h-[40%] text-black text-3xl flex justify-between  pl-5 md:h-[40%] md:text-black md:text-3xl md:flex md:pl-5 pr-5"
               >
                 <div class="w-4/5" id="copyEmailId">
-                  <%= student.email %>
+                  <%= studentPosted.email %>
                 </div>
                 <div class="w-1/5 flex justify-end hover:cursor-pointer hover:scale-110" onclick="copyText('emailId')">
                   <img class="h-7 w-7 mt-1" src="images/copy.png" alt="">
@@ -424,7 +424,7 @@
               <div
                 class="h-[40%] text-black text-3xl flex pl-5 md:h-[40%] md:text-black md:text-3xl md:flex md:pl-5"
               >
-              <%= student.gender %>
+              <%= studentPosted.gender %>
               </div>
               </div>
             </div>
@@ -440,7 +440,7 @@
               <div
                 class="h-[40%] text-black text-3xl flex justify-between  pl-5 md:h-[40%] md:text-black md:text-3xl md:flex md:pl-5 pr-5"
               >
-                <div class="w-4/5" id="copyPhoneNumber"><%=student.phone%></div>
+                <div class="w-4/5" id="copyPhoneNumber"><%=studentPosted.phone%></div>
                 <div class="w-1/5 flex justify-end hover:cursor-pointer hover:scale-110" onclick="copyText('phoneNumber')">
                   <img class="h-7 w-7 mt-1" src="images/copy.png" alt="">
                 </div>

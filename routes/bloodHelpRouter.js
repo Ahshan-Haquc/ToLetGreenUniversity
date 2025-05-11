@@ -16,19 +16,55 @@ bloodRouter.get("/seeBloodPost", accessPermission, async (req, res) => {
     try {
         const posts = await BloodHelpModel.find();
         if (!posts) {
-            return res.status(404).json({ message: "No blood posts found" });
+            return res.status(200).json({"posts":0, "student":req.studentInfo});
         }
-        res.status(200).json(posts);
+        res.status(200).json({"posts":posts, "student":req.studentInfo});
     } catch (error) {
         console.log("Error fetching blood posts");
         next(error);
     }
 });
+
+// See blood post by filtering by blood group
+bloodRouter.post("/filterPostByBloodGroup", accessPermission, async (req, res, next) => {
+    try {
+        const bloodGroup = req.body.filterBloodGroupSelected;
+        const posts = await BloodHelpModel.find({ bloodGroup });
+        if (!posts) {
+            return res.status(200).json({"posts":0, "student":req.studentInfo});
+        }
+        res.status(200).json({"posts":posts, "student":req.studentInfo});
+    } catch (error) {
+        console.log("Error fetching blood posts by blood group:", error);
+        next(error);
+    }
+});
+
+// See blood post by searching
+bloodRouter.post("/searchBloodPosts", accessPermission, async (req, res, next) => {
+  try {
+    const { searchQuery } = req.body;
+
+    // Case-insensitive regex search on bloodGroup or location
+    const posts = await BloodHelpModel.find({
+      $or: [
+        { bloodGroup: { $regex: searchQuery, $options: "i" } },
+        { location: { $regex: searchQuery, $options: "i" } },
+      ]
+    });
+
+    return res.status(200).json({ posts, student: req.studentInfo });
+  } catch (error) {
+    console.log("Error in searchBloodPosts:", error);
+    next(error);
+  }
+});
+
+
 // Create a new blood post
 bloodRouter.post("/createBloodPost", accessPermission, async (req, res, next) => {
   try {
     const { title, bloodGroup, dateNeeded, location, contact, note } = req.body;
-    console.log(title, bloodGroup, dateNeeded, location, contact, note);
     const newPost = new BloodHelpModel({
       title,
       bloodGroup,
@@ -40,6 +76,10 @@ bloodRouter.post("/createBloodPost", accessPermission, async (req, res, next) =>
     });
 
     await newPost.save();
+
+    // adding this post in student posted field so that i can know this user posted this
+    req.studentInfo.sharedPosts.push(newPost._id);
+    await req.studentInfo.save();
     res.status(201).redirect("/bloodHelpHomePage");
   } catch (error) {
     console.log("Error creating blood post:", error);
@@ -70,7 +110,6 @@ bloodRouter.post("/registerAsBloodDonor", accessPermission, async (req, res, nex
 bloodRouter.get("/seeDonorList", accessPermission, async (req, res) => {
   try {
     const bloodDonors = await StudentModel.find({ bloodGroup: { $ne: "" } });
-    console.log(bloodDonors);
     if (!bloodDonors) {
       return res.status(404).json({ message: "No blood donors found" });
     }

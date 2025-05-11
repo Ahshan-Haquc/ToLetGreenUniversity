@@ -4,6 +4,7 @@ const PostShareModel = require("../models/postShareSchema");
 const NotificationModel = require("../models/notification");
 const BuySellModel = require("../models/buyAndSellPostShareSchema");
 const LostFoundModel = require("../models/lostAndFoundSchema");
+const BloodHelpModel = require("../models/bloodHelpSchema");
 const basicRouter = express.Router();
 const bcrypt = require("bcrypt");
 const accessPermission = require("../middlewares/accessPermission");
@@ -252,6 +253,18 @@ basicRouter.post("/fetchPostAndShowInProfile",accessPermission, async(req,res)=>
           });
         }
       }
+    }else if(aboveButton==="savedPostsBtn" && belowButton==="bloodHelpBtn"){
+      for(const element of user.savedPosts){
+        const post = await BloodHelpModel.findOne({_id: element});
+        if(post){
+          postsFounded.push({
+            postId: post._id,
+            postDate: post.postDate,
+            postTitle: post.title,
+            postImage: false //
+          });
+        }
+      }
     }else if(aboveButton==="myPostBtn" && belowButton==="toletBtn"){
       for(const element of user.sharedPosts){
         const post = await PostShareModel.findOne({_id: element});
@@ -285,6 +298,18 @@ basicRouter.post("/fetchPostAndShowInProfile",accessPermission, async(req,res)=>
             postDate: post.postDate,
             postTitle: post.title,
             postImage: post.images
+          });
+        }
+      }
+    }else if(aboveButton==="myPostBtn" && belowButton==="bloodHelpBtn"){
+      for(const element of user.sharedPosts){
+        const post = await BloodHelpModel.findOne({_id: element});
+        if(post){
+          postsFounded.push({
+            postId: post._id,
+            postDate: post.postDate,
+            postTitle: post.title,
+            postImage: false
           });
         }
       }
@@ -356,6 +381,8 @@ basicRouter.get('/notification', accessPermission, async (req, res) => {
         post = await BuySellModel.findOne({ _id: element.notificationFromPost });
       }else if(element.notificationFrom==="Lost-found"){
         post = await LostFoundModel.findOne({ _id: element.notificationFromPost });
+      }else if(element.notificationFrom==="Blood-Help"){
+        post = await BloodHelpModel.findOne({ _id: element.notificationFromPost });
       }
 
       if(post){
@@ -390,10 +417,15 @@ basicRouter.post("/notification", accessPermission, async (req, res, next) => {
     if(requestType==="Request"){
     //updating user request field by this post id in student schema
     const userRequested = await Model.findOne({_id: userId});
-    userRequested.requestedInPost.push(postId);
-    await userRequested.save();
+    if(userRequested.requestedInPost.includes(postId)){
+      userRequested.requestedInPost.pull(postId);
+      await userRequested.save();
+      return res.status(200).json({ requestSent: "no" });
+    }else{
+      userRequested.requestedInPost.push(postId);
+      await userRequested.save();
     }
-
+  }
     //checking is this user is already exist in notification collection
     const isUserExist = await NotificationModel.findOne({ userId: postBy });
 
@@ -403,7 +435,7 @@ const isRequestedType = isUserExist.notificationInfo.some(info => info.notificat
 
 
       if (isRequested && isRequestedType) {
-        return res.status(200).json({ requestSent: "no" });
+        return res.status(200).json({ requestSent: "yes" });
       } else {
         isUserExist.notificationInfo.push({
           notificationType: requestType, //kon type er notification like request nki response

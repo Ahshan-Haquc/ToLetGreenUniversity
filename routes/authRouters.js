@@ -196,9 +196,13 @@ route.get("/confirmToletSeat", accessPermission, async (req, res) => {
     // fetching post all info by using incoming postID 
     const postInfo = await PostShareModel.findOne({_id:postID});
 
+    // finding which user posted this
+    const studentPosted = await Model.findOne({_id:postInfo.studentPostedId});
+
     res.status(200).render("confirmToletSeat", {
       student: req.studentInfo,
       postInfo: postInfo,
+      studentPosted: studentPosted,
     });
   } catch (error) {
     res.send("Confirm seat router get df error: " + error);

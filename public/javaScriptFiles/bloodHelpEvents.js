@@ -1,4 +1,11 @@
 //when the blood page is loaded then this function will be called so that the page do not look empty
+
+
+//--------------------------
+// ekta problem j jokhon kono blood post thake na tokhon ei ta call korle abnormal behave kore 
+// r ekta problem holo blood post create korle auto see posts button active hoyna
+// -----------------------------------
+
 document.addEventListener("DOMContentLoaded", function() {
   seeBloodPost();
 });
@@ -51,57 +58,59 @@ async function seeBloodPost(){
     try {
         const response = await fetch("/seeBloodPost");
         const data = await response.json();
+        if(data.posts===0){
+          donorListContainer.innerHTML = `<div class="w-full text-3xl flex justify-center text-red-700 font-bold">No post available !</div>`;
+          return;
+        }
         if(response.ok){  
-          if(data.length === 0){
-            donorListContainer.innerHTML = `<div class="w-full text-3xl flex justify-center text-red-700 font-bold">No post available !</div>`;
-            return;
-          }       
-            data.forEach(post => {
-                const postDiv = document.createElement("div");
-                postDiv.className = "post";
-                const formattedDate = new Date(post.dateNeeded).toISOString().split('T')[0];
-                postDiv.innerHTML = `
-                    <!-- post box -->
-          <div class="h-fit w-full p-4 border-2 border-red-700 rounded-xl flex">
-            <div class="h-fit w-4/5">
-              <div class="text-3xl text-red-700 font-bold">
-                ${post.title}
+          // Check if bolow each post id has saved posts and requested in posts in the student schema
+          // Converting ObjectId to string for comparison
+          const savedPostIds = data.student.savedPosts.map(id => id.toString()); 
+          const studentRequested = data.student.requestedInPost.map(id => id.toString()); 
+          
+          data.posts.forEach(post => {
+            const postDiv = document.createElement("div");
+            postDiv.className = "post";
+            const formattedDate = new Date(post.dateNeeded).toISOString().split('T')[0];
+          
+            // Check if the post is already saved by the student then it will show saved button
+            const isSaved = savedPostIds.includes(post._id.toString());
+            const isRequested = studentRequested.includes(post._id.toString());
+          
+            postDiv.innerHTML = `
+              <div class="h-fit w-full p-4 border-2 border-red-700 rounded-xl flex">
+                <div class="h-fit w-4/5">
+                  <div class="text-3xl text-red-700 font-bold">${post.title}</div>
+                  <div class="mt-2 text-3xl">
+                    ${post.bloodGroup} blood need on ${formattedDate} at ${post.location}.
+                    Contact : ${post.contact}
+                  </div>
+                  <div>
+                    <span class="text-xl hover:text-blue-800 hover:underline hover:cursor-pointer">Additional Note</span> |
+                    <span class="text-xl hover:text-blue-800 hover:underline hover:cursor-pointer">User Information</span>
+                  </div>
+                </div>
+                <div class="h-fit w-1/5 flex flex-col items-end gap-3">
+                  <div
+                    class="btn btn-info"
+                    id="confirmRequestSeatButton${post._id}"
+                    onclick="confirmRequestSent('Request','Blood-Help','${data.student._id}','${post.studentPostedId}','${post._id}')"
+                  >
+                    ${isRequested ? 'Responsed' : 'Response for Donation'}
+                  </div>
+                  <div
+                    class="btn btn-default"
+                    id="saveButton${post._id}"
+                    onclick="saveThisPost('Blood-Help','${data.student._id}','${post._id}')"
+                  >
+                    ${isSaved ? 'Saved' : 'Save it'}
+                  </div>
+                </div>
               </div>
-              <div class="mt-2 text-3xl">
-                ${post.bloodGroup} blood need on ${formattedDate} at ${post.location}.
-                Contact : ${post.contact}
-              </div>
-              <div class="">
-                <span
-                  class="text-xl hover:text-blue-800 hover:underline hover:cursor-pointer"
-                  >Additional Note</span
-                >
-                |
-                <span
-                  class="text-xl hover:text-blue-800 hover:underline hover:cursor-pointer"
-                  >User Information</span
-                >
-              </div>
-            </div>
-            <!-- buttons  -->
-            <div class="h-fit w-1/5 flex flex-col items-end gap-3">
-              <div
-                class=" btn btn-info"
-                onclick="window.location.href='/router'"
-              >
-                Sent Response
-              </div>
-              <div
-                class=" btn btn-default"
-                onclick="window.location.href='/router'"
-              >
-                Save it
-              </div>
-            </div>
-          </div>
-                `;
-                postsContainer.appendChild(postDiv);
-            });
+            `;
+            postsContainer.appendChild(postDiv);
+          });
+          
         }else{
             alert("No blood posts found");
             window.location.href = "/bloodHelpHomePage";
@@ -112,6 +121,134 @@ async function seeBloodPost(){
         window.location.href = "/bloodHelpHomePage";
     }
 }
+
+// this is for see post by filterring the blood group
+async function filterPostByBloodGroup(){
+  const filterBloodGroupSelected = document.getElementById("filterBloodGroupSelected").value;
+
+  const response = await fetch("/filterPostByBloodGroup", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ filterBloodGroupSelected }),
+  });
+  if (response.ok) {
+    const data = await response.json();
+    const postsContainer = document.getElementById("seeBloodPostBoxContainer");
+    postsContainer.innerHTML = ""; // Clear previous posts
+
+    if(data.posts.length === 0){
+      postsContainer.innerHTML = `<div class="w-full text-3xl flex justify-center text-red-700 font-bold">No post available !</div>`;
+      return;
+    }
+    data.posts.forEach(post => {
+      const postDiv = document.createElement("div");
+      postDiv.className = "post";
+      const formattedDate = new Date(post.dateNeeded).toISOString().split('T')[0];
+      postDiv.innerHTML = `
+        <div class="h-fit w-full p-4 border-2 border-red-700 rounded-xl flex">
+          <div class="h-fit w-4/5">
+            <div class="text-3xl text-red-700 font-bold">${post.title}</div>
+            <div class="mt-2 text-3xl">
+              ${post.bloodGroup} blood need on ${formattedDate} at ${post.location}.
+              Contact : ${post.contact}
+            </div>
+            <div>
+              <span class="text-xl hover:text-blue-800 hover:underline hover:cursor-pointer">Additional Note</span> |
+              <span class="text-xl hover:text-blue-800 hover:underline hover:cursor-pointer">User Information</span>
+            </div>
+          </div>
+          <div class="h-fit w-1/5 flex flex-col items-end gap-3">
+            <div
+              class="btn btn-info"
+              id="confirmRequestSeatButton${post._id}"
+              onclick="confirmRequestSent('Request','Blood-Help','${data.student._id}','${post.studentPostedId}','${post._id}')"
+            >
+              Response for Donation
+            </div>
+            <div
+              class="btn btn-default"
+              id="saveButton${post._id}"
+              onclick="saveThisPost('Blood-Help','${data.student._id}','${post._id}')"
+            >
+              Save it
+            </div>
+          </div>
+        </div>
+      `;
+      postsContainer.appendChild(postDiv);
+    });
+  } else {
+    alert("Error filtering posts by blood group.");
+  }
+}
+
+// this is for see post by searching
+let searchTimeout;
+document.getElementById("searchInput").addEventListener("input", () => {
+  clearTimeout(searchTimeout); // debounce
+  searchTimeout = setTimeout(() => {
+    searchBloodPosts();
+  }, 300); // wait 300ms after last keystroke
+});
+
+async function searchBloodPosts() {
+  const searchQuery = document.getElementById("searchInput").value.trim();
+
+  const response = await fetch("/searchBloodPosts", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ searchQuery }),
+  });
+
+  const postsContainer = document.getElementById("seeBloodPostBoxContainer");
+  postsContainer.innerHTML = ""; // Clear old posts
+
+  if (response.ok) {
+    const data = await response.json();
+
+    if (data.posts.length === 0) {
+      postsContainer.innerHTML = `<div class="w-full text-3xl flex justify-center text-red-700 font-bold">No post found!</div>`;
+      return;
+    }
+
+    data.posts.forEach(post => {
+      const postDiv = document.createElement("div");
+      postDiv.className = "post";
+      const formattedDate = new Date(post.dateNeeded).toISOString().split('T')[0];
+      postDiv.innerHTML = `
+        <div class="h-fit w-full p-4 border-2 border-red-700 rounded-xl flex">
+          <div class="h-fit w-4/5">
+            <div class="text-3xl text-red-700 font-bold">${post.title}</div>
+            <div class="mt-2 text-3xl">
+              ${post.bloodGroup} blood need on ${formattedDate} at ${post.location}.
+              Contact : ${post.contact}
+            </div>
+            <div>
+              <span class="text-xl hover:text-blue-800 hover:underline hover:cursor-pointer">Additional Note</span> |
+              <span class="text-xl hover:text-blue-800 hover:underline hover:cursor-pointer">User Information</span>
+            </div>
+          </div>
+          <div class="h-fit w-1/5 flex flex-col items-end gap-3">
+            <div class="btn btn-info" onclick="confirmRequestSent('Request','Blood-Help','${data.student._id}','${post.studentPostedId}','${post._id}')">
+              Response for Donation
+            </div>
+            <div class="btn btn-default" onclick="saveThisPost('Blood-Help','${data.student._id}','${post._id}')">
+              Save it
+            </div>
+          </div>
+        </div>
+      `;
+      postsContainer.appendChild(postDiv);
+    });
+  } else {
+    alert("Search failed.");
+  }
+}
+
 
 //see all doners who have registered for donation
 async function seeDonerList() {
@@ -147,26 +284,21 @@ try {
       donorDiv.innerHTML = `
       <!-- donar box -->
           <div
-            class="h-[250px] w-[200px] p-3 rounded-lg shadow-xl flex flex-col items-center justify-between"
+            class="h-[250px] min-w-[200px] max-w-fit p-4 rounded-lg shadow-xl flex flex-col items-center justify-between border-2 border-red-700"
           >
             <div
               class="h-[100px] w-[100px] bg-red-600 text-white text-7xl font-bold rounded-full flex items-center justify-center"
             >
               ${donor.bloodGroup}
             </div>
-            <div>
-              <div class="text-4xl font-bold text-center">${donor.firstName} ${donor.lastName}</div>
-              <p class="text-center overflow-hidden text-lg">
+            <div class="text-4xl font-bold text-center">${donor.firstName} ${donor.lastName}</div>
+            <div class="font-bold">
+              <p class=" overflow-hidden text-lg">
               From : ${donor.address}
               </p>
-              <p class="text-center text-lg overflow-hidden">Email : ${donor.email}</p>
+              <p class=" text-lg overflow-hidden">Email : ${donor.email}</p>
+              <p class=" text-lg overflow-hidden">Phone : ${donor.phone}</p>
             </div>
-            <div class="text-center">
-              <button
-                class="  hover:bg-black hover:text-white font-regular px-6 py-2 rounded-2xl shadow" style="border:1px solid red;"
-              >
-                Request for Donate
-              </button>
             </div>
           </div>
       `
