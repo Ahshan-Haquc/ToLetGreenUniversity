@@ -81,8 +81,8 @@
               <%= post.postInfo.title %>
             </div>
             <h5 class="mb-4 h-[30px] w-[300px] overflow-hidden">
-              Posted on <% const date = new Date(post.postInfo.postedDate);
-              const dateString = date.toDateString(); %> <%= dateString %>
+              Posted on <% const date = new Date(post.postInfo.postDate); const
+              dateString = date.toDateString(); %> <%= dateString %>
             </h5>
           </div>
 
@@ -104,76 +104,82 @@
             </button>
           </div>
         </div>
-        <div id="postArea2">
+        <div class="flex">
           <!-- info div  -->
-          <div class="flex">
+          <div class="h-[170px] w-4/6 flex flex-col justify-center gap-3">
             <!-- info part 1 -->
-            <div class="h-[200px] w-[300px] mx-3 flex flex-col border">
-              <p class="w-full h-[40px] text-3xl font-bold center">
-                Post informations
-              </p>
-              <div class="p-3">
-                <p class="text-2xl font-semibold my-1">
-                  Lost location -
-                  <span class="text-red-700">
-                    <%= post.postInfo.locationLost %>
-                  </span>
-                </p>
-                <p class="text-2xl font-semibold my-1">
-                  Category -
-                  <span class="text-red-700"
-                    ><%= post.postInfo.category %></span
-                  >
-                </p>
-                <p class="text-2xl font-semibold my-1">
-                  Lost date -
-                  <span class="text-red-700">
-                    <% const dateOfLost = new Date(post.postInfo.dateLost);
-                    const dateStringOfLost = dateOfLost.toDateString(); %> <%=
-                    dateStringOfLost %>
-                  </span>
-                </p>
-                <p class="text-2xl font-semibold my-1">
-                  Lost description -
-                  <span class="text-red-700">
-                    <%= post.postInfo.description %>
-                  </span>
-                </p>
+            <div class="flex gap-5">
+              <div
+                class="h-[50px] min-w-[140px] max-w-fit p-2 text-[14px] rounded-xl bg-gray-100 flex flex-col justify-center items-center"
+              >
+                <div class=""><%= post.postInfo.status %> location</div>
+                <div class="text-red-700">
+                  <%= post.postInfo.locationLost %>
+                </div>
+              </div>
+              <div
+                class="h-[50px] min-w-[140px] max-w-fit p-2 text-[14px] rounded-xl bg-gray-100 flex flex-col justify-center items-center"
+              >
+                <div class="">Category</div>
+                <div class="text-red-700"><%= post.postInfo.category %></div>
+              </div>
+              <div
+                class="h-[50px] min-w-[140px] max-w-fit p-2 text-[14px] rounded-xl bg-gray-100 flex flex-col justify-center items-center"
+              >
+                <div class=""><%= post.postInfo.status %> date</div>
+                <div class="text-red-700">
+                  <% const dateOfLost = new Date(post.postInfo.dateLost); const
+                  dateStringOfLost = dateOfLost.toDateString(); %> <%=
+                  dateStringOfLost %>
+                </div>
+              </div>
+              <div
+                class="h-[50px] min-w-[295px] max-w-fit p-2 text-[14px] rounded-xl bg-gray-100 flex flex-col justify-center items-center"
+              >
+                <div class="">Description</div>
+                <div class="text-red-700"><%= post.postInfo.description %></div>
               </div>
             </div>
-            <!-- info part 2-->
-            <div class="h-[200px] w-[300px] mx-3 flex flex-col border">
-              <p class="w-full h-[40px] text-3xl font-bold center">
-                Contact informations
-              </p>
-              <div class="p-3">
-                <p class="text-2xl font-semibold my-1">
-                  Posted by -
-                  <span class="text-red-700"
-                    ><%= post.userFirstName %> <%= post.userLastName %></span
-                  >
-                </p>
-                <p class="text-2xl font-semibold my-1">
-                  Student ID -
-                  <span class="text-red-700"><%= post.userStudentId %></span>
-                </p>
-                <p class="text-2xl font-semibold my-1">
-                  Department -
-                  <span class="text-red-700"><%= post.userDepartment %></span>
-                </p>
-                <p class="text-2xl font-semibold my-1">
-                  Phone -
-                  <span class="text-red-700"><%= post.userPhone %></span>
-                </p>
-                <p class="text-2xl font-semibold my-1">
-                  Email -
-                  <span class="text-red-700"><%= post.userEmail %></span>
-                </p>
+            <!-- middle text -->
+            <div class="text-md text-gray-300">Contact Information</div>
+            <!-- info part 2 -->
+            <div class="flex gap-5">
+              <div
+                class="h-[50px] min-w-[140px] max-w-fit p-2 text-[14px] rounded-xl bg-gray-100 flex flex-col justify-center items-center"
+              >
+                <div class=""><%= post.postInfo.status %> by</div>
+                <div class="text-red-700">
+                  <%= post.userFirstName %> <%= post.userLastName %>
+                </div>
+              </div>
+              <div
+                class="h-[50px] min-w-[140px] max-w-fit p-2 text-[14px] rounded-xl bg-gray-100 flex flex-col justify-center items-center"
+              >
+                <div class="">Student ID</div>
+                <div class="text-red-700"><%= post.userStudentId %></div>
+              </div>
+              <div
+                class="h-[50px] min-w-[140px] max-w-fit p-2 text-[14px] rounded-xl bg-gray-100 flex flex-col justify-center items-center"
+              >
+                <div class="">Department</div>
+                <div class="text-red-700"><%= post.userDepartment %></div>
+              </div>
+              <div
+                class="h-[50px] min-w-[140px] max-w-fit p-2 text-[14px] rounded-xl bg-gray-100 flex flex-col justify-center items-center"
+              >
+                <div class="">Phone</div>
+                <div class="text-red-700"><%= post.userPhone %></div>
+              </div>
+              <div
+                class="h-[50px] min-w-[140px] max-w-fit p-2 text-[14px] rounded-xl bg-gray-100 flex flex-col justify-center items-center"
+              >
+                <div class="">Email</div>
+                <div class="text-red-700"><%= post.userEmail %></div>
               </div>
             </div>
           </div>
           <!-- image div  -->
-          <div class="w-fit flex">
+          <div class="w-2/6 flex justify-end">
             <!-- imageBox1 -->
             <div
               class="h-[200px] w-[200px] bg-gray-300 mr-2 overflow-hidden flex justify-center items-center duration-300 hover:scale-105 hover:mr-4"
