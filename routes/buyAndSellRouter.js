@@ -23,6 +23,7 @@ buySellRouter.get('/buyAndSellHomePage',accessPermission,async(req,res)=>{
 })
 
 buySellRouter.get('/buyAndSellSeePost',accessPermission,async(req,res)=>{
+    console.log("Working on buy and sell see post router.");
     try {
         const availablePosts = await BuySellModel.find({available:"yes"});
 
@@ -31,7 +32,8 @@ buySellRouter.get('/buyAndSellSeePost',accessPermission,async(req,res)=>{
         for (const element of availablePosts) {
             const user = await Model.findOne({_id:element.studentPostedId});
       
-            totalSeatAvailableArray.push({
+            if(user){
+              totalSeatAvailableArray.push({
               userFirstName: user.firstName,
               userLastName: user.lastName,
               userStudentId: user.studentId,
@@ -40,6 +42,7 @@ buySellRouter.get('/buyAndSellSeePost',accessPermission,async(req,res)=>{
               userPhone: user.phone,
               postInfo: element
             });
+            }
           }
 
         res.status(200).render("buyAndSell/buyAndSellSeePost",{
@@ -48,7 +51,7 @@ buySellRouter.get('/buyAndSellSeePost',accessPermission,async(req,res)=>{
             comeFromFilterRouter: false,
         });
     } catch (error) {
-        console.log("Error in lost and found home page get router.");
+        console.log("Error in buy and sell see post get router.");
         console.log(error);
     }
 })

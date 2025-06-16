@@ -133,6 +133,67 @@
           </div>
         </div>
         <div id="postArea2">
+          <!-- info part -->
+          <div class="h-[170px] w-4/6 flex flex-col justify-end gap-3">
+            <!-- info part 1 -->
+            <div class="flex gap-5">
+              <div
+                class="h-[50px] min-w-[140px] max-w-fit p-2 text-[14px] rounded-xl bg-gray-100 flex flex-col justify-center items-center"
+              >
+                <div class="">Price</div>
+                <div class="text-red-700"><%= post.postInfo.price %></div>
+              </div>
+              <div
+                class="h-[50px] min-w-[140px] max-w-fit p-2 text-[14px] rounded-xl bg-gray-100 flex flex-col justify-center items-center"
+              >
+                <div class="">Category</div>
+                <div class="text-red-700"><%= post.postInfo.category %></div>
+              </div>
+              <div
+                class="h-[50px] min-w-[140px] max-w-fit p-2 text-[14px] rounded-xl bg-gray-100 flex flex-col justify-center items-center"
+              >
+                <div class="">Location</div>
+                <div class="text-red-700"><%= post.postInfo.location %></div>
+              </div>
+              <div
+                class="h-[50px] min-w-[140px] max-w-fit p-2 text-[14px] rounded-xl bg-gray-100 flex flex-col justify-center items-center"
+              >
+                <div class="">Condition</div>
+                <div class="text-red-700"><%= post.postInfo.condition %></div>
+              </div>
+            </div>
+            <!-- middle text -->
+            <div class="text-md text-gray-300">Contact Information</div>
+            <!-- info part 2 -->
+            <div class="flex gap-5">
+              <div
+                class="h-[50px] min-w-[140px] max-w-fit p-2 text-[14px] rounded-xl bg-gray-100 flex flex-col justify-center items-center"
+              >
+                <div class="">Posted by</div>
+                <div class="text-red-700">
+                  <%= post.userFirstName %> <%= post.userLastName %>
+                </div>
+              </div>
+              <div
+                class="h-[50px] min-w-[140px] max-w-fit p-2 text-[14px] rounded-xl bg-gray-100 flex flex-col justify-center items-center"
+              >
+                <div class="">Student ID</div>
+                <div class="text-red-700"><%= post.userStudentId %></div>
+              </div>
+              <div
+                class="h-[50px] min-w-[140px] max-w-fit p-2 text-[14px] rounded-xl bg-gray-100 flex flex-col justify-center items-center"
+              >
+                <div class="">Phone</div>
+                <div class="text-red-700"><%= post.userPhone %></div>
+              </div>
+              <div
+                class="h-[50px] min-w-[140px] max-w-fit p-2 text-[14px] rounded-xl bg-gray-100 flex flex-col justify-center items-center"
+              >
+                <div class="">Email</div>
+                <div class="text-red-700"><%= post.userEmail %></div>
+              </div>
+            </div>
+          </div>
           <div class="w-fit flex">
             <!-- imageBox1 -->
             <div
@@ -175,64 +236,6 @@
               />
             </div>
             <% } %>
-          </div>
-          <div class="flex">
-            <!-- info part 1 -->
-            <div
-              class="h-[200px] w-[300px] mx-3 pl-3 flex flex-col justify-center"
-            >
-              <p class="text-3xl font-bold mb-5">Post informations</p>
-              <p class="text-2xl font-semibold my-1">
-                Price -
-                <span class="text-red-700"><%= post.postInfo.price %> tk</span>
-              </p>
-              <p class="text-2xl font-semibold my-1">
-                Category -
-                <span class="text-red-700"><%= post.postInfo.category %></span>
-              </p>
-              <p class="text-2xl font-semibold my-1">
-                Location -
-                <span class="text-red-700"><%= post.postInfo.location %></span>
-              </p>
-              <p class="text-2xl font-semibold my-1">
-                Condition -
-                <span class="text-red-700"><%= post.postInfo.condition %></span>
-              </p>
-              <p class="text-2xl font-semibold my-1">
-                Negotiable -
-                <span class="text-red-700"
-                  ><%= post.postInfo.negotiable %></span
-                >
-              </p>
-            </div>
-            <!-- info part 2-->
-            <div
-              class="h-[200px] w-[300px] mx-3 pl-3 flex flex-col justify-center"
-            >
-              <p class="text-3xl font-bold mb-5">Contact informations</p>
-              <p class="text-2xl font-semibold my-1">
-                Posted by -
-                <span class="text-red-700"
-                  ><%= post.userFirstName %> <%= post.userLastName %></span
-                >
-              </p>
-              <p class="text-2xl font-semibold my-1">
-                Student ID -
-                <span class="text-red-700"><%= post.userStudentId %></span>
-              </p>
-              <p class="text-2xl font-semibold my-1">
-                Department -
-                <span class="text-red-700"><%= post.userDepartment %></span>
-              </p>
-              <p class="text-2xl font-semibold my-1">
-                Phone -
-                <span class="text-red-700"><%= post.userPhone %></span>
-              </p>
-              <p class="text-2xl font-semibold my-1">
-                Email -
-                <span class="text-red-700"><%= post.userEmail %></span>
-              </p>
-            </div>
           </div>
         </div>
         <div id="postArea3">
