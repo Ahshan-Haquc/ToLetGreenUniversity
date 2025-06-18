@@ -109,7 +109,12 @@ bloodRouter.post("/registerAsBloodDonor", accessPermission, async (req, res, nex
 //see all blood doner list
 bloodRouter.get("/seeDonorList", accessPermission, async (req, res) => {
   try {
-    const bloodDonors = await StudentModel.find({ bloodGroup: { $ne: "" } });
+    // List of all blood groups
+    const allBloodGroups = [
+      "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"
+    ];
+    // Find all students who have any valid blood group
+    const bloodDonors = await StudentModel.find({ bloodGroup: { $in: allBloodGroups } });
     if (!bloodDonors) {
       return res.status(404).json({ message: "No blood donors found" });
     }
