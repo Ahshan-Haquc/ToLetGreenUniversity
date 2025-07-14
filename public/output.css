@@ -1041,10 +1041,6 @@ video {
   min-width: 295px;
 }
 
-.min-w-\[600px\] {
-  min-width: 600px;
-}
-
 .max-w-fit {
   max-width: -moz-fit-content;
   max-width: fit-content;
@@ -1367,10 +1363,6 @@ video {
 
 .pr-5 {
   padding-right: 1.25rem;
-}
-
-.text-left {
-  text-align: left;
 }
 
 .text-center {

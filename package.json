@@ -1,0 +1,30 @@
+{
+  "name": "toletgreenuniversity",
+  "version": "1.0.0",
+  "description": "<<<<<<< HEAD\r <h3>Generel instruction to make a branch of your local machine :</h3>\r <p>We have 4 branches in this repo, <b>Nadib will work on ourFrontend branch and then push all changes on \"development\" named branch, not with \"main branch\"</b>. similarly <b>Ahsan will work on ourBackend branch and then push all changes on \"development\" named branch, not with \"main branch\"</b><br>The command will be : \"git push -u origin development\"<br>After doing all i will marge the \"development branch\" with \"main branch\" for final marge. </p>\r <br> <br>",
+  "main": "connection.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ahshan-Haquc/ToLetGreenUniversity.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ahshan-Haquc/ToLetGreenUniversity/issues"
+  },
+  "homepage": "https://github.com/Ahshan-Haquc/ToLetGreenUniversity#readme",
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^17.2.0",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "mongoose": "^8.16.3",
+    "multer": "^2.0.1",
+    "nodemon": "^3.1.10"
+  }
+}
