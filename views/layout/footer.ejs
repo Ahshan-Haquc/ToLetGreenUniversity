@@ -31,18 +31,10 @@
       <h4>Follow Us</h4>
       <br />
       <div class="footer-social">
-        <a href="https://facebook.com" target="_blank"
-          ><i class="fa-brands fa-facebook"></i
-        ></a>
-        <a href="https://twitter.com" target="_blank"
-          ><i class="fa-brands fa-twitter"></i
-        ></a>
-        <a href="https://instagram.com" target="_blank"
-          ><i class="fa-brands fa-instagram"></i
-        ></a>
-        <a href="https://linkedin.com" target="_blank"
-          ><i class="fa-brands fa-linkedin"></i
-        ></a>
+        <a href="https://facebook.com" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+        <a href="https://twitter.com" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+        <a href="https://instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://linkedin.com" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
       </div>
     </div>
 
@@ -51,19 +43,8 @@
       <h4>Contact Us</h4>
       <br />
       <form id="contact-form">
-        <input
-          type="email"
-          name="userEmail"
-          placeholder="Your Email"
-          required
-          class="footer-input"
-        />
-        <textarea
-          name="userMessage"
-          placeholder="Your Message"
-          required
-          class="footer-textarea"
-        ></textarea>
+        <input type="email" name="userEmail" placeholder="Your Email" required class="footer-input" />
+        <textarea name="userMessage" placeholder="Your Message" required class="footer-textarea"></textarea>
         <button type="submit" class="footer-button">Send</button>
       </form>
       <p id="form-response" class="form-response"></p>
@@ -79,3 +60,21 @@
     </p>
   </div>
 </footer>
+<script>
+  document.getElementById("contact-form").addEventListener("submit", function (event) {
+    event.preventDefault();
+    const email = this.userEmail.value;
+    const message = this.userMessage.value;
+
+    // Simulate sending the message
+    console.log("Email:", email);
+    console.log("Message:", message);
+
+    // Show response
+    document.getElementById("form-response").textContent =
+      "Thank you for contacting us!";
+    this.reset(); // Reset the form
+
+    alert("Message sent successfully! We will get back to you soon.");
+  });
+</script>
