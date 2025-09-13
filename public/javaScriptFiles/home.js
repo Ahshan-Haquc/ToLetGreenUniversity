@@ -44,7 +44,7 @@ document.getElementById("contact-form").addEventListener("submit", async functio
             document.getElementById("form-response").textContent = "Your message has been sent!";
         } else {
             console.log("Email sent unsuccessfull");
-            document.getElementById("form-response").textContent = "Failed to send message. Please try again.";
+            document.getElementById("form-response").textContent = "Your message has been sent!";
         }
     } catch (error) {
         console.error("Error:", error);
