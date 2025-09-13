@@ -73,8 +73,12 @@ basicRouter.get("/login",(req, res) => {
 
 
 basicRouter.post("/login",availableSeatFetch, async (req, res, next) => {
+  console.log("working on login router");
   try {
+    console.log("w1");
     const user = await Model.findOne({ studentId: req.body.studentId });
+    console.log("w2",user);
+
 
     if (user) {
       const isValidPassword = await bcrypt.compare(req.body.password, user.password);
@@ -91,6 +95,7 @@ basicRouter.post("/login",availableSeatFetch, async (req, res, next) => {
       }
     }
   } catch (err) {
+    console.log("error catched during login : ",err);
     res.status(500).render("login", { error: true });
   }
 });
