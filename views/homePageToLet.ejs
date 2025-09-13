@@ -1,106 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Home Page</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-    />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <!-- this is for using google font  -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap"
-      rel="stylesheet"
-    />
-    <!-- this is for adding css style -->
-    <link rel="stylesheet" href="sideNavBar.css" />
-    <link rel="stylesheet" href="headerNavBar.css" />
-    <link rel="stylesheet" href="homePageToLet.css" />
-    <link rel="stylesheet" href="successRatePost.css" />
-    <link rel="stylesheet" href="footer.css">
-    <link rel="stylesheet" href="output.css">
-  </head>
 
-  <body>
-    <!-- header nav bar -->
-    <%- include("layout/headerNavBar") %>
+<head>
+  <title>Home Page</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- this is for using google font  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap" rel="stylesheet" />
+  <!-- this is for adding css style -->
+  <link rel="stylesheet" href="sideNavBar.css" />
+  <link rel="stylesheet" href="headerNavBar.css" />
+  <link rel="stylesheet" href="homePageToLet.css" />
+  <link rel="stylesheet" href="successRatePost.css" />
+  <link rel="stylesheet" href="footer.css">
+  <link rel="stylesheet" href="output.css">
+</head>
+
+<body>
+  <!-- header nav bar -->
+  <%- include("layout/headerNavBar") %>
 
     <!-- side nav bar -->
     <%- include("layout/sideNavBar") %>
 
 
-    <!-- home page content -->
-    <div class="contentBox">
-      <!-- nav bar part , this will appear above of the page -->
-      <%- include("layout/toLetNavBar") %>
+      <!-- home page content -->
+      <div class="contentBox">
+        <!-- nav bar part , this will appear above of the page -->
+        <%- include("layout/toLetNavBar") %>
 
-      <div
-      class="w-full min-h-[80vh] max-h-fit p-3 flex justify-center items-center"
-    >
-      <!-- box -->
-      <div
-        class="w-[600px] h-[380px] p-3 m-10 bg-[#00bbff1d] rounded-3xl flex flex-col justify-center items-center gap-3 shadow-sm"
-      >
-        <div class="w-full h-fit p-2 flex justify-center items-center">
-          <img class="h-[150px] w-[150px]" src="images/bed.png" alt="" />
-        </div>
-        <div class="w-full h-fit p-2 font-bold text-7xl text-center">
-          Get A Room-mate
-        </div>
-        <div class="w-full h-fit p-2 text-center font-bold text-3xl">
-          You can do a post that you need room-mate
-        </div>
-        <div class="w-full h-fit p-2 flex justify-center">
-          <button
-            class="btn btn-primary"
-            onclick="window.location.href='/postShare'"
-          >
-            Post Now
-          </button>
-        </div>
-      </div>
-      <!-- box -->
-      <div
-        class="w-[600px] h-[380px] p-3 m-10 bg-[#00bbff1d] rounded-3xl flex flex-col justify-center items-center gap-3 shadow-sm"
-      >
-        <div class="w-full h-fit p-2 flex justify-center items-center">
-          <img
-            class="h-[150px] w-[150px]"
-            src="images/location.png"
-            alt=""
-          />
-        </div>
-        <div class="w-full h-fit p-2 font-bold text-7xl text-center">
-          See To-let Posts
-        </div>
-        <div class="w-full h-fit p-2 text-center font-bold text-3xl">
-          Total post available : <strong id="seatCounter">
-              <!-- Empty div where the number will appear -->
-          </strong>
-        </div>
-        <div class="w-full h-fit p-2 flex justify-center">
-          <button
-            class="btn btn-primary"
-            onclick="window.location.href='/totalPostAvailable'"
-          >
-            Find Now
-          </button>
-        </div>
-      </div>
-    </div>
-      <!-- <div id="contentBox1">
+          <div class="w-full min-h-[80vh] max-h-fit p-3 flex justify-center items-center">
+            <!-- box -->
+            <div
+              class="w-[600px] h-[380px] p-3 m-10 bg-[#00bbff1d] rounded-3xl flex flex-col justify-center items-center gap-3 shadow-sm">
+              <div class="w-full h-fit p-2 flex justify-center items-center">
+                <img class="h-[150px] w-[150px]" src="images/bed.png" alt="" />
+              </div>
+              <div class="w-full h-fit p-2 font-bold text-7xl text-center">
+                Get A Room-mate
+              </div>
+              <div class="w-full h-fit p-2 text-center font-bold text-3xl">
+                You can do a post that you need room-mate
+              </div>
+              <div class="w-full h-fit p-2 flex justify-center">
+                <button class="btn btn-primary" onclick="window.location.href='/postShare'">
+                  Post Now
+                </button>
+              </div>
+            </div>
+            <!-- box -->
+            <div
+              class="w-[600px] h-[380px] p-3 m-10 bg-[#00bbff1d] rounded-3xl flex flex-col justify-center items-center gap-3 shadow-sm">
+              <div class="w-full h-fit p-2 flex justify-center items-center">
+                <img class="h-[150px] w-[150px]" src="images/location.png" alt="" />
+              </div>
+              <div class="w-full h-fit p-2 font-bold text-7xl text-center">
+                See To-let Posts
+              </div>
+              <div class="w-full h-fit p-2 text-center font-bold text-3xl">
+                Total post available : <strong id="seatCounter">
+                  <!-- Empty div where the number will appear -->
+                </strong>
+              </div>
+              <div class="w-full h-fit p-2 flex justify-center">
+                <button class="btn btn-primary" onclick="window.location.href='/totalPostAvailable'">
+                  Find Now
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- <div id="contentBox1">
          <div class="contentBoxHeading">
            <img
             src="images\browsing.png"
@@ -187,86 +164,59 @@
 
         </div>
       </div> -->
-      <div id="contentBox2">
-        <div class="contentBoxHeading">
-          <h3 class="text-3xl font-bold text-red-700">Find Your Destination Quickly</h3>
-          <p>
-            Are you looking for a suitable rent room? Then choose a rent renge.
-          </p>
-        </div>
-        <div class="seePostByFilteringAll">
-          <form action="/findSeatByFiltering" method="post">
-            <div class="seePostByFiltering" id="seePostByFiltering1">
-              <div class="inputForTakingRentRange">
-                <label for="x1">Enter first rent range</label>
-                <div>
-                  <input type="number" id="x1" name="renge1" required />
+          <div id="contentBox2">
+            <div class="contentBoxHeading">
+              <h3 class="text-3xl font-bold text-red-700">Find Your Destination Quickly</h3>
+              <p>
+                Are you looking for a suitable rent room? Then choose a rent renge.
+              </p>
+            </div>
+            <div class="seePostByFilteringAll">
+              <form action="/findSeatByFiltering" method="post">
+                <div class="seePostByFiltering" id="seePostByFiltering1">
+                  <div class="inputForTakingRentRange">
+                    <label for="x1">Enter first rent range</label>
+                    <div>
+                      <input type="number" id="x1" name="renge1" required />
+                    </div>
+                  </div>
+                  <div>
+                    <img src="images\exchange.png" alt="---" style="width: 50px; height: 50px; margin-top: 20px" />
+                  </div>
+                  <div class="inputForTakingRentRange">
+                    <label for="x2">Enter last rent range</label>
+                    <div>
+                      <input type="number" id="x2" name="renge2" required />
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div>
-                <img
-                  src="images\exchange.png"
-                  alt="---"
-                  style="width: 50px; height: 50px; margin-top: 20px"
-                />
-              </div>
-              <div class="inputForTakingRentRange">
-                <label for="x2">Enter last rent range</label>
-                <div>
-                  <input type="number" id="x2" name="renge2" required />
+                <div class="seePostByFiltering styleForFilter2345" id="seePostByFiltering2">
+                  <img src="images\down.png" alt="" style="width: 30px; height: 30px" />
                 </div>
-              </div>
+                <div class="seePostByFiltering styleForFilter2345" id="seePostByFiltering3">
+                  <label for="x3">Select your suitable location</label>
+                  <div>
+                    <select name="location" id="x3" required>
+                      <option value="Shewrapara">Shewrapara</option>
+                      <option value="Kazipara">Kazipara</option>
+                      <option value="Mirpur10">Mirpur10</option>
+                      <option value="narayanganj">narayanganj</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="seePostByFiltering styleForFilter2345" id="seePostByFiltering4">
+                  <img src="images\down.png" alt="" style="width: 30px; height: 30px" />
+                </div>
+                <div class="seePostByFiltering flex justify-center" id="seePostByFiltering5">
+                  <!-- here result will display dynamicly -->
+                </div>
+                <div class="seePostByFiltering styleForFilter2345" id="seePostByFiltering5">
+                  <input class="btn btn-danger btn-lg" type="submit" value="Go" />
+                </div>
+              </form>
             </div>
-            <div
-              class="seePostByFiltering styleForFilter2345"
-              id="seePostByFiltering2"
-            >
-              <img
-                src="images\down.png"
-                alt=""
-                style="width: 30px; height: 30px"
-              />
-            </div>
-            <div
-              class="seePostByFiltering styleForFilter2345"
-              id="seePostByFiltering3"
-            >
-              <label for="x3">Select your suitable location</label>
-              <div>
-                <select name="location" id="x3" required>
-                  <option value="Shewrapara">Shewrapara</option>
-                  <option value="Kazipara">Kazipara</option>
-                  <option value="Mirpur10">Mirpur10</option>
-                  <option value="narayanganj">narayanganj</option>
-                </select>
-              </div>
-            </div>
-            <div
-              class="seePostByFiltering styleForFilter2345"
-              id="seePostByFiltering4"
-            >
-              <img
-                src="images\down.png"
-                alt=""
-                style="width: 30px; height: 30px"
-              />
-            </div>
-            <div
-              class="seePostByFiltering flex justify-center"
-              id="seePostByFiltering5"
-            >
-            <!-- here result will display dynamicly -->
-            </div>
-            <div
-              class="seePostByFiltering styleForFilter2345"
-              id="seePostByFiltering5"
-            >
-              <input class="btn btn-danger btn-lg" type="submit" value="Go" />
-            </div>
-          </form>
-        </div>
-      </div>
-      <!-- <div id="contentBox3">
+          </div>
+          <!-- <div id="contentBox3">
         <div id="successRateFindingBox">
           <div id="successRateFindingBoxTitle">Quick Find</div>
           <div id="successRateFindingBoxDescription">
@@ -301,12 +251,13 @@
 
 
 
-    <script>
-      let maxSeats = <%= totalSeatAvailableLength %>;
-    </script>
-      <script src="\javaScriptFiles\sideNavBarShow.js"></script>
-      <script src="\javaScriptFiles\toLet\toLetHomePage.js"></script>
-  </body>
+          <script>
+            let maxSeats = <%= totalSeatAvailableLength %>;
+          </script>
+          <script src="\javaScriptFiles\sideNavBarShow.js"></script>
+          <script src="\javaScriptFiles\toLet\toLetHomePage.js"></script>
+</body>
 
-  <%- include("layout/footer.ejs") %>
+<%- include("layout/footer.ejs") %>
+
 </html>
