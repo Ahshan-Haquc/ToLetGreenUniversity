@@ -67,6 +67,9 @@ basicRouter.post("/signup", async (req, res, next) => {
 });
 
 //routers for login without error means studentId or password is correct while just want to see the login page
+basicRouter.get("/",(req, res) => {
+  res.render("login", { error: false, student: false });
+});
 basicRouter.get("/login",(req, res) => {
   res.render("login", { error: false, student: false });
 });

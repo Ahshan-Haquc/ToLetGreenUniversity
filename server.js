@@ -43,7 +43,9 @@ app.use('/',bloodHelpRouter);
 app.use(errorHandler)
 
 const PORT = process.env.PORT || 3000;
-//starting sarver
-app.listen(PORT,()=>{
-    console.log("Server started")
-})
+//starting sarver in local pc
+// app.listen(PORT,()=>{
+//     console.log("Server started")
+// })
+// vercel a server start korar jonno
+module.exports = app
