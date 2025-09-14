@@ -1,7 +1,7 @@
 const express = require('express');
 const lostFoundRouter = express.Router();
 const accessPermission = require("../middlewares/accessPermission");
-const upload = require("../middlewares/uploadImages");
+const upload = require("../config/upload");
 const ratingCalculate = require("../controller/ratingCalculate");
 const Model = require("../models/studentSchema");
 const lostFoundModel = require("../models/lostAndFoundSchema");
@@ -65,38 +65,36 @@ lostFoundRouter.get('/lostAndFoundDoPost',accessPermission,(req,res)=>{
         console.log(error);
     }
 })
-lostFoundRouter.post('/lostAndFoundDoPost',accessPermission,  upload.array('imageUpload', 5),async(req,res)=>{
-    try {
-        // Map uploaded files to get paths
-      const imagePaths = req.files.map(file => file.path);
+lostFoundRouter.post('/lostAndFoundDoPost', accessPermission, upload.array('imageUpload', 3), async (req, res) => {
+  try {
+    const imageUrls = req.files.map(file => file.path);
 
-      const PostInfo = new lostFoundModel({
-        title: req.body.title,
-        category: req.body.category,
-        dateLost:req.body.dateLost,
-        locationLost: req.body.locationLost,
-        locationCategory: req.body.locationCategory,
-        description: req.body.description,
-        contact: req.body.contact,
-        status: req.body.status,
-        images: imagePaths,
-        studentPostedId: req.studentInfo._id
-      })
+    const PostInfo = new lostFoundModel({
+      title: req.body.title,
+      category: req.body.category,
+      dateLost: req.body.dateLost,
+      locationLost: req.body.locationLost,
+      locationCategory: req.body.locationCategory,
+      description: req.body.description,
+      contact: req.body.contact,
+      status: req.body.status,
+      images: imageUrls, // Cloudinary URLs
+      studentPostedId: req.studentInfo._id,
+    });
 
     const savedPost = await PostInfo.save();
 
-    //updating user postShared field by this post id
-    const userPosted = await Model.findOne({_id: req.studentInfo._id});
+    const userPosted = await Model.findOne({ _id: req.studentInfo._id });
     userPosted.sharedPosts.push(savedPost._id);
     await userPosted.save();
 
-        console.log("form submitted successfully");
-        res.status(200).redirect('/lostAndFoundHomePage');
-    } catch (error) {
-        console.log("Error in lost and found do post page POST router.");
-        console.log(error);
-    }
-})
+    console.log("Lost and found post submitted successfully");
+    res.status(200).redirect('/lostAndFoundHomePage');
+  } catch (error) {
+    console.log("Error in lost and found do post:", error);
+  }
+});
+
 
 // this router is for filter means quickFind post 
 lostFoundRouter.post('/quickFindLostAndFound',accessPermission,async(req,res)=>{

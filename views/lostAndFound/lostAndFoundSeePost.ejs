@@ -1,302 +1,264 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Lost & Found</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-    />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
+<head>
+  <title>Lost & Found</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    <link rel="stylesheet" href="sideNavBar.css" />
-    <link rel="stylesheet" href="headerNavBar.css" />
-    <link rel="stylesheet" href="homePage.css" />
-    <link href="output.css" rel="stylesheet" />
-    <link rel="stylesheet" href="footer.css" />
-    <link rel="stylesheet" href="homePageToLet.css" />
-    <link rel="stylesheet" href="postShow.css" />
-  </head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  <body>
-    <!-- header nav bar -->
-    <%- include("../layout/headerNavBar") %> <%- include("../layout/sideNavBar")
-    %> <%- include("../lostAndFound/lostAndFoundNavBar") %>
+  <link rel="stylesheet" href="sideNavBar.css" />
+  <link rel="stylesheet" href="headerNavBar.css" />
+  <link rel="stylesheet" href="homePage.css" />
+  <link href="output.css" rel="stylesheet" />
+  <link rel="stylesheet" href="footer.css" />
+  <link rel="stylesheet" href="homePageToLet.css" />
+  <link rel="stylesheet" href="postShow.css" />
+</head>
 
-    <!-- showing filtering result, if render come from quick find router  -->
-    <% if (comeFromFilterRouter === true) { %>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-      window.onload = function () {
-        const totalSeats = <%- JSON.stringify(totalSeatAvailable) %>;
+<body>
+  <!-- header nav bar -->
+  <%- include("../layout/headerNavBar") %> <%- include("../layout/sideNavBar") %> <%-
+        include("../lostAndFound/lostAndFoundNavBar") %>
 
-        Swal.fire({
-          title: "Search Results",
-          text: "Total " + totalSeatAvailable.length + " posts found between this range.",
-          icon: "info",
-          confirmButtonText: "OK",
-          timer: 5000,
-          timerProgressBar: true,
-          showCloseButton: true
-        });
-      };
-    </script>
-    <% } %>
-    <!-- post page content starts from here -->
-    <div class="contentBox">
-      <% if(totalSeatAvailable.length==0){ %>
-      <div class="flex flex-col items-center justify-start h-screen">
-        <img class="h-[300px] w-[300px]" src="images\no-results.png" alt="" />
-        <h1 class="text-2xl font-semibold text-center mb-2">
-          No Post Founded !!!
-        </h1>
-        <p class="text-gray-600 text-center mb-4">
-          Please go to home Page or quick find and try with another.
-        </p>
-        <button
-          class="btn btn-default btn-md"
-          onclick="window.location.href='/buyAndSellHomePage'"
-        >
-          Go Home
-        </button>
-      </div>
-      <% } %>
-      <!-- ei category range er post gula akta akta kore show korabo eita diye -->
-      <% totalSeatAvailable.forEach((post)=>{ %>
+        <!-- showing filtering result, if render come from quick find router  -->
+        <% if (comeFromFilterRouter===true) { %>
+          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+          <script>
+            window.onload = function () {
+              const totalSeats = <% - JSON.stringify(totalSeatAvailable) %>;
 
-      <div class="post_area">
-        <div id="postArea1">
-          <div id="postArea1Box1">
-            <div class="text-5xl mt-3 mb-2 overflow-hidden text-red-700">
-              <%= post.postInfo.title %>
-            </div>
-            <h5 class="mb-4 h-[30px] w-[300px] overflow-hidden">
-              Posted on <% const date = new Date(post.postInfo.postDate); const
-              dateString = date.toDateString(); %> <%= dateString %>
-            </h5>
-          </div>
-
-          <div id="postArea1Box2">
-            <button
-              class="btn btn-default btn-md"
-              id="saveButton<%= post.postInfo._id %>"
-              onclick="saveThisPost('Lost-found','<%= student._id %>','<%= post.postInfo._id %>')"
-            >
-              <%= student.savedPosts.includes(post.postInfo._id) ? 'Saved' :
-              'Save it' %>
-            </button>
-            <button
-              class="btn btn-primary btn-md"
-              id="confirmRequestSeatButton<%= post.postInfo._id %>"
-              onclick="confirmRequestSent('Request','Lost-found','<%= student._id %>','<%= post.postInfo.studentPostedId %>','<%= post.postInfo._id %>')"
-            >
-              Claim now
-            </button>
-          </div>
-        </div>
-        <div class="flex">
-          <!-- info div  -->
-          <div class="h-[170px] w-4/6 flex flex-col justify-center gap-3">
-            <!-- info part 1 -->
-            <div class="flex gap-5">
-              <div
-                class="h-[50px] min-w-[140px] max-w-fit p-2 text-[14px] rounded-xl bg-gray-100 flex flex-col justify-center items-center"
-              >
-                <div class=""><%= post.postInfo.status %> location</div>
-                <div class="text-red-700">
-                  <%= post.postInfo.locationLost %>
+              Swal.fire({
+                title: "Search Results",
+                text: "Total " + totalSeatAvailable.length + " posts found between this range.",
+                icon: "info",
+                confirmButtonText: "OK",
+                timer: 5000,
+                timerProgressBar: true,
+                showCloseButton: true
+              });
+            };
+          </script>
+          <% } %>
+            <!-- post page content starts from here -->
+            <div class="contentBox">
+              <% if(totalSeatAvailable.length==0){ %>
+                <div class="flex flex-col items-center justify-start h-screen">
+                  <img class="h-[300px] w-[300px]" src="images\no-results.png" alt="" />
+                  <h1 class="text-2xl font-semibold text-center mb-2">
+                    No Post Founded !!!
+                  </h1>
+                  <p class="text-gray-600 text-center mb-4">
+                    Please go to home Page or quick find and try with another.
+                  </p>
+                  <button class="btn btn-default btn-md" onclick="window.location.href='/buyAndSellHomePage'">
+                    Go Home
+                  </button>
                 </div>
-              </div>
-              <div
-                class="h-[50px] min-w-[140px] max-w-fit p-2 text-[14px] rounded-xl bg-gray-100 flex flex-col justify-center items-center"
-              >
-                <div class="">Category</div>
-                <div class="text-red-700"><%= post.postInfo.category %></div>
-              </div>
-              <div
-                class="h-[50px] min-w-[140px] max-w-fit p-2 text-[14px] rounded-xl bg-gray-100 flex flex-col justify-center items-center"
-              >
-                <div class=""><%= post.postInfo.status %> date</div>
-                <div class="text-red-700">
-                  <% const dateOfLost = new Date(post.postInfo.dateLost); const
-                  dateStringOfLost = dateOfLost.toDateString(); %> <%=
-                  dateStringOfLost %>
+                <% } %>
+                  <!-- ei category range er post gula akta akta kore show korabo eita diye -->
+                  <% totalSeatAvailable.forEach((post)=>{ %>
+
+                    <div class="post_area">
+                      <div id="postArea1">
+                        <div id="postArea1Box1">
+                          <div class="text-5xl mt-3 mb-2 overflow-hidden text-red-700">
+                            <%= post.postInfo.title %>
+                          </div>
+                          <h5 class="mb-4 h-[30px] w-[300px] overflow-hidden">
+                            Posted on <% const date=new Date(post.postInfo.postDate); const
+                              dateString=date.toDateString(); %>
+                              <%= dateString %>
+                          </h5>
+                        </div>
+
+                        <div id="postArea1Box2">
+                          <button class="btn btn-default btn-md" id="saveButton<%= post.postInfo._id %>"
+                            onclick="saveThisPost('Lost-found','<%= student._id %>','<%= post.postInfo._id %>')">
+                            <%= student.savedPosts.includes(post.postInfo._id) ? 'Saved' : 'Save it' %>
+                          </button>
+                          <button class="btn btn-primary btn-md" id="confirmRequestSeatButton<%= post.postInfo._id %>"
+                            onclick="confirmRequestSent('Request','Lost-found','<%= student._id %>','<%= post.postInfo.studentPostedId %>','<%= post.postInfo._id %>')">
+                            Claim now
+                          </button>
+                        </div>
+                      </div>
+                      <div class="flex">
+                        <!-- info div  -->
+                        <div class="h-[170px] w-4/6 flex flex-col justify-center gap-3">
+                          <!-- info part 1 -->
+                          <div class="flex gap-5">
+                            <div
+                              class="h-[50px] min-w-[140px] max-w-fit p-2 text-[14px] rounded-xl bg-gray-100 flex flex-col justify-center items-center">
+                              <div class="">
+                                <%= post.postInfo.status %> location
+                              </div>
+                              <div class="text-red-700">
+                                <%= post.postInfo.locationLost %>
+                              </div>
+                            </div>
+                            <div
+                              class="h-[50px] min-w-[140px] max-w-fit p-2 text-[14px] rounded-xl bg-gray-100 flex flex-col justify-center items-center">
+                              <div class="">Category</div>
+                              <div class="text-red-700">
+                                <%= post.postInfo.category %>
+                              </div>
+                            </div>
+                            <div
+                              class="h-[50px] min-w-[140px] max-w-fit p-2 text-[14px] rounded-xl bg-gray-100 flex flex-col justify-center items-center">
+                              <div class="">
+                                <%= post.postInfo.status %> date
+                              </div>
+                              <div class="text-red-700">
+                                <% const dateOfLost=new Date(post.postInfo.dateLost); const
+                                  dateStringOfLost=dateOfLost.toDateString(); %>
+                                  <%= dateStringOfLost %>
+                              </div>
+                            </div>
+                            <div
+                              class="h-[50px] min-w-[295px] max-w-fit p-2 text-[14px] rounded-xl bg-gray-100 flex flex-col justify-center items-center">
+                              <div class="">Description</div>
+                              <div class="text-red-700">
+                                <%= post.postInfo.description %>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- middle text -->
+                          <div class="text-md text-gray-300">Contact Information</div>
+                          <!-- info part 2 -->
+                          <div class="flex gap-5">
+                            <div
+                              class="h-[50px] min-w-[140px] max-w-fit p-2 text-[14px] rounded-xl bg-gray-100 flex flex-col justify-center items-center">
+                              <div class="">
+                                <%= post.postInfo.status %> by
+                              </div>
+                              <div class="text-red-700">
+                                <%= post.userFirstName %>
+                                  <%= post.userLastName %>
+                              </div>
+                            </div>
+                            <div
+                              class="h-[50px] min-w-[140px] max-w-fit p-2 text-[14px] rounded-xl bg-gray-100 flex flex-col justify-center items-center">
+                              <div class="">Student ID</div>
+                              <div class="text-red-700">
+                                <%= post.userStudentId %>
+                              </div>
+                            </div>
+                            <div
+                              class="h-[50px] min-w-[140px] max-w-fit p-2 text-[14px] rounded-xl bg-gray-100 flex flex-col justify-center items-center">
+                              <div class="">Department</div>
+                              <div class="text-red-700">
+                                <%= post.userDepartment %>
+                              </div>
+                            </div>
+                            <div
+                              class="h-[50px] min-w-[140px] max-w-fit p-2 text-[14px] rounded-xl bg-gray-100 flex flex-col justify-center items-center">
+                              <div class="">Phone</div>
+                              <div class="text-red-700">
+                                <%= post.userPhone %>
+                              </div>
+                            </div>
+                            <div
+                              class="h-[50px] min-w-[140px] max-w-fit p-2 text-[14px] rounded-xl bg-gray-100 flex flex-col justify-center items-center">
+                              <div class="">Email</div>
+                              <div class="text-red-700">
+                                <%= post.userEmail %>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- image div  -->
+                        <div class="w-2/6 flex justify-end">
+                          <!-- imageBox1 -->
+                          <div
+                            class="h-[200px] w-[200px] bg-gray-300 mr-2 overflow-hidden flex justify-center items-center duration-300 hover:scale-105 hover:mr-4">
+                            <% if (post.postInfo.images && post.postInfo.images.length> 0) {
+                              %>
+                              <img src="<%= post.postInfo.images[0] %>" alt="Image1"
+                                class="w-full h-full object-cover" />
+                              <% } else { %>
+                                <p class="text-center">No image</p>
+                                <% } %>
+                          </div>
+
+                          <!-- imageBox2 -->
+                          <% if (post.postInfo.images && post.postInfo.images.length> 1) { %>
+                            <div
+                              class="h-[200px] w-[200px] bg-gray-300 mr-2 overflow-hidden flex justify-center items-center duration-300 hover:scale-105 hover:ml-2 hover:mr-4">
+                              <img src="<%= post.postInfo.images[1] %>" alt="Image2"
+                                class="w-full h-full object-cover" />
+                            </div>
+                            <% } %>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- popup window end here  -->
+                    <% }) %>
+            </div>
+            <!-- Quick find  -->
+            <div class="h-[100vh] w-[100vw] fixed top-[8%] flex justify-center items-center hidden" id="quickFindBox">
+              <div class="absolute h-full w-full bg-black opacity-50" onclick="hideQuickFindBox()"></div>
+              <form action="/quickFindLostAndFound" method="post"
+                class="h-[500px] w-[600px] p-10 bg-white absolute rounded-3xl shadow-md flex flex-col justify-between items-center">
+                <i class="fa-solid fa-xmark absolute top-5 right-5 hover:scale-150 hover:text-red-500"
+                  onclick="hideQuickFindBox()"></i>
+
+                <div class="text-3xl">Select category</div>
+                <div class="w-full">
+                  <select name="status" id="category" class="w-full h-[50px] p-4 text-3xl text-black bg-gray-200">
+                    <option>Lost</option>
+                    <option>Found</option>
+                  </select>
                 </div>
-              </div>
-              <div
-                class="h-[50px] min-w-[295px] max-w-fit p-2 text-[14px] rounded-xl bg-gray-100 flex flex-col justify-center items-center"
-              >
-                <div class="">Description</div>
-                <div class="text-red-700"><%= post.postInfo.description %></div>
-              </div>
-            </div>
-            <!-- middle text -->
-            <div class="text-md text-gray-300">Contact Information</div>
-            <!-- info part 2 -->
-            <div class="flex gap-5">
-              <div
-                class="h-[50px] min-w-[140px] max-w-fit p-2 text-[14px] rounded-xl bg-gray-100 flex flex-col justify-center items-center"
-              >
-                <div class=""><%= post.postInfo.status %> by</div>
-                <div class="text-red-700">
-                  <%= post.userFirstName %> <%= post.userLastName %>
+
+                <div class="text-3xl">Select category</div>
+                <div class="w-full">
+                  <select name="category" id="category" class="w-full h-[50px] p-4 text-3xl text-black bg-gray-200">
+                    <option>Electronics</option>
+                    <option>Documents</option>
+                    <option>Bags</option>
+                    <option>Accessories</option>
+                    <option>Clothing</option>
+                    <option>Other</option>
+                  </select>
                 </div>
-              </div>
-              <div
-                class="h-[50px] min-w-[140px] max-w-fit p-2 text-[14px] rounded-xl bg-gray-100 flex flex-col justify-center items-center"
-              >
-                <div class="">Student ID</div>
-                <div class="text-red-700"><%= post.userStudentId %></div>
-              </div>
-              <div
-                class="h-[50px] min-w-[140px] max-w-fit p-2 text-[14px] rounded-xl bg-gray-100 flex flex-col justify-center items-center"
-              >
-                <div class="">Department</div>
-                <div class="text-red-700"><%= post.userDepartment %></div>
-              </div>
-              <div
-                class="h-[50px] min-w-[140px] max-w-fit p-2 text-[14px] rounded-xl bg-gray-100 flex flex-col justify-center items-center"
-              >
-                <div class="">Phone</div>
-                <div class="text-red-700"><%= post.userPhone %></div>
-              </div>
-              <div
-                class="h-[50px] min-w-[140px] max-w-fit p-2 text-[14px] rounded-xl bg-gray-100 flex flex-col justify-center items-center"
-              >
-                <div class="">Email</div>
-                <div class="text-red-700"><%= post.userEmail %></div>
-              </div>
+
+                <div class="text-3xl">Date Lost</div>
+                <div class="w-full">
+                  <input type="date" name="dateLost" class="w-full h-[50px] p-4 text-3xl text-black bg-gray-200" />
+                </div>
+
+                <div class="text-3xl">Location Lost Area</div>
+                <div class="w-full">
+                  <select name="locationCategory" id="category"
+                    class="w-full h-[50px] p-4 text-3xl text-black bg-gray-200">
+                    <option>Campus any area</option>
+                    <option>Library</option>
+                    <option>Love road</option>
+                    <option>Bus terminal</option>
+                    <option>Canteen</option>
+                    <option>Admin building</option>
+                    <option>Classroom</option>
+                  </select>
+                </div>
+
+                <div class="text-3xl" id="resultText"></div>
+                <div class="">
+                  <button type="submit" class="btn btn-primary btn-lg">Search</button>
+                </div>
+              </form>
             </div>
-          </div>
-          <!-- image div  -->
-          <div class="w-2/6 flex justify-end">
-            <!-- imageBox1 -->
-            <div
-              class="h-[200px] w-[200px] bg-gray-300 mr-2 overflow-hidden flex justify-center items-center duration-300 hover:scale-105 hover:mr-4"
-            >
-              <% if (post.postInfo.images && post.postInfo.images.length > 0) {
-              %>
-              <img
-                src="/<%= post.postInfo.images[0] %>"
-                alt="Image1"
-                class="w-full h-full object-cover"
-              />
-              <% } else { %>
-              <p class="text-center">No image</p>
-              <% } %>
-            </div>
+            <script src="\javaScriptFiles\sideNavBarShow.js"></script>
+            <script src="\javaScriptFiles\lostAndFoundEvents.js"></script>
+            <script src="\javaScriptFiles\basicEvents.js"></script>
+            <script src="\javaScriptFiles\savePost.js"></script>
+</body>
+<%- include("../layout/footer.ejs") %>
 
-            <!-- imageBox2 -->
-            <% if (post.postInfo.images && post.postInfo.images.length > 1) { %>
-            <div
-              class="h-[200px] w-[200px] bg-gray-300 mr-2 overflow-hidden flex justify-center items-center duration-300 hover:scale-105 hover:ml-2 hover:mr-4"
-            >
-              <img
-                src="/<%= post.postInfo.images[1] %>"
-                alt="Image2"
-                class="w-full h-full object-cover"
-              />
-            </div>
-            <% } %>
-          </div>
-        </div>
-      </div>
-      <!-- popup window end here  -->
-      <% }) %>
-    </div>
-    <!-- Quick find  -->
-    <div
-      class="h-[100vh] w-[100vw] fixed top-[8%] flex justify-center items-center hidden"
-      id="quickFindBox"
-    >
-      <div
-        class="absolute h-full w-full bg-black opacity-50"
-        onclick="hideQuickFindBox()"
-      ></div>
-      <form
-        action="/quickFindLostAndFound"
-        method="post"
-        class="h-[500px] w-[600px] p-10 bg-white absolute rounded-3xl shadow-md flex flex-col justify-between items-center"
-      >
-        <i
-          class="fa-solid fa-xmark absolute top-5 right-5 hover:scale-150 hover:text-red-500"
-          onclick="hideQuickFindBox()"
-        ></i>
-
-        <div class="text-3xl">Select category</div>
-        <div class="w-full">
-          <select
-            name="status"
-            id="category"
-            class="w-full h-[50px] p-4 text-3xl text-black bg-gray-200"
-          >
-            <option>Lost</option>
-            <option>Found</option>
-          </select>
-        </div>
-
-        <div class="text-3xl">Select category</div>
-        <div class="w-full">
-          <select
-            name="category"
-            id="category"
-            class="w-full h-[50px] p-4 text-3xl text-black bg-gray-200"
-          >
-            <option>Electronics</option>
-            <option>Documents</option>
-            <option>Bags</option>
-            <option>Accessories</option>
-            <option>Clothing</option>
-            <option>Other</option>
-          </select>
-        </div>
-
-        <div class="text-3xl">Date Lost</div>
-        <div class="w-full">
-          <input
-            type="date"
-            name="dateLost"
-            class="w-full h-[50px] p-4 text-3xl text-black bg-gray-200"
-          />
-        </div>
-
-        <div class="text-3xl">Location Lost Area</div>
-        <div class="w-full">
-          <select
-            name="locationCategory"
-            id="category"
-            class="w-full h-[50px] p-4 text-3xl text-black bg-gray-200"
-          >
-            <option>Campus any area</option>
-            <option>Library</option>
-            <option>Love road</option>
-            <option>Bus terminal</option>
-            <option>Canteen</option>
-            <option>Admin building</option>
-            <option>Classroom</option>
-          </select>
-        </div>
-
-        <div class="text-3xl" id="resultText"></div>
-        <div class="">
-          <button type="submit" class="btn btn-primary btn-lg">Search</button>
-        </div>
-      </form>
-    </div>
-    <script src="\javaScriptFiles\sideNavBarShow.js"></script>
-    <script src="\javaScriptFiles\lostAndFoundEvents.js"></script>
-    <script src="\javaScriptFiles\basicEvents.js"></script>
-    <script src="\javaScriptFiles\savePost.js"></script>
-  </body>
-  <%- include("../layout/footer.ejs") %>
 </html>

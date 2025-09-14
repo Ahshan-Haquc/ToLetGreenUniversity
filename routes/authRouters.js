@@ -5,7 +5,7 @@ const route = express.Router();
 const bcrypt = require("bcrypt");
 const accessPermission = require("../middlewares/accessPermission");
 const availableSeatFetch = require("../middlewares/availableSeatFetch");
-const upload = require("../middlewares/uploadImages");
+const upload = require("../config/upload");
 const ratingCalculate = require("../controller/ratingCalculate");
 const nodemailer = require("nodemailer");
 const mongoose = require("mongoose");
@@ -54,23 +54,21 @@ route.get("/postShare", accessPermission,availableSeatFetch, (req, res) => {
 });
 
 
-// Router for post share post
+// Router for post share post in To-Let 
 route.post(
   "/postShare",
   accessPermission,
   availableSeatFetch,
-  upload.array('images', 5), // Handle image uploads (max 5)
+  upload.array('images', 3), // Max 3 images
   async (req, res, next) => {
     try {
-      // Map uploaded files to get paths
-      const imagePaths = req.files.map(file => file.path); // Array of paths for each uploaded image
+      // Cloudinary returns `file.path` as image URL
+      const imageUrls = req.files.map(file => file.path);
 
-      // Ensure facilities is stored as an array
       const facilities = Array.isArray(req.body.facilities)
-        ? req.body.facilities // If already an array
-        : [req.body.facilities].filter(Boolean); // Convert to array if single value or empty
+        ? req.body.facilities
+        : [req.body.facilities].filter(Boolean);
 
-      // Create a new post model where post info will store in db
       const postModel = new PostShareModel({
         title: req.body.title,
         seat: req.body.seat,
@@ -85,29 +83,22 @@ route.post(
         locationDistick: req.body.locationDistick,
         googleMapLink: req.body.googleMapLink,
         gender: req.body.gender,
-        facilities: facilities, // Properly handled facilities as an array
+        facilities: facilities,
         description: req.body.description,
         contactNumber: req.body.contactNumber,
-        images: imagePaths, // Save image paths to roomImages
-        studentPostedId: req.studentInfo._id, // Save student ID for reference
+        images: imageUrls, // Cloudinary URLs
+        studentPostedId: req.studentInfo._id,
       });
 
-      // Save the post to the database
       const sharedPost = await postModel.save();
 
-      // Find the user who posted
       const findUser = await Model.findOne({ _id: req.studentInfo._id });
+      if (!findUser) throw new Error("User not found");
 
-      if (!findUser) {
-        throw new Error("User not found"); // Handle case where user is not found
-      }
-
-      // Ensure sharedPosts array exists in the user document
       if (!Array.isArray(findUser.sharedPosts)) {
-        findUser.sharedPosts = []; // Initialize as an empty array if undefined
+        findUser.sharedPosts = [];
       }
 
-      // Push the new post's ID to the user's sharedPosts array
       findUser.sharedPosts.push(sharedPost._id);
       await findUser.save();
 
@@ -119,6 +110,7 @@ route.post(
     }
   }
 );
+
 
 
 //home page content part (means services routers)

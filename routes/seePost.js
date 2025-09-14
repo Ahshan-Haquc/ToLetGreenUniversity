@@ -125,7 +125,6 @@ seePost.get("/range6",accessPermission, async (req, res, next) => {
     }
 });
 
-// same vabe aro 5 ta seePost er jonno router create korte hobe 
 
 
 
