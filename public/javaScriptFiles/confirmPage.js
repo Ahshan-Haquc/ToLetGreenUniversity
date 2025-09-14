@@ -1,7 +1,6 @@
  // Array of image URLs
  // roomImage[] ei array ta er ejs file theke JSON.stringify kore rakhci ejs file a e. r oi arraytai ekhane dirrect use kora jabe akn
 let currentIndex = 0; // Current index of the image
-console.log("working here");
 
 // Function to change the image
 function changeImage(direction) {
@@ -12,7 +11,7 @@ function changeImage(direction) {
   }
 
   // Update the displayed image and index count
-  document.getElementById("displayImage").src = `/${roomImages[currentIndex]}`;
+  document.getElementById("displayImage").src = `${roomImages[currentIndex]}`;
 
   document.getElementById("currentImageIndex").innerText = `${currentIndex + 1}/${roomImages.length}`;
 }
@@ -23,7 +22,7 @@ function changeImage(direction) {
 // this is for full screen picture showing
 function fullScreen(){
     const fullScreen = document.getElementById("fullScreen");
-    document.getElementById("displayFullScreenImage").src = `/${roomImages[currentIndex]}`;
+    document.getElementById("displayFullScreenImage").src = `${roomImages[currentIndex]}`;
 
     fullScreen.classList.remove("makeUnvisible");
     fullScreen.classList.add("makeVisible");

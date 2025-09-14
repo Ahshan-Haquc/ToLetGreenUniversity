@@ -1,331 +1,283 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>See Post</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-    />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <!-- this is for using google font  -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap"
-      rel="stylesheet"
-    />
-    <!-- this is for adding css style -->
-    <!-- ei css file ei post show part er css rakhci -->
-    <link rel="stylesheet" href="postShow.css" />
-    <link rel="stylesheet" href="sideNavBar.css" />
-    <link rel="stylesheet" href="headerNavBar.css" />
-    <link rel="stylesheet" href="homePageToLet.css" />
-    <link rel="stylesheet" href="footer.css" />
-    <link rel="stylesheet" href="output.css" />
-  </head>
+<head>
+  <title>See Post</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-  <body>
-    <!-- header nav bar -->
-    <%- include("layout/headerNavBar") %>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- this is for using google font  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap" rel="stylesheet" />
+  <!-- this is for adding css style -->
+  <!-- ei css file ei post show part er css rakhci -->
+  <link rel="stylesheet" href="postShow.css" />
+  <link rel="stylesheet" href="sideNavBar.css" />
+  <link rel="stylesheet" href="headerNavBar.css" />
+  <link rel="stylesheet" href="homePageToLet.css" />
+  <link rel="stylesheet" href="footer.css" />
+  <link rel="stylesheet" href="output.css" />
+</head>
+
+<body>
+  <!-- header nav bar -->
+  <%- include("layout/headerNavBar") %>
 
     <!-- side nav bar -->
     <%- include("layout/sideNavBar") %>
 
-    <!-- showing filtering result, if render come from quick find router  -->
-    <% if (comeFromFilterRouter === true) { %>
-    <script>
-      window.onload = function () {
-        // Pass `totalSeatAvailable` from the server to the script
-        const totalSeats = <%- JSON.stringify(totalSeatAvailable) %>;
+      <!-- showing filtering result, if render come from quick find router  -->
+      <% if (comeFromFilterRouter===true) { %>
+        <script>
+          window.onload = function () {
+            // Pass `totalSeatAvailable` from the server to the script
+            const totalSeats = <% - JSON.stringify(totalSeatAvailable) %>;
 
-        alert("Total "+totalSeats.length + " posts found between these range.");
+            alert("Total " + totalSeats.length + " posts found between these range.");
 
-      };
-    </script>
-    <% } %> <% if(totalSeatAvailable.length==0){ %>
-    <div class="flex flex-col items-center justify-start h-screen">
-      <img class="h-[300px] w-[300px]" src="images\no-results.png" alt="" />
-      <h1 class="text-2xl font-semibold text-center mb-2">
-        No Post Founded !!!
-      </h1>
-      <p class="text-gray-600 text-center mb-4">
-        Please go to home Page or quick find and try with another.
-      </p>
-      <button
-        class="btn btn-default btn-md"
-        onclick="window.location.href='/buyAndSellHomePage'"
-      >
-        Go Home
-      </button>
-    </div>
-    <% } %>
-
-    <!-- post page content starts from here -->
-    <div class="contentBox">
-      <!-- nav bar part , this will appear above of the page -->
-      <%- include("layout/toLetNavBar") %>
-
-      <!-- ei category range er post gula akta akta kore show korabo eita diye -->
-      <% totalSeatAvailable.forEach((post)=>{ %>
-      <div class="post_area">
-        <div id="postArea1">
-          <div id="postArea1Box1">
-            <div class="text-5xl mt-3 mb-6 overflow-hidden" id="h2_color">
-              <%= post.title %>
-            </div>
-            <h5 class="mb-2">
-              <span class="glyphicon glyphicon-time mb-2"></span>
-              Posted by <%= student ? student.firstName + ' ' + student.lastName
-              : 'an User' %>
-            </h5>
-            <h5>
-              <span class="label label-danger">rent : <%= post.rent %>tk</span>
-              <span class="label label-primary"
-                >location : <%= post. locationDistick %></span
-              >
-              <span class="label label-primary"
-                >Post for : <%= post.gender %></span
-              >
-            </h5>
-          </div>
-
-          <div id="postArea1Box2">
-            <div class="center">
-              <div
-                id="reviewCountShowBigly"
-                style="font-size: 20px; font-weight: bold"
-              >
-                <%= post.reviewScore %>
-              </div>
-              &nbsp;
-              <div>
-                <img
-                  src="images\star.png"
-                  style="height: 25px; width: 25px; margin-bottom: 4px"
-                  alt="Star"
-                />
-              </div>
-            </div>
-            <button
-              class="btn btn-default btn-md"
-              id="saveButton<%= post._id %>"
-              onclick="saveThisPost('To-let','<%= student._id %>','<%= post._id %>')"
-            >
-              <%= student.savedPosts.includes(post._id) ? 'Saved' : 'Save it' %>
-            </button>
-            <button
-              class="btn btn-danger btn-md"
-              onclick="goConfirmPage('<%= post._id %>')"
-            >
-              View All
-            </button>
-          </div>
-        </div>
-        <div id="postArea2">
-          <div class="center" id="box1">
-            <div class="image" id="image1">
-              <div id="image">
-                <% if (post.images && post.images.length > 0) { %>
-                <img src="/<%= post.images[0] %>" alt="Room Image1" />
-                <% } else { %>
-                <p class="center">No image</p>
-                <% } %>
-              </div>
-            </div>
-            <div class="image" id="image2">
-              <div id="image">
-                <!-- Here 2nd images will visible from database -->
-                <% if (post.images && post.images.length > 0) { %>
-                <img src="/<%= post.images[1] %>" alt="Room Image2" />
-                <% } else { %>
-                <p class="center">No image</p>
-                <% } %>
-              </div>
-            </div>
-
-            <div
-              class="image"
-              id="image3"
-              style="width: 120px; position: relative"
-            >
-              <!-- Here 3rd image will be visible from the database -->
-              <% if (post.images && post.images.length > 0) { %>
-              <div class="image-background"></div>
-              <p
-                class="centered-text hover:cursor-pointer"
-                onclick="goConfirmPage('<%= post._id %>')"
-              >
-                See More
+          };
+        </script>
+        <% } %>
+          <% if(totalSeatAvailable.length==0){ %>
+            <div class="flex flex-col items-center justify-start h-screen">
+              <img class="h-[300px] w-[300px]" src="images\no-results.png" alt="" />
+              <h1 class="text-2xl font-semibold text-center mb-2">
+                No Post Founded !!!
+              </h1>
+              <p class="text-gray-600 text-center mb-4">
+                Please go to home Page or quick find and try with another.
               </p>
-              <% } else { %>
-              <p>No image</p>
-              <% } %>
+              <button class="btn btn-default btn-md" onclick="window.location.href='/buyAndSellHomePage'">
+                Go Home
+              </button>
             </div>
-          </div>
-          <div class="center" id="box2">
-            <div class="text">
-              <div class="name">Total seat available</div>
-              <div class="status"><%= post.seat %></div>
-            </div>
-            <div class="text">
-              <div class="name">Each seat rent</div>
-              <div class="status"><%= post.rent %> tk</div>
-            </div>
-            <div class="text">
-              <div class="name">Location</div>
-              <div class="status">
-                <%= post.locationVillage %>,<%= post.locationDistick %>
+            <% } %>
+
+              <!-- post page content starts from here -->
+              <div class="contentBox">
+                <!-- nav bar part , this will appear above of the page -->
+                <%- include("layout/toLetNavBar") %>
+
+                  <!-- ei category range er post gula akta akta kore show korabo eita diye -->
+                  <% totalSeatAvailable.forEach((post)=>{ %>
+                    <div class="post_area">
+                      <div id="postArea1">
+                        <div id="postArea1Box1">
+                          <div class="text-5xl mt-3 mb-6 overflow-hidden" id="h2_color">
+                            <%= post.title %>
+                          </div>
+                          <h5 class="mb-2">
+                            <span class="glyphicon glyphicon-time mb-2"></span>
+                            Posted by <%= student ? student.firstName + ' ' + student.lastName : 'an User' %>
+                          </h5>
+                          <h5>
+                            <span class="label label-danger">rent : <%= post.rent %>tk</span>
+                            <span class="label label-primary">location : <%= post. locationDistick %></span>
+                            <span class="label label-primary">Post for : <%= post.gender %></span>
+                          </h5>
+                        </div>
+
+                        <div id="postArea1Box2">
+                          <div class="center">
+                            <div id="reviewCountShowBigly" style="font-size: 20px; font-weight: bold">
+                              <%= post.reviewScore %>
+                            </div>
+                            &nbsp;
+                            <div>
+                              <img src="images\star.png" style="height: 25px; width: 25px; margin-bottom: 4px"
+                                alt="Star" />
+                            </div>
+                          </div>
+                          <button class="btn btn-default btn-md" id="saveButton<%= post._id %>"
+                            onclick="saveThisPost('To-let','<%= student._id %>','<%= post._id %>')">
+                            <%= student.savedPosts.includes(post._id) ? 'Saved' : 'Save it' %>
+                          </button>
+                          <button class="btn btn-danger btn-md" onclick="goConfirmPage('<%= post._id %>')">
+                            View All
+                          </button>
+                        </div>
+                      </div>
+                      <div id="postArea2">
+                        <div class="center" id="box1">
+                          <div class="image" id="image1">
+                            <div id="image">
+                              <% if (post.images && post.images.length> 0) { %>
+                                <img src="<%= post.images[0] %>" alt="Room Image1" />
+                                <% } else { %>
+                                  <p class="center">No image</p>
+                                  <% } %>
+                            </div>
+                          </div>
+                          <div class="image" id="image2">
+                            <div id="image">
+                              <!-- Here 2nd images will visible from database -->
+                              <% if (post.images && post.images.length> 0) { %>
+                                <img src="<%= post.images[1] %>" alt="Room Image2" />
+                                <% } else { %>
+                                  <p class="center">No image</p>
+                                  <% } %>
+                            </div>
+                          </div>
+
+                          <div class="image" id="image3" style="width: 120px; position: relative">
+                            <!-- Here 3rd image will be visible from the database -->
+                            <% if (post.images && post.images.length> 0) { %>
+                              <div class="image-background"></div>
+                              <p class="centered-text hover:cursor-pointer" onclick="goConfirmPage('<%= post._id %>')">
+                                See More
+                              </p>
+                              <% } else { %>
+                                <p>No image</p>
+                                <% } %>
+                          </div>
+                        </div>
+                        <div class="center" id="box2">
+                          <div class="text">
+                            <div class="name">Total seat available</div>
+                            <div class="status">
+                              <%= post.seat %>
+                            </div>
+                          </div>
+                          <div class="text">
+                            <div class="name">Each seat rent</div>
+                            <div class="status">
+                              <%= post.rent %> tk
+                            </div>
+                          </div>
+                          <div class="text">
+                            <div class="name">Location</div>
+                            <div class="status">
+                              <%= post.locationVillage %>,<%= post.locationDistick %>
+                            </div>
+                          </div>
+                          <div class="text">
+                            <div class="name">To-let from</div>
+                            <div class="status">
+                              <%= post.entryMonth %>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div id="postArea3">
+                        <!-- ekhane like review confirm button thakbe -->
+                        <div id="post_button0" onclick="showingPopup('<%= post._id %>')">
+                          <span>
+                            <span id="reviewCount">
+                              <%= post.reviewScore %>
+                            </span>
+                            <i class="fa-regular fa-star"></i>
+                          </span>
+                          <span class="ffsize">Rating</span>
+                        </div>
+                        <!-- ei people review a click korle akta popup window ashbe r dekhabe total koyta like r dislike r rating count ta boro kore dekhabe -->
+                        <div id="like-button-<%= post._id %>"
+                          onclick="toggleLike('To-let','<%= post._id %>', '<%= student._id %>')">
+                          <i class="fa-regular fa-thumbs-up fa-1x"></i>
+                          <span class="ffsize" id="like-count-<%= post._id %>">
+                            <%= post.likes.includes(student._id) ? 'Liked' : 'Like' %>
+                          </span>
+                        </div>
+
+                        <div id="post_button1"
+                          onclick="toggleDisLike('To-let', '<%= post._id %>','<%= student._id %>')">
+                          <i class="fa-regular fa-thumbs-down"></i>
+                          <span class="ffsize" id="dislike-count-<%= post._id %>">
+                            <%= post.dislikes.includes(student._id) ? 'Dis-liked' : 'Dis-Like' %>
+                          </span>
+                        </div>
+                        <div id="post_button2" onclick="showingGoogleMapPopup('<%= post._id %>')">
+                          <i class="fa-regular fa-compass"></i><span class="ffsize">Map location</span>
+                        </div>
+                        <div id="post_button3" onclick="facilitiesShowInPopup('<%= post._id %>')">
+                          <i class="fa-solid fa-street-view"></i><span class="ffsize">Facilities</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- popup window start here  -->
+                    <!-- Popup content for showing rating-->
+                    <div class="peopleReviewPopUpBackground" id="peopleReviewPopUpBackground<%=post._id %>"
+                      onclick="hidePopup('<%= post._id %>')"></div>
+
+                    <div class="peopleReviewPopUp" id="peopleReviewPopUp<%= post._id %>">
+                      <div class="crossButton" onclick="hidePopup('<%= post._id %>')">
+                        <i class="fa-solid fa-xmark fa-2x"></i>
+                      </div>
+                      <div id="textLikeAndDislikeShow">
+                        <div>
+                          <i class="fa-regular fa-thumbs-up fa-1x"></i> Total Liked:
+                          <span class="text-green-800">
+                            <%= post.likeCount %>
+                          </span>
+                        </div>
+                        <div>
+                          <i class="fa-regular fa-thumbs-down"></i> Total Disliked:
+                          <span class="text-green-800">
+                            <%= post.dislikeCount %>
+                          </span>
+                        </div>
+                        <div>
+                          <i class="fa-regular fa-star"></i>
+                          Rating: <span class="text-green-800">
+                            <%= post.reviewScore %>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Popup Content for google map show-->
+                    <div class="peopleReviewPopUpBackground" id="peopleReviewPopUpBackground<%=post._id%>"
+                      onclick="hideGoogleMapPopupBackground('<%=post._id%>')"></div>
+
+                    <div class="peopleReviewPopUp" id="googleMapPopUp<%=post._id%>">
+                      <div class="crossButton" onclick="hideGoogleMapPopupBackground('<%=post._id%>')">
+                        <i class="fa-solid fa-xmark fa-2x"></i>
+                      </div>
+                      <div id="textLikeAndDislikeShow">
+                        <div class="w-full center flex-col">
+                          <div class="h-12 text-2xl text-gray-600">Google Map link</div>
+                          <div
+                            class="h-fit text-black text-5xl flex justify-between pl-5 md:h-[40%] md:text-black md:text-3xl md:flex md:pl-5 pr-5">
+                            <div class="w-4/5 h-fit overflow-hidden" id="copyGoogleMapLink">
+                              <%= post.googleMapLink %>
+                            </div>
+                            <div class="w-1/5 flex justify-end hover:cursor-pointer hover:scale-110"
+                              onclick="copyText('googleMapLink')">
+                              <img class="h-7 w-7 mt-1" src="images/copy.png" alt="" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- popup facilities  -->
+                    <div class="peopleReviewPopUpBackground" id="facilitiesPopupBg"
+                      onclick="hideFacilitiesShowInPopup()"></div>
+                    <div class="peopleReviewPopUp" id="facilitiesPopup">
+                      <div class="crossButton" onclick="hideFacilitiesShowInPopup()">
+                        <i class="fa-solid fa-xmark fa-2x"></i>
+                      </div>
+                      <div class="w-full h-[80%] center flex-col">
+                        <div class="text-gray-600 p-2 center text-5xl">Facilities</div>
+                        <div class="text-black p-2 center text-2xl" id="facilitiesText"></div>
+                      </div>
+                    </div>
+                    <!-- popup window end here  -->
+                    <% }) %>
               </div>
-            </div>
-            <div class="text">
-              <div class="name">To-let from</div>
-              <div class="status"><%= post.entryMonth %></div>
-            </div>
-          </div>
-        </div>
-        <div id="postArea3">
-          <!-- ekhane like review confirm button thakbe -->
-          <div id="post_button0" onclick="showingPopup('<%= post._id %>')">
-            <span>
-              <span id="reviewCount"><%= post.reviewScore %></span>
-              <i class="fa-regular fa-star"></i>
-            </span>
-            <span class="ffsize">Rating</span>
-          </div>
-          <!-- ei people review a click korle akta popup window ashbe r dekhabe total koyta like r dislike r rating count ta boro kore dekhabe -->
-          <div
-            id="like-button-<%= post._id %>"
-            onclick="toggleLike('To-let','<%= post._id %>', '<%= student._id %>')"
-          >
-            <i class="fa-regular fa-thumbs-up fa-1x"></i>
-            <span class="ffsize" id="like-count-<%= post._id %>"
-              ><%= post.likes.includes(student._id) ? 'Liked' : 'Like' %></span
-            >
-          </div>
+              <script src="\javaScriptFiles\basicEvents.js"></script>
+              <script src="\javaScriptFiles\postShow.js"></script>
+              <script src="\javaScriptFiles\confirmPage.js"></script>
+              <script src="\javaScriptFiles\sideNavBarShow.js"></script>
+              <script src="\javaScriptFiles\savePost.js"></script>
+</body>
 
-          <div
-            id="post_button1"
-            onclick="toggleDisLike('To-let', '<%= post._id %>','<%= student._id %>')"
-          >
-            <i class="fa-regular fa-thumbs-down"></i>
-            <span class="ffsize" id="dislike-count-<%= post._id %>"
-              ><%= post.dislikes.includes(student._id) ? 'Dis-liked' :
-              'Dis-Like' %></span
-            >
-          </div>
-          <div
-            id="post_button2"
-            onclick="showingGoogleMapPopup('<%= post._id %>')"
-          >
-            <i class="fa-regular fa-compass"></i
-            ><span class="ffsize">Map location</span>
-          </div>
-          <div
-            id="post_button3"
-            onclick="facilitiesShowInPopup('<%= post._id %>')"
-          >
-            <i class="fa-solid fa-street-view"></i
-            ><span class="ffsize">Facilities</span>
-          </div>
-        </div>
-      </div>
+<%- include("layout/footer.ejs") %>
 
-      <!-- popup window start here  -->
-      <!-- Popup content for showing rating-->
-      <div
-        class="peopleReviewPopUpBackground"
-        id="peopleReviewPopUpBackground<%=post._id %>"
-        onclick="hidePopup('<%= post._id %>')"
-      ></div>
-
-      <div class="peopleReviewPopUp" id="peopleReviewPopUp<%= post._id %>">
-        <div class="crossButton" onclick="hidePopup('<%= post._id %>')">
-          <i class="fa-solid fa-xmark fa-2x"></i>
-        </div>
-        <div id="textLikeAndDislikeShow">
-          <div>
-            <i class="fa-regular fa-thumbs-up fa-1x"></i> Total Liked:
-            <span class="text-green-800"><%= post.likeCount %></span>
-          </div>
-          <div>
-            <i class="fa-regular fa-thumbs-down"></i> Total Disliked:
-            <span class="text-green-800"><%= post.dislikeCount %></span>
-          </div>
-          <div>
-            <i class="fa-regular fa-star"></i>
-            Rating: <span class="text-green-800"><%= post.reviewScore %></span>
-          </div>
-        </div>
-      </div>
-      <!-- Popup Content for google map show-->
-      <div
-        class="peopleReviewPopUpBackground"
-        id="peopleReviewPopUpBackground<%=post._id%>"
-        onclick="hideGoogleMapPopupBackground('<%=post._id%>')"
-      ></div>
-
-      <div class="peopleReviewPopUp" id="googleMapPopUp<%=post._id%>">
-        <div
-          class="crossButton"
-          onclick="hideGoogleMapPopupBackground('<%=post._id%>')"
-        >
-          <i class="fa-solid fa-xmark fa-2x"></i>
-        </div>
-        <div id="textLikeAndDislikeShow">
-          <div class="w-full center flex-col">
-            <div class="h-12 text-2xl text-gray-600">Google Map link</div>
-            <div
-              class="h-fit text-black text-5xl flex justify-between pl-5 md:h-[40%] md:text-black md:text-3xl md:flex md:pl-5 pr-5"
-            >
-              <div class="w-4/5 h-fit overflow-hidden" id="copyGoogleMapLink">
-                <%= post.googleMapLink %>
-              </div>
-              <div
-                class="w-1/5 flex justify-end hover:cursor-pointer hover:scale-110"
-                onclick="copyText('googleMapLink')"
-              >
-                <img class="h-7 w-7 mt-1" src="images/copy.png" alt="" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- popup facilities  -->
-      <div
-        class="peopleReviewPopUpBackground"
-        id="facilitiesPopupBg"
-        onclick="hideFacilitiesShowInPopup()"
-      ></div>
-      <div class="peopleReviewPopUp" id="facilitiesPopup">
-        <div class="crossButton" onclick="hideFacilitiesShowInPopup()">
-          <i class="fa-solid fa-xmark fa-2x"></i>
-        </div>
-        <div class="w-full h-[80%] center flex-col">
-          <div class="text-gray-600 p-2 center text-5xl">Facilities</div>
-          <div class="text-black p-2 center text-2xl" id="facilitiesText"></div>
-        </div>
-      </div>
-      <!-- popup window end here  -->
-      <% }) %>
-    </div>
-    <script src="\javaScriptFiles\basicEvents.js"></script>
-    <script src="\javaScriptFiles\postShow.js"></script>
-    <script src="\javaScriptFiles\confirmPage.js"></script>
-    <script src="\javaScriptFiles\sideNavBarShow.js"></script>
-    <script src="\javaScriptFiles\savePost.js"></script>
-  </body>
-
-  <%- include("layout/footer.ejs") %>
 </html>
